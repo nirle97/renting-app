@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.validToken = void 0;
 const { verify } = require("jsonwebtoken");
-require("dotenv").config();
 const validToken = (req, res, next) => {
     let token = req.get("authorization");
     if (token) {
@@ -17,4 +17,4 @@ const validToken = (req, res, next) => {
         return res.status(401).send("Access Token Required");
     }
 };
-module.exports = validToken;
+exports.validToken = validToken;

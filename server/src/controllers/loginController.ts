@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction} from "express";
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const UserModel = require("../db/models/User")
+import { IUser } from "../utils/interface"
 
+interface Decoded extends Request {
+    decoded: IUser
+ }
 export const signUp = async (req: Request, res: Response) => {
     if(!req.body) return res.status(400).send({
         success: false,
@@ -16,7 +20,6 @@ export const signUp = async (req: Request, res: Response) => {
         res.status(201).send({
             success: true,
             status: 201,
-            message: "The request has succeeded, a new user has been created"
         })
     } catch(e) {
         console.error(e)
@@ -27,7 +30,7 @@ export const signUp = async (req: Request, res: Response) => {
         })
     }
 }
-export const signIn = async (req: Request, res: Response) => {
+export const signIn = async (req: Decoded, res: Response, next: NextFunction) => {
     if(!req.body) return res.status(400).send({
         success: false,
         status: 400,
@@ -43,12 +46,9 @@ export const signIn = async (req: Request, res: Response) => {
             status: 401,
             message: "User or password incorrect"
         });
-      
-        res.status(200).send({
-            success: true,
-            status: 200,
-            message: "The request has succeeded, user is authorized"
-        })
+        req.decoded = result
+        next()
+
     } catch(e) {
         console.error(e)
         res.status(500).send({

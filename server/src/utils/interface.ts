@@ -1,3 +1,5 @@
+import { Document } from "mongoose"
+
 export interface IUser extends Document  {
     name: String;
     email: String;
@@ -5,5 +7,9 @@ export interface IUser extends Document  {
     phoneNumber: String;
     age: Number;
     likedApts: {}[];
-    refreshToken: String;
+    refreshToken: String | null;
   }
+
+export interface Decoded extends Request {
+    decoded: IUser
+ }

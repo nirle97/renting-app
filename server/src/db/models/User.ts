@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose"
-const {IUser} = require("../utils/interface")
+import {IUser} from "../../utils/interface"
 
 const userSchema = new mongoose.Schema<IUser>({
   name: {
@@ -26,9 +26,9 @@ const userSchema = new mongoose.Schema<IUser>({
     type: Array
   },
   refreshToken: {
-    type: Number,
+    type: String,
+    default: null
   },
 });
-const UserModel = mongoose.model<IUser>("UserModel", IUser);
+export const UserModel = mongoose.model<IUser>("UserModel", userSchema);
 
-module.exports = UserModel

@@ -26,7 +26,6 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(201).send({
             success: true,
             status: 201,
-            message: "The request has succeeded, a new user has been created"
         });
     }
     catch (e) {
@@ -39,7 +38,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signUp = signUp;
-const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const signIn = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body)
         return res.status(400).send({
             success: false,
@@ -56,11 +55,8 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 status: 401,
                 message: "User or password incorrect"
             });
-        res.status(200).send({
-            success: true,
-            status: 200,
-            message: "The request has succeeded, user is authorized"
-        });
+        req.decoded = result;
+        next();
     }
     catch (e) {
         console.error(e);
