@@ -9,84 +9,58 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createToken = exports.terminateToken = exports.generateNewToken = exports.vlidateToken = void 0;
 const { sign, verify } = require("jsonwebtoken");
-const User_1 = require("../db/models/User");
+const UserModel_1 = require("../db/models/UserModel");
+const responses_1 = require("../utils/responses");
+require("dotenv").config();
 const vlidateToken = (req, res) => {
-    res.status(200).send({
-        success: true,
-        status: 200,
-        message: "valid token"
-    });
+    res.status(200).send(responses_1.resTemplate.success.general);
 };
-exports.vlidateToken = vlidateToken;
 const generateNewToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let refreshToken = yield User_1.UserModel.findOne({ email: req.body.email }, "refreshToken");
+        let refreshToken = yield UserModel_1.UserModel.findOne({ email: req.body.email }, "refreshToken");
         verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
-            if (err)
-                return res.status(403).send("Invalid RefreshToken Token");
+            if (err) {
+                res.status(403).send(responses_1.resTemplate.clientError.forbidden);
+                return;
+            }
+            ;
             const accessToken = sign(decoded, process.env.JWT_SECRET, {
                 expiresIn: "10m",
             });
-            return res.status(200).send({
-                success: true,
-                statue: 200,
-                data: accessToken
-            });
+            res.status(200).send(Object.assign(Object.assign({}, responses_1.resTemplate.success.general), { data: accessToken }));
         });
     }
     catch (e) {
         console.log(e);
-        return res.status(401).send({
-            success: false,
-            status: 401,
-            message: "Unable to Refresh Access Token"
-        });
+        res.status(401).send(responses_1.resTemplate.clientError.unAuthorized);
     }
 });
-exports.generateNewToken = generateNewToken;
 const terminateToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.decoded;
-        const a = req.body;
-        yield User_1.UserModel.findOneAndUpdate({ email: user.email }, { refreshToken: null });
-        res.status(200).send({
-            success: true,
-            statue: 200,
-        });
+        yield UserModel_1.UserModel.findOneAndUpdate({ email: user.email }, { refreshToken: null });
+        res.status(200).send(responses_1.resTemplate.success.general);
     }
     catch (e) {
-        res.status(401).send({
-            success: false,
-            status: 401,
-            message: "Unable to terminate Refresh Token"
-        });
+        res.status(401).send(responses_1.resTemplate.clientError.unAuthorized);
     }
 });
-exports.terminateToken = terminateToken;
 const createToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
+        const accessToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
             expiresIn: "10m",
         });
-        const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
+        const refreshToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
             expiresIn: "6h",
         });
-        yield User_1.UserModel.findOneAndUpdate({ email: req.decoded.email }, { refreshToken: req.decoded.refreshToken });
-        res.status(200).send({
-            success: true,
-            status: 200,
-            data: accessToken
-        });
+        yield UserModel_1.UserModel.findOneAndUpdate({ email: req.decoded.email }, { refreshToken: refreshToken }, { new: true });
+        res.status(200).send(Object.assign(Object.assign({}, responses_1.resTemplate.success.general), { data: accessToken }));
     }
     catch (e) {
         console.error(e);
-        res.status(500).send({
-            success: false,
-            status: 500,
-            message: "Unable to create new token"
-        });
+        res.status(500).send(responses_1.resTemplate.serverError);
     }
 });
-exports.createToken = createToken;
+const authController = { vlidateToken, generateNewToken, terminateToken, createToken };
+exports.default = authController;

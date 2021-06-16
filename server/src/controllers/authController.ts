@@ -1,87 +1,69 @@
 import { Request, Response } from "express";
 const { sign, verify } = require("jsonwebtoken");
-import {validToken} from "../utils/middleware/auth";
-import { IUser } from "../utils/interface"
-import { UserModel } from "../db/models/User"
+import { IUser } from "../interfaces/interface"
+import { UserModel } from "../db/models/UserModel"
+import { resTemplate } from "../utils/responses";
+
+require("dotenv").config()
 interface Decoded extends Request {
   decoded: IUser
 }
-export const vlidateToken = (req: Request, res: Response) => {
-    res.status(200).send({
-        success: true,
-        status: 200,
-        message: "valid token"
-      })
+ const vlidateToken = (req: Request, res: Response): void  => {
+    res.status(200).send(resTemplate.success.general)
 }
 
-export const generateNewToken = async (req: Request, res: Response) => {
+ const generateNewToken = async (req: Request, res: Response): Promise<void> => {
     try {
       let refreshToken = await UserModel.findOne({email: req.body.email}, "refreshToken")
-
       verify(refreshToken, process.env.JWT_SECRET, (err: Error, decoded: IUser) => {
-        if (err) return res.status(403).send("Invalid RefreshToken Token");
+        if (err) {
+          res.status(403).send(resTemplate.clientError.forbidden) 
+          return 
+        };
         const accessToken = sign(decoded, process.env.JWT_SECRET, {
           expiresIn: "10m",
         });
-        return res.status(200).send({ 
-            success: true,
-            statue: 200,
+        res.status(200).send({ 
+           ...resTemplate.success.general,
             data: accessToken 
         });
       });
     } catch (e) {
       console.log(e);
-      return res.status(401).send({ 
-          success: false,
-          status: 401,
-          message: "Unable to Refresh Access Token" 
-        });
+      res.status(401).send(resTemplate.clientError.unAuthorized);
     }
 }
 
-export const terminateToken = async (req: Decoded, res: Response) => {
+ const terminateToken = async (req: Decoded, res: Response): Promise<void> => {
     try {
         const user = req.decoded;
-        const a = req.body
         await UserModel.findOneAndUpdate({ email: user.email }, {refreshToken: null});
-        res.status(200).send({ 
-            success: true,
-            statue: 200,
-        });
+        res.status(200).send(resTemplate.success.general);
       } catch(e) {
-        res.status(401).send({ 
-            success: false,
-            status: 401,
-            message: "Unable to terminate Refresh Token" 
-        })
+        res.status(401).send(resTemplate.clientError.unAuthorized)
       }
 }
-
-export const createToken = async (req: Decoded, res: Response) => {
+ const createToken = async (req: Decoded, res: Response): Promise<void> => {
   try {
-    const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
+    const accessToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
           expiresIn: "10m",
         });
-        const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
+        const refreshToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
           expiresIn: "6h",
         });
-        await UserModel.findOneAndUpdate({ email: req.decoded.email }, {refreshToken: req.decoded.refreshToken});
-        res.status(200).send({
-          success: true,
-          status: 200,
-          data: accessToken
-        })
+        await UserModel.findOneAndUpdate({ email: req.decoded.email }, {refreshToken: refreshToken}, {new: true});
+        res.status(200).send({ 
+          ...resTemplate.success.general,
+           data: accessToken 
+       })
   } catch(e) {
     console.error(e)
-    res.status(500).send({
-      success: false,
-      status: 500,
-      message: "Unable to create new token"
-    })
+    res.status(500).send(resTemplate.serverError)
   }
 }
 
-
+const authController = {vlidateToken, generateNewToken, terminateToken, createToken}
+export default authController;
 
 
 

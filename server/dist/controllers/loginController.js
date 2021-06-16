@@ -9,62 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signIn = exports.signUp = void 0;
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
-const UserModel = require("../db/models/User");
+const UserModel_1 = require("../db/models/UserModel");
+const responses_1 = require("../utils/responses");
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body)
-        return res.status(400).send({
-            success: false,
-            status: 400,
-            message: "The server could not understand the request due to empty body"
-        });
+    if (!req.body) {
+        res.status(400).send(responses_1.resTemplate.clientError.badRequest);
+        return;
+    }
     const credentials = req.body;
     credentials.password = hashSync(credentials.password, genSaltSync(10));
     try {
-        yield UserModel.create(credentials);
-        res.status(201).send({
-            success: true,
-            status: 201,
-        });
+        yield UserModel_1.UserModel.create(credentials);
+        res.status(201).send(responses_1.resTemplate.success.created);
     }
     catch (e) {
         console.error(e);
-        res.status(500).send({
-            success: false,
-            status: 500,
-            message: e.message
-        });
+        res.status(500).send(responses_1.resTemplate.serverError);
     }
 });
-exports.signUp = signUp;
 const signIn = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body)
-        return res.status(400).send({
-            success: false,
-            status: 400,
-            message: "The server could not understand the request due to empty body"
-        });
+    if (!req.body) {
+        res.status(400).send(responses_1.resTemplate.clientError.badRequest);
+        return;
+    }
     const credentials = req.body;
     try {
-        const result = yield UserModel.findOne({ email: credentials.email }, "email password");
-        const isPasswordCorrect = compareSync(result.password, credentials.password);
-        if (!isPasswordCorrect)
-            return res.status(401).send({
-                success: false,
-                status: 401,
-                message: "User or password incorrect"
-            });
-        req.decoded = result;
-        next();
+        const result = yield UserModel_1.UserModel.findOne({ email: credentials.email });
+        if (result) {
+            const isPasswordCorrect = compareSync(credentials.password, result.password);
+            if (!isPasswordCorrect)
+                res.status(401).send(responses_1.resTemplate.clientError.unAuthorized);
+            req.decoded = result;
+            next();
+        }
     }
     catch (e) {
         console.error(e);
-        res.status(500).send({
-            success: false,
-            status: 500,
-            message: e.message
-        });
+        res.status(500).send(responses_1.resTemplate.serverError);
     }
 });
-exports.signIn = signIn;
+const loginController = { signUp, signIn };
+exports.default = loginController;

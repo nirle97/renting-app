@@ -1,5 +1,5 @@
-import mongoose, { Document } from "mongoose"
-import {IUser} from "../../utils/interface"
+import mongoose from "mongoose"
+import { IUser } from "../../interfaces/interface"
 
 const userSchema = new mongoose.Schema<IUser>({
   name: {

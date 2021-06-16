@@ -2,7 +2,7 @@ import { app } from "./app"
 import mongoose from "mongoose"
 
 mongoose
-  .connect("mongodb://mongodb:27017/rent", {
+  .connect("mongodb://localhost:27017/rent", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

@@ -10,3 +10,8 @@ services:
         - data:/data/db
         networks:
         - rent-network
+volumes:
+    data:        
+networks:
+    rent-network:
+        driver: bridge

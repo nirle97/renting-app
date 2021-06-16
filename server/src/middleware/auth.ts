@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 const { verify } = require("jsonwebtoken");
-import { IUser } from "../interface"
+import { IUser } from "../interfaces/interface"
 interface Decoded extends Request {
   decoded: IUser
 }

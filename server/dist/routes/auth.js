@@ -1,10 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const auth_1 = require("../utils/middleware/auth");
-const auth = require("express").Router();
+exports.auth = void 0;
+const auth_1 = require("../middleware/auth");
+exports.auth = require("express").Router();
 const { sign, verify } = require("jsonwebtoken");
-const authController = require("../controllers/authController");
-auth.post("/tokenValidate", auth_1.validToken, authController.vlidateToken);
-auth.post("/create-token", authController.generateNewToken);
-auth.post("/logout", auth_1.validToken, authController.terminateToken);
-module.exports = auth;
+const authController_1 = __importDefault(require("../controllers/authController"));
+exports.auth.post("/tokenValidate", auth_1.validToken, authController_1.default.vlidateToken);
+exports.auth.post("/create-token", authController_1.default.generateNewToken);
+exports.auth.post("/logout", auth_1.validToken, authController_1.default.terminateToken);
