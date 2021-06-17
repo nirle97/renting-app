@@ -39,7 +39,7 @@ const generateNewToken = (req, res) => __awaiter(void 0, void 0, void 0, functio
 const terminateToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.decoded;
-        yield UserModel_1.UserModel.findOneAndUpdate({ email: user.email }, { refreshToken: null });
+        yield UserModel_1.UserModel.findOneAndUpdate({ _id: user.id }, { refreshToken: null });
         res.status(200).send(responses_1.resTemplate.success.general);
     }
     catch (e) {
@@ -48,13 +48,13 @@ const terminateToken = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 const createToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const accessToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
-            expiresIn: "10m",
+        const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
+            expiresIn: "10h",
         });
-        const refreshToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
+        const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
             expiresIn: "6h",
         });
-        yield UserModel_1.UserModel.findOneAndUpdate({ email: req.decoded.email }, { refreshToken: refreshToken }, { new: true });
+        yield UserModel_1.UserModel.findOneAndUpdate({ _id: req.decoded.id }, { refreshToken: refreshToken }, { new: true });
         res.status(200).send(Object.assign(Object.assign({}, responses_1.resTemplate.success.general), { data: accessToken }));
     }
     catch (e) {

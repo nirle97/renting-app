@@ -10,6 +10,11 @@ exports.resTemplate = {
         created: {
             success: true,
             status: 201,
+        },
+        noContent: {
+            success: true,
+            status: 204,
+            message: "No Content Was Found"
         }
     },
     serverError: {
@@ -21,7 +26,7 @@ exports.resTemplate = {
         badRequest: {
             success: false,
             status: 400,
-            message: "Error Due To Empty Body"
+            message: "Error - Bad Request"
         },
         unAuthorized: {
             success: false,

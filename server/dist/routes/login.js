@@ -8,4 +8,4 @@ exports.login = require("express").Router();
 const loginController_1 = __importDefault(require("../controllers/loginController"));
 const authController_1 = __importDefault(require("../controllers/authController"));
 exports.login.post("/sign-up", loginController_1.default.signUp);
-exports.login.get("/sign-in", loginController_1.default.signIn, authController_1.default.createToken);
+exports.login.post("/sign-in", loginController_1.default.signIn, authController_1.default.createToken);

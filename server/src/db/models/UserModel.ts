@@ -1,34 +1,35 @@
-import mongoose from "mongoose"
-import { IUser } from "../../interfaces/interface"
+import mongoose from "mongoose";
+import { IUser } from "../../interfaces/interface";
 
 const userSchema = new mongoose.Schema<IUser>({
   name: {
     type: String,
-    require: true
+    require: true,
   },
   email: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   password: {
     type: String,
-    require: true
+    require: true,
   },
   phoneNumber: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   age: {
     type: Number,
-    require: true
+    require: true,
   },
   likedApts: {
-    type: Array
+    type: Array,
   },
   refreshToken: {
     type: String,
-    default: null
+    default: null,
   },
 });
 export const UserModel = mongoose.model<IUser>("UserModel", userSchema);
-

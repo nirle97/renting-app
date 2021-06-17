@@ -5,7 +5,7 @@ import { IUser } from "../interfaces/interface"
 import { resTemplate } from "../utils/responses";
 
 interface Decoded extends Request {
-    decoded: IUser
+    decoded: {id: String}
  }
 const signUp = async (req: Request, res: Response): Promise<void> => {
     if(!req.body) {
@@ -25,6 +25,7 @@ const signUp = async (req: Request, res: Response): Promise<void> => {
     }
 }
 const signIn = async (req: Decoded, res: Response, next: NextFunction): Promise<void> => {
+
     if(!req.body) {
         res.status(400).send(resTemplate.clientError.badRequest)
        return;
@@ -37,7 +38,7 @@ const signIn = async (req: Decoded, res: Response, next: NextFunction): Promise<
             const isPasswordCorrect = compareSync(credentials.password, result.password);
             if (!isPasswordCorrect)
               res.status(401).send(resTemplate.clientError.unAuthorized);
-            req.decoded = result
+            req.decoded = {id: result._id}
             next()
         }
 

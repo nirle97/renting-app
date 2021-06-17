@@ -6,7 +6,7 @@ import { resTemplate } from "../utils/responses";
 
 require("dotenv").config()
 interface Decoded extends Request {
-  decoded: IUser
+  decoded: { id: String }
 }
  const vlidateToken = (req: Request, res: Response): void  => {
     res.status(200).send(resTemplate.success.general)
@@ -15,7 +15,7 @@ interface Decoded extends Request {
  const generateNewToken = async (req: Request, res: Response): Promise<void> => {
     try {
       let refreshToken = await UserModel.findOne({email: req.body.email}, "refreshToken")
-      verify(refreshToken, process.env.JWT_SECRET, (err: Error, decoded: IUser) => {
+      verify(refreshToken, process.env.JWT_SECRET, (err: Error, decoded: Decoded["decoded"]) => {
         if (err) {
           res.status(403).send(resTemplate.clientError.forbidden) 
           return 
@@ -37,21 +37,21 @@ interface Decoded extends Request {
  const terminateToken = async (req: Decoded, res: Response): Promise<void> => {
     try {
         const user = req.decoded;
-        await UserModel.findOneAndUpdate({ email: user.email }, {refreshToken: null});
+        await UserModel.findOneAndUpdate({ _id: user.id }, {refreshToken: null});
         res.status(200).send(resTemplate.success.general);
       } catch(e) {
         res.status(401).send(resTemplate.clientError.unAuthorized)
       }
 }
  const createToken = async (req: Decoded, res: Response): Promise<void> => {
-  try {
-    const accessToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
-          expiresIn: "10m",
+  try {    
+    const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
+          expiresIn: "10h",
         });
-        const refreshToken = sign(req.decoded.toJSON(), process.env.JWT_SECRET, {
+        const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
           expiresIn: "6h",
         });
-        await UserModel.findOneAndUpdate({ email: req.decoded.email }, {refreshToken: refreshToken}, {new: true});
+        await UserModel.findOneAndUpdate({ _id: req.decoded.id }, {refreshToken: refreshToken}, {new: true});
         res.status(200).send({ 
           ...resTemplate.success.general,
            data: accessToken 

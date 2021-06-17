@@ -3,6 +3,6 @@ import loginController from "../controllers/loginController";
 import authController from "../controllers/authController";
 
 login.post("/sign-up", loginController.signUp);
-login.get("/sign-in", loginController.signIn, authController.createToken);
+login.post("/sign-in", loginController.signIn, authController.createToken);
 
 

@@ -9,6 +9,11 @@ export const resTemplate: IResDetails = {
         created: {
             success: true,
             status: 201,
+        },
+        noContent: {
+            success: true,
+            status: 204,
+            message: "No Content Was Found"
         }
     },
     serverError: {
@@ -20,7 +25,7 @@ export const resTemplate: IResDetails = {
         badRequest: {
             success: false,
             status: 400,
-            message: "Error Due To Empty Body"
+            message: "Error - Bad Request"
         },
         unAuthorized: {
                 success: false,

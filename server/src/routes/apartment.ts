@@ -1,11 +1,11 @@
 export const apartment = require("express").Router();
 import aptController from "../controllers/aptController"
-apartment.post("/create", aptController.addNewApt)
-apartment.post("/create", aptController.addNewApt)
+import { validToken } from "../middleware/auth"
+apartment.post("/create", validToken, aptController.addNewApt)
+apartment.put("/like-status/:aptId", validToken, aptController.setLikeStatus)
+apartment.get("/filtered-apts", validToken, aptController.getAptsByFilters)
+apartment.get("/owner-apts", validToken, aptController.getAptsByOwner)
 
 
-// get - apts by filters
-// get- apts by owner
-// post- like/dislike
-// post- use preferences
-// post- create + new apt 
+
+
