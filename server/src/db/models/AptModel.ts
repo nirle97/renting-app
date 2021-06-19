@@ -14,7 +14,7 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   likedBy: {
     type: Array,
   },
-  dislikedBy: {
+  disLikedBy: {
     type: Array
   },
   city: {

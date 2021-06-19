@@ -22,7 +22,7 @@ const aptSchema = new mongoose_1.default.Schema({
     likedBy: {
         type: Array,
     },
-    dislikedBy: {
+    disLikedBy: {
         type: Array
     },
     city: {

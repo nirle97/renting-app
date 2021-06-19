@@ -12,7 +12,7 @@ export interface IUser extends Document  {
 export interface IOwnerApt extends Document  {
   ownerId: String;
   likedBy: String[];
-  dislikedBy: String[];
+  disLikedBy: String[];
   city: String;
   pricePerMonth: Number;
   }
