@@ -1,18 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import './index.css';
-import App from './components/App/App';
-import { createStore  } from "redux";
-import { Provider } from 'react-redux'
-import rootReducer from './reducers/index'
-import store from "./store/store"
+import "./index.css";
+import App from "./components/App/App";
+import { Provider } from "react-redux";
+import store from "./store/store";
 // export const store = createStore(
 //   rootReducer,
-//   (window && (window as any)).__REDUX_DEVTOOLS_EXTENSION__ && 
+//   (window && (window as any)).__REDUX_DEVTOOLS_EXTENSION__ &&
 //   (window && (window as any)).__REDUX_DEVTOOLS_EXTENSION__()
 // );
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,5 +19,5 @@ ReactDOM.render(
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

@@ -1,21 +1,37 @@
-label {
-    display: inline-block;
-    position:absolute;
-    left: 15px;
-    top: 16px;
-    transition: all 150ms ease-in;
-    color: #676767;
-   }
-
-   label.field-active {
-    transform: translateY(-25px);
-    font-size: .9em;
-    color: #000;
-    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff;
-   }
-  .floating-label {
-    -webkit-appearance: none !important;
-  }
-  .field-group { 
-    position: relative; 
-  }
+.SignUp-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 10vh;
+  left: 8vw;
+}
+.SignUp-form p {
+  line-height: 4vh;
+}
+.SignUp-form {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 40vw;
+}
+.SignUp-form p {
+  text-align: left;
+}
+.SignUp-div-input {
+  padding: 20px;
+  padding-left: 0;
+  font-size: 24px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 3vh;
+}
+.SignUp-input {
+  outline: none;
+  border: none;
+  padding-left: 15px;
+  margin-left: 3px;
+}
+.SignUp-img {
+  width: 40vw;
+  height: 85vh;
+}

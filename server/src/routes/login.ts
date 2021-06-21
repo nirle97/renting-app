@@ -4,5 +4,3 @@ import authController from "../controllers/authController";
 
 login.post("/sign-up", loginController.signUp);
 login.post("/sign-in", loginController.signIn, authController.createToken);
-
-

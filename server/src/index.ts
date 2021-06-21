@@ -1,5 +1,5 @@
-import { app } from "./app"
-import mongoose from "mongoose"
+import { app } from "./app";
+import mongoose from "mongoose";
 
 mongoose
   .connect("mongodb://localhost:27017/rent", {
@@ -15,8 +15,5 @@ mongoose
   .catch((error) => {
     console.error("error connecting to MongoDB: ", error.message);
   });
-
-
-
 
 module.exports = app;

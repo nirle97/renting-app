@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema<IUser>({
   email: {
     type: String,
     require: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema<IUser>({
   phoneNumber: {
     type: String,
     require: true,
-    unique: true
+    unique: true,
   },
   age: {
     type: Number,

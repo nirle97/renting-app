@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "start": "node ./src/index.ts" 
+    "start": "node ./src/index.ts"
   },
   "author": "",
   "license": "ISC"

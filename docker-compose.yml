@@ -1,17 +1,17 @@
 version: "3.2"
 
 services:
-    mongodb:
-        container_name: mongodb
-        image: mongo:latest
-        ports:
-        - 27017:27017
-        volumes:
-        - data:/data/db
-        networks:
-        - rent-network
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+    networks:
+      - rent-network
 volumes:
-    data:        
+  data:
 networks:
-    rent-network:
-        driver: bridge
+  rent-network:
+    driver: bridge

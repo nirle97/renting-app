@@ -1,7 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
+import "./home.css"
+import network from "../../utils/network"
+import Filter from "../Filter/Filter"
+function Home() {
 
-function Home () {
-    return <div></div>
+  return (
+  <div className={"Home-container"}>
+    home page
+
+    <Filter/>    
+    
+  </div>
+  )
 }
 
-export default Home
+export default Home;
