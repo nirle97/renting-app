@@ -9,7 +9,6 @@ import Home from "../Home/Home";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import UploadApt from "../UploadApt/UploadApt";
-import Cookies from "js-cookie";
 
 function App() {
   const { isLogged } = useSelector(authSelectors);
@@ -37,10 +36,10 @@ function App() {
       ) : (
         <>
           <NavBar />
+          <UploadApt />
           <Switch>
             <Route exact path="/" component={Home} />
           </Switch>
-          <UploadApt />
         </>
       )}
     </div>

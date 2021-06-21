@@ -23,7 +23,7 @@ export default function UploadApt() {
     console.log(e.target.files);
   };
   return (
-    <>
+    <div className="UploadApt-container">
       <span
         className="UploadApt-plus"
         onClick={() => setOpenForm((prev) => !prev)}
@@ -31,7 +31,7 @@ export default function UploadApt() {
         <i className="fas fa-plus-circle"></i>
       </span>
       {openForm && (
-        <div className="UploadApt-container">
+        <div className="UploadApt-form">
           <form>
             <div className="UploadApt-div-input">
               <label>City:</label>
@@ -65,8 +65,9 @@ export default function UploadApt() {
               />
             </div>
           </form>
+          <button onClick={() => setOpenForm(false)}>close</button>
         </div>
       )}
-    </>
+    </div>
   );
 }

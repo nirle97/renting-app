@@ -4,10 +4,10 @@ import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
 import { IFilter } from "../../interfaces/interface";
-import { useEffect } from "react";
+
 function Home() {
   const [aptArr, setAptArr] = useState([]);
-  const [aptToDisplay, setAptToDisplay] = useState<number>(0);
+  const [aptToDisplay, setAptToDisplay] = useState(0);
   const [currentFilter, SetCurrentFilter] = useState<IFilter>({
     city: "Tel-aviv",
     priceMin: 0,
