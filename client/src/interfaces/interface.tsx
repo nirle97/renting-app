@@ -1,21 +1,17 @@
-import store from "../store/store";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-
-// type RootState = ReturnType<typeof store.getState>;
-// type AppDispatch = typeof store.dispatch;
-
-// export const useAppDispatch = () => useDispatch<AppDispatch>();
-// export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
 export interface IAction {
   type: String;
   payload?: any;
 }
-
-export interface IForm {
+export interface ISignIn {
+  email: string;
+  password: string;
+}
+export interface IForm extends ISignIn {
   fullName: string;
   phoneNumber: string;
-  email: string;
-  age: number;
-  password: string;
+  age: string;
+}
+export interface IUploadNewApt {
+  city: string;
+  price: number;
 }

@@ -1,17 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import { useSelector, useDispatch  } from "react-redux";
-import { setIsLogged, RootState, authSelectors } from "../../store/authSlice"
+import { useSelector } from "react-redux";
+import { authSelectors } from "../../store/authSlice";
 import NavBar from "../Navbar/NavBar";
 import Home from "../Home/Home";
-import Profile from "../Profile/Profile";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
+import UploadApt from "../UploadApt/UploadApt";
+
 function App() {
   // const isLogged = true;
-  
+
   const { isLogged } = useSelector(authSelectors);
 
   return (
@@ -28,8 +27,8 @@ function App() {
           <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/profile" component={Profile} />
           </Switch>
+          <UploadApt />
         </>
       )}
     </div>

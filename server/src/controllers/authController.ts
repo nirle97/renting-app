@@ -65,7 +65,7 @@ const createToken = async (req: Decoded, res: Response): Promise<void> => {
     );
     res.status(200).send({
       ...resTemplate.success.general,
-      data: { accessToken, id: req.decoded.id},
+      data: { accessToken, id: req.decoded.id },
     });
   } catch (e) {
     console.error(e);

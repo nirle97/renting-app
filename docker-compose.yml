@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   mongodb:
-    container_name: mongodb
+    container_name: mongodb-rent
     image: mongo:latest
     ports:
       - 27017:27017
