@@ -1,6 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-
+declare module 'axios' {
+  export interface AxiosRequestConfig {
+    city: String;
+    priceMin: Number;
+    priceMax: Number;
+  }
+}
 const network = axios.create();
 
 const getAccessToken = () => Cookies.get("token");

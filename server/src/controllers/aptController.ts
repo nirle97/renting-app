@@ -54,6 +54,8 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
   }
   try {
     const data: IClientApt = req.body;
+    console.log(data);
+    
     const aptsArray = await AptModel.findByUserFilters(data, req.decoded.id);
     res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
   } catch (e) {

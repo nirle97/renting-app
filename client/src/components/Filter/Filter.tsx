@@ -1,14 +1,22 @@
 import React, {useState} from "react";
 import "./filter.css"
 import network from "../../utils/network"
-import { Slider } from "@material-ui/core"
 import Range from "./Range"
+import { IFilter } from "../../interfaces/interface"
+interface IProps {
+  updateFilter: (newFiltterObj: IFilter ) => void ,
+  currentFilter: IFilter 
+}
 
-function Filter() {
+function Filter({updateFilter, currentFilter}:IProps) {
   return (
   <div className="Filter-container">
-  
-  <Range />
+    <div className="Filter-price">
+      <span className="Filter-price-name"> price range:  </span>
+        <Range currentFilter={currentFilter} updateFilter={updateFilter}/>
+      <span className="Filter-price-min-span">{currentFilter.priceMin}</span>
+      <span className="Filter-price-max-span">{currentFilter.priceMax}</span>
+    </div>
   </div>
   )
 }

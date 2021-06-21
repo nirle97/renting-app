@@ -29,6 +29,10 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: Number,
     require: true,
   },
+  images: {
+    type: Array,
+    require: true
+  }
 });
 
 aptSchema.static(
@@ -77,7 +81,7 @@ aptSchema.static(
           delete filtersObj[key];
         }
       });
-      return await AptModel.find(filtersObj);
+      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy", "-_id"]);
     } catch (e) {
       console.error(e);
     }

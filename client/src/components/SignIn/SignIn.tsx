@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLogged } from "../../store/authSlice";
 import FormValidation from "../../utils/formValidation";
+import Cookies from "js-cookie";
 
 function SignIn() {
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
@@ -21,7 +22,6 @@ function SignIn() {
       [e.target.name]: e.target.value,
     });
   };
-
   const signInUser = async (e: any) => {
     try {
       e.preventDefault();
@@ -29,8 +29,11 @@ function SignIn() {
         // FormValidation.isPasswordOk(formInput) &&
         FormValidation.isEmailOk(formInput)
       ) {
-        await network.post("/login/sign-in", formInput);
+        const {
+          data: { data },
+        } = await network.post("/login/sign-in", formInput);
         dispatch(setIsLogged({ isLogged: true }));
+        Cookies.set("token", data.accessToken);
         history.push("/");
       } else {
         setEmptyFldMsg(true);
