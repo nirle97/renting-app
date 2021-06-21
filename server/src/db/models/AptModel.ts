@@ -81,7 +81,7 @@ aptSchema.static(
           delete filtersObj[key];
         }
       });
-      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy", "-_id"]);
+      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy", ]);
     } catch (e) {
       console.error(e);
     }

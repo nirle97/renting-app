@@ -30,4 +30,5 @@ export interface IApt {
   images: string[];
   ownerId: string;
   pricePerMonth: number;
+  _id: string;
 }
