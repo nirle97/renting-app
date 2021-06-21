@@ -1,4 +1,12 @@
 .Home-container{
     position: relative;
     top: 8vh;
+    width: 100vw;
+}
+.Home-filter-component{
+float: right;
+width: 30%;
+}
+.Home-apartment-component{
+    width: 70%
 }

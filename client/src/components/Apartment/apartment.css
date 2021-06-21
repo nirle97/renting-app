@@ -1,0 +1,20 @@
+.Apartment-top-section{
+    width:100%;
+}
+.Apartment-img{
+    width:80%;
+}
+.Apartment-top-section-right-button{
+    float:right;
+    text-align: center;
+    margin: auto;
+}
+.Apartment-top-section-left-button{
+    float:left;
+    text-align: center;
+    margin: auto;
+}
+
+.Apartment-description{
+    width:100%;
+}

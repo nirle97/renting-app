@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { IForm } from "../../interfaces/interface"
 import { setIsLogged } from "../../store/authSlice"
+import Cookies from "js-cookie";
 
 function SignUp () {
     const [inputVlaue, setInputVlaue] = useState("")
@@ -25,8 +26,9 @@ function SignUp () {
       const signInUser = async (e: any) => {
         try {
             e.preventDefault()
-            await network.post("/login/sign-in", formInput)
+            const res = await network.post("/login/sign-in", formInput)
             dispatch(setIsLogged({isLogged: true}))
+             Cookies.set("token",res.data.data.accessToken) 
             history.push("/")
         } catch(e) {
             console.error(e)

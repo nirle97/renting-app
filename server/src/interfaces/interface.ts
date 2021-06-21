@@ -15,6 +15,7 @@ export interface IOwnerApt extends Document {
   disLikedBy: String[];
   city: String;
   pricePerMonth: Number;
+  images: String[];
 }
 
 export interface IClientApt extends Document {
