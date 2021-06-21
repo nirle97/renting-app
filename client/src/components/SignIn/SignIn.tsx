@@ -34,6 +34,7 @@ function SignIn() {
         } = await network.post("/login/sign-in", formInput);
         dispatch(setIsLogged({ isLogged: true }));
         Cookies.set("token", data.accessToken);
+        Cookies.set("id", data.id);
         history.push("/");
       } else {
         setEmptyFldMsg(true);
