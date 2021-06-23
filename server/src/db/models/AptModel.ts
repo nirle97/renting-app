@@ -73,7 +73,7 @@ aptSchema.static(
         pricePerMonth: { $gt: aptData.priceMin, $lt: aptData.priceMax },
         city: aptData.city,
         likedBy: { $ne: userId },
-        dislikedBy: { $ne: userId },
+        disLikedBy: { $ne: userId },
       };
 
       Object.entries(aptData).forEach(([key, value]) => {

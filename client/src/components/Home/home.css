@@ -1,12 +1,25 @@
 .Home-container{
     position: relative;
-    top: 8vh;
+    margin-top: 10vh;
     width: 100vw;
 }
 .Home-filter-component{
-float: right;
-width: 30%;
+    float: right;
+    width: 20vw;
+}
+.Home-left-side{
+    width: 80vw
+
 }
 .Home-apartment-component{
-    width: 70%
+    width: 50vw;
+    float: right;
+
+}
+.Home-apartment-map{
+    width: 30vw;
+    font-size: 100px;
+    background-color: grey;
+    float: left;
+
 }

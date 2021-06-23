@@ -9,6 +9,7 @@ import { useEffect } from "react";
 function Home() {
   const [aptArr, setAptArr] = useState<IApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
+  
   const [currentFilter, SetCurrentFilter] = useState<IFilter>({
     city: "Tel-aviv",
     priceMin: 0,
@@ -18,10 +19,11 @@ function Home() {
   const updateFilter = (newFiltterObj: IFilter) => {
     SetCurrentFilter(newFiltterObj);
   };
-  const clickedHandele = async () => {
-    const {
-      data: { data },
-    } = await network.post("apartment/filtered-apts", currentFilter);
+  useEffect(()=>{
+    getAptsByFilters()
+  }, [])
+  async function getAptsByFilters () {
+    const { data: { data } } = await network.post("apartment/filtered-apts", currentFilter);
     setAptArr(data);
   };
 
@@ -37,15 +39,23 @@ function Home() {
 
   return (
     <div className="Home-container">
-      <button onClick={clickedHandele}>getApts</button>
       <div className="Home-filter-component">
         <Filter currentFilter={currentFilter} updateFilter={updateFilter} />
       </div>
-      {aptArr.length > 0 && (
-        <div className="Home-apartment-component">
-          <Apartment aptPreference={aptPreference} apt={aptArr[aptToDisplay]} />
+      {aptToDisplay < aptArr.length 
+        ? 
+        <div className="Home-left-side">
+          <div className="Home-apartment-component">
+            <Apartment aptPreference={aptPreference} apt={aptArr[aptToDisplay]} />
+          </div> 
+          <div className="Home-apartment-map">
+              map
+          </div>
+
         </div>
-      )}
+        :
+          <div>no new apartments are found for your filters</div>
+      }
     </div>
   );
 }
