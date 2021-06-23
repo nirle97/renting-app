@@ -3,7 +3,7 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-
+import GooglePlaces from "../GoogleMaps/GooglePlaces"
 import { IFilter, IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 function Home() {
@@ -46,7 +46,7 @@ function Home() {
             <Apartment aptPreference={aptPreference} apt={aptArr[aptToDisplay]} />
           </div> 
           <div className="Home-apartment-map">
-              map
+          <GooglePlaces />
           </div>
 
         </div>
