@@ -15,15 +15,21 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: String,
     require: true,
   },
-  likedBy: {
-    type: Array,
-  },
-  disLikedBy: {
-    type: Array,
-  },
   city: {
     type: String,
     require: true,
+  },
+  area: {
+    type: String,
+    require: true
+  },
+  street: {
+    type: String,
+    require: true
+  },
+  ZipCode: {
+    type: Number,
+    require: true
   },
   pricePerMonth: {
     type: Number,
@@ -32,7 +38,68 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   images: {
     type: Array,
     require: true
-  }
+  },
+  likedBy: {
+    type: Array,
+    unique: true,
+  },
+  disLikedBy: {
+    type: Array,
+    unique: true,
+  },
+  rentalType: {
+    type: String,
+    require: true
+  },
+  entryDate: {
+    type: Date,
+    require: true
+  },
+  checkOutDate: {
+    type: Date,
+    require: true
+  },
+  size: {
+    type: Number,
+    require: true
+  },
+  floor: {
+    type: Number,
+    require: true
+  },
+  rooms: {
+    type: Number,
+    require: true
+  },
+  elevator: {
+    type: Boolean,
+    require: true
+  },
+  parking: {
+    type: Number,
+    require: true
+  },
+  porch: {
+    type: Number,
+    require: true
+  },
+  furnished: {
+    type: Number,
+    require: true
+  },
+  handicapAccessible: {
+    type: Boolean,
+    require: true
+  },
+  petsAllowed: {
+    type: Boolean,
+    require: true
+  },
+  smokeAllowed: {
+    type: Boolean,
+    require: true
+  },
+  
 });
 
 aptSchema.static(
