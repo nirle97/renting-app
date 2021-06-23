@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   likedApts: {
     type: Array,
+    unique: true,
   },
   refreshToken: {
     type: String,
