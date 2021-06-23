@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { IUser } from "../../interfaces/interface";
 
 const userSchema = new mongoose.Schema<IUser>({
-  name: {
+  fullName: {
     type: String,
     require: true,
   },

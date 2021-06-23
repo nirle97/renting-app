@@ -1,22 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import store from './store'
-import { useSelector, TypedUseSelectorHook } from 'react-redux'
-
+import { RootState } from "./store"
 export interface AuthState {
   isLogged: boolean
 }
 export const initialState: AuthState = {
   isLogged: false
-}
-
-export type RootState = ReturnType<typeof store.getState>;
+};
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     setIsLogged: (state, { payload }: PayloadAction<AuthState>) => {
-      state.isLogged = payload.isLogged;
+      state.isLogged = payload.isLogged
     },
   },
 });

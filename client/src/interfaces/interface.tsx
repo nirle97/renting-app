@@ -8,7 +8,8 @@ export interface ISignIn {
   password: string;
 }
 
-export interface IForm extends ISignIn {
+export interface IUser extends ISignIn {
+  id?: string;
   fullName: string;
   phoneNumber: string;
   age: string;

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "./signUp.css";
 import network from "../../utils/network";
 import { useHistory } from "react-router-dom";
-import { IForm } from "../../interfaces/interface";
+import { IUser } from "../../interfaces/interface";
 import FormValidation from "../../utils/formValidation";
 
 function SignUp() {
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
-  const [formInput, setFormInput] = useState<IForm>({
+  const [formInput, setFormInput] = useState<IUser>({
     fullName: "",
     phoneNumber: "",
     email: "",
@@ -25,7 +25,7 @@ function SignUp() {
   const registerUser = async (e: any) => {
     try {
       e.preventDefault();
-      if (FormValidation.isFormValid(formInput)) {
+      if (FormValidation.isFormValid(formInput)) {        
         await network.post("/login/sign-up", formInput);
         history.push("/");
       } else {
@@ -39,7 +39,7 @@ function SignUp() {
 
   return (
     <div className="SignUp-container">
-      <form className="SignUp-form" onSubmit={registerUser}>
+      <form className="SignUp-form">
         <h3>Register</h3>
         <p>
           Finally you can fulfill your dream and live in your own awesome
@@ -118,7 +118,7 @@ function SignUp() {
             Please fill all the fields correctly :)
           </span>
         )}
-        <button type="submit" className="btn btn-outline-primary">
+        <button type="button" className="btn btn-outline-primary" onClick={registerUser}>
           Register
         </button>
         <button>Sign With Google</button>
@@ -127,7 +127,7 @@ function SignUp() {
       <div>
         <img
           className="SignUp-img"
-          alt="welcome picture"
+          alt="welcome"
           src="./images/signUpImg.jpeg"
         />
       </div>

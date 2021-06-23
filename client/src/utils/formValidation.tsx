@@ -1,6 +1,6 @@
-import { IForm, ISignIn } from "../interfaces/interface";
+import { IUser, ISignIn } from "../interfaces/interface";
 export default class FormValidation {
-  static isFormEmpty = (formInput: IForm): boolean => {
+  static isFormEmpty = (formInput: IUser): boolean => {
     if (
       formInput.fullName === "" ||
       formInput.phoneNumber === "" ||
@@ -12,7 +12,7 @@ export default class FormValidation {
     }
     return true;
   };
-  static isPasswordOk = (formInput: IForm | ISignIn): boolean => {
+  static isPasswordOk = (formInput: IUser | ISignIn): boolean => {
     if (
       /^[^<>%$]*$/.test(formInput.password) &&
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
@@ -23,7 +23,7 @@ export default class FormValidation {
     }
     return false;
   };
-  static isEmailOk = (formInput: IForm | ISignIn): boolean => {
+  static isEmailOk = (formInput: IUser | ISignIn): boolean => {
     if (
       /^[^<>%$]*$/.test(formInput.email) &&
       /^\S+@\S+\.\S+$/.test(formInput.email)
@@ -32,16 +32,16 @@ export default class FormValidation {
     }
     return false;
   };
-  static isNameOk = (formInput: IForm): boolean => {
+  static isNameOk = (formInput: IUser): boolean => {
     return /^[a-zA-Z][a-zA-Z\s]*$/.test(formInput.fullName);
   };
-  static isNumberOk = (formInput: IForm): boolean => {
+  static isNumberOk = (formInput: IUser): boolean => {
     if (/^\d+$/.test(formInput.phoneNumber) && /^\d+$/.test(formInput.age)) {
       return true;
     }
     return false;
   };
-  static isFormValid = (formInput: IForm): boolean => {
+  static isFormValid = (formInput: IUser): boolean => {
     if (
       // FormValidation.isPasswordOk(formInput) &&
       FormValidation.isEmailOk(formInput) &&

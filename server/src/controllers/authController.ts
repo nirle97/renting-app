@@ -3,10 +3,19 @@ const { sign, verify } = require("jsonwebtoken");
 import { IUser } from "../interfaces/interface";
 import { UserModel } from "../db/models/UserModel";
 import { resTemplate } from "../utils/responses";
-
 require("dotenv").config();
+
 interface Decoded extends Request {
   decoded: { id: String };
+}
+interface ISignInUser extends Request {
+  decoded: { 
+    id: String, 
+    fullName: String,
+    email: String,  
+    phoneNumber: String,
+    age: Number
+  };
 }
 const vlidateToken = (req: Request, res: Response): void => {
   res.status(200).send(resTemplate.success.general);
@@ -50,7 +59,7 @@ const terminateToken = async (req: Decoded, res: Response): Promise<void> => {
     res.status(401).send(resTemplate.clientError.unAuthorized);
   }
 };
-const createToken = async (req: Decoded, res: Response): Promise<void> => {
+const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
   try {
     const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
       expiresIn: "10h",
@@ -65,7 +74,14 @@ const createToken = async (req: Decoded, res: Response): Promise<void> => {
     );
     res.status(200).send({
       ...resTemplate.success.general,
-      data: { accessToken, id: req.decoded.id },
+      data: { 
+        accessToken, 
+        id: req.decoded.id,
+        email: req.decoded.email,
+        fullName: req.decoded.fullName,
+        age: req.decoded.age,
+        phoneNumber: req.decoded.phoneNumber
+       },
     });
   } catch (e) {
     console.error(e);

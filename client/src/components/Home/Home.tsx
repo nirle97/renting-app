@@ -29,14 +29,11 @@ function Home() {
     const res = await network.put(
       `apartment/like-status/${aptArr[aptToDisplay]._id}?status=${preference}`
     );
-    console.log(res);
-    console.log(preference);
-    console.log(aptArr[aptToDisplay]._id);
     setAptToDisplay(aptToDisplay + 1);
   };
 
   return (
-    <div className="Home-container">
+    <div className="Home-container" onClick={()=>console.log(1)}>
       <button onClick={clickedHandele}>getApts</button>
       <div className="Home-filter-component">
         <Filter currentFilter={currentFilter} updateFilter={updateFilter} />

@@ -4,12 +4,14 @@ import network from "../../utils/network";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLogged } from "../../store/authSlice";
+import { setUser } from "../../store/userSlice";
 import FormValidation from "../../utils/formValidation";
 import Cookies from "js-cookie";
+import { ISignIn } from "../../interfaces/interface"
 
 function SignIn() {
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
-  const [formInput, setFormInput] = useState({
+  const [formInput, setFormInput] = useState<ISignIn>({
     email: "",
     password: "",
   });
@@ -29,12 +31,12 @@ function SignIn() {
         // FormValidation.isPasswordOk(formInput) &&
         FormValidation.isEmailOk(formInput)
       ) {
-        const {
-          data: { data },
-        } = await network.post("/login/sign-in", formInput);
+        const { data: { data } } = await network.post("/login/sign-in", formInput);                
         dispatch(setIsLogged({ isLogged: true }));
-        Cookies.set("token", data.accessToken);
-        Cookies.set("id", data.id);
+        Cookies.set("token", data.accessToken, { expires: 1, secure: true });
+        Cookies.set("id", data.id, { expires: 1, secure: true });
+        delete data.accessToken        
+        dispatch(setUser({ user: data }));
         history.push("/");
       } else {
         setEmptyFldMsg(true);
