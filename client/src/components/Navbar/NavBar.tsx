@@ -12,7 +12,7 @@ function NavBar() {
       <div className={"NavBar-span-start"}>
         <NavLink className={"NavBar-Link"} activeStyle={{ color: "black" }} exact to="/">
           <span className={"NavBar-span-start"}>
-          <img src="https://img.icons8.com/cotton/64/000000/key--v1.png"/>
+          <img src="https://img.icons8.com/cotton/64/000000/key--v1.png" alt="logo"/>
             <span className={"NavBar-logo-name"}>
               Hommies
             </span>

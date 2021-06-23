@@ -13,16 +13,13 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   password: {
     type: String,
-    require: true,
   },
   phoneNumber: {
     type: String,
-    require: true,
     unique: true,
   },
   age: {
     type: Number,
-    require: true,
   },
   likedApts: {
     type: Array,

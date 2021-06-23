@@ -19,4 +19,5 @@ export const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const { setIsLogged } = authSlice.actions;
-export const authSelectors = (state: RootState) => state.rootReducer.authReducer
+export const authSelectors = (state: RootState) => state.authReducer
+  

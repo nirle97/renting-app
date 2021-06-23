@@ -13,6 +13,7 @@ export interface IUser extends ISignIn {
   fullName: string;
   phoneNumber: string;
   age: string;
+  imgUrl?: string;
 }
 
 export interface IUploadNewApt {
