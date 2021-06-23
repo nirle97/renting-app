@@ -4,8 +4,14 @@ import network from "../../utils/network";
 import { useHistory } from "react-router-dom";
 import { IUser } from "../../interfaces/interface";
 import FormValidation from "../../utils/formValidation";
+import GoogleLogin from "react-google-login";
+import { useDispatch } from "react-redux";
+import { setIsLogged } from "../../store/authSlice";
+import { setUser } from "../../store/userSlice";
+import Cookies from "js-cookie";
 
 function SignUp() {
+  const dispatch = useDispatch();
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
   const [formInput, setFormInput] = useState<IUser>({
     fullName: "",
@@ -13,6 +19,7 @@ function SignUp() {
     email: "",
     password: "",
     age: "",
+    imgUrl: "",
   });
   const history = useHistory();
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +32,7 @@ function SignUp() {
   const registerUser = async (e: any) => {
     try {
       e.preventDefault();
-      if (FormValidation.isFormValid(formInput)) {        
+      if (FormValidation.isFormValid(formInput)) {
         await network.post("/login/sign-up", formInput);
         history.push("/");
       } else {
@@ -37,6 +44,24 @@ function SignUp() {
     }
   };
 
+  const handleGoogle = async (user: any) => {
+    const tokenId = user.tokenId;
+    const {
+      data: { data },
+    } = await network.post("/googleAuth/login", { tokenId });
+    setFormInput({
+      ...formInput,
+      fullName: data.fullName,
+      email: data.email,
+      imgUrl: data.imgUrl,
+    });
+    dispatch(setIsLogged({ isLogged: true }));
+    Cookies.set("token", data.accessToken, { secure: true });
+    Cookies.set("id", data.id, { secure: true }); //add id
+    delete data.accessToken;
+    dispatch(setUser({ user: data }));
+    history.push("/");
+  };
   return (
     <div className="SignUp-container">
       <form className="SignUp-form">
@@ -118,10 +143,21 @@ function SignUp() {
             Please fill all the fields correctly :)
           </span>
         )}
-        <button type="button" className="btn btn-outline-primary" onClick={registerUser}>
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={registerUser}
+        >
           Register
         </button>
-        <button>Sign With Google</button>
+        {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
+        <GoogleLogin
+          clientId="267865272692-6ldesrm625v8k8pk9duiteh95op8tso3.apps.googleusercontent.com"
+          buttonText="Sign Up"
+          onSuccess={handleGoogle}
+          onFailure={handleGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
         <button>Sign With Facebook</button>
       </form>
       <div>

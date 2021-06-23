@@ -5,19 +5,19 @@ import { IUser } from "../interfaces/interface";
 import { resTemplate } from "../utils/responses";
 
 interface Decoded extends Request {
-  decoded: { 
-    id: String, 
-    fullName: String,
-    email: String,  
-    phoneNumber: String,
-    age: Number
+  decoded: {
+    id: String;
+    fullName: String;
+    email: String;
+    phoneNumber: String;
+    age: Number;
   };
 }
 const signUp = async (req: Request, res: Response): Promise<void> => {
   if (!req.body) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
-  }  
+  }
   const credentials = req.body;
   credentials.password = hashSync(credentials.password, genSaltSync(10));
 
@@ -41,7 +41,9 @@ const signIn = async (
   const credentials = req.body;
 
   try {
-    const result: IUser | null = await UserModel.findOne({ email: credentials.email });
+    const result: IUser | null = await UserModel.findOne({
+      email: credentials.email,
+    });
     if (result) {
       const isPasswordCorrect = compareSync(
         credentials.password,
@@ -50,12 +52,12 @@ const signIn = async (
       if (!isPasswordCorrect) {
         res.status(401).send(resTemplate.clientError.unAuthorized);
       }
-      req.decoded = { 
-        id: result._id, 
+      req.decoded = {
+        id: result._id,
         fullName: result.fullName,
-        email: result.email,  
+        email: result.email,
         phoneNumber: result.phoneNumber,
-        age :result.age
+        age: result.age,
       };
       next();
     }
