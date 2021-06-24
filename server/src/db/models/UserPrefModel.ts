@@ -1,4 +1,4 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import { IClientPref } from "../../interfaces/interface";
 
 const userPrefSchema = new mongoose.Schema<IClientPref>({

@@ -9,6 +9,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 interface Decoded extends Request {
   decoded: {
+    id: String;
     imgUrl: String;
     fullName: String;
     email: String;
@@ -35,8 +36,8 @@ const setToken = async (
       email: payload.email,
       imgUrl: payload.picture,
     };
-    await UserModel.create(credentials);
-    req.decoded = credentials;
+    const newUser = await UserModel.create(credentials);
+    req.decoded = { ...credentials, id: newUser._id };
     next();
   } catch (e) {
     console.error(e);

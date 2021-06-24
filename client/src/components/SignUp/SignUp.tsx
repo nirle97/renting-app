@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { setIsLogged } from "../../store/authSlice";
 import { setUser } from "../../store/userSlice";
 import Cookies from "js-cookie";
-
+require("dotenv").config();
 function SignUp() {
   const dispatch = useDispatch();
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
@@ -49,15 +49,10 @@ function SignUp() {
     const {
       data: { data },
     } = await network.post("/googleAuth/login", { tokenId });
-    setFormInput({
-      ...formInput,
-      fullName: data.fullName,
-      email: data.email,
-      imgUrl: data.imgUrl,
-    });
+    console.log(data);
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
-    Cookies.set("id", data.id, { secure: true }); //add id
+    Cookies.set("id", data.id, { secure: true });
     delete data.accessToken;
     dispatch(setUser({ user: data }));
     history.push("/");
@@ -85,8 +80,6 @@ function SignUp() {
             name="fullName"
             placeholder="Full Name"
           />
-        </div>
-        <div className="SignUp-div-input">
           <label>
             <i className="fas fa-envelope"></i>
           </label>
@@ -111,8 +104,6 @@ function SignUp() {
             name="password"
             placeholder="Password"
           />
-        </div>
-        <div className="SignUp-div-input">
           <label>
             <i className="fas fa-phone"></i>
           </label>
@@ -143,22 +134,26 @@ function SignUp() {
             Please fill all the fields correctly :)
           </span>
         )}
-        <button
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={registerUser}
-        >
-          Register
-        </button>
-        {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
-        <GoogleLogin
-          clientId="267865272692-6ldesrm625v8k8pk9duiteh95op8tso3.apps.googleusercontent.com"
-          buttonText="Sign Up"
-          onSuccess={handleGoogle}
-          onFailure={handleGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
-        <button>Sign With Facebook</button>
+        <div>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={registerUser}
+          >
+            Register
+          </button>
+          <GoogleLogin
+            clientId={
+              process.env.REACT_APP_CLIENT_ID
+                ? process.env.REACT_APP_CLIENT_ID
+                : ""
+            }
+            buttonText="Sign Up With Google"
+            onSuccess={handleGoogle}
+            onFailure={handleGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+        </div>
       </form>
       <div>
         <img

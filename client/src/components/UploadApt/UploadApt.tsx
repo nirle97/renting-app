@@ -20,7 +20,6 @@ export default function UploadApt() {
     if (e.target.files) {
       setImgFiles([...imgFiles, e.target.files[0]]);
     }
-    console.log(e.target.files);
   };
   return (
     <div className="UploadApt-container">

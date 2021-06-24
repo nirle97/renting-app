@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   position: relative;
-  top: 10vh;
+  top: 1vh;
   left: 8vw;
 }
 .SignUp-form p {
@@ -21,7 +21,7 @@
 .SignUp-div-input {
   padding: 20px;
   padding-left: 0;
-  font-size: 24px;
+  font-size: 18px;
   border-bottom: 1px solid grey;
   margin-bottom: 3vh;
 }
@@ -37,4 +37,7 @@
 }
 .SignUp-msg {
   color: red;
+}
+.btn-outline-primary {
+  margin-right: 3vw;
 }

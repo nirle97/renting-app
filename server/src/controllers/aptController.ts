@@ -14,17 +14,16 @@ const addNewApt = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    if(Array.isArray(req.body)){
-      req.body.map(async (obj) =>{
+    if (Array.isArray(req.body)) {
+      req.body.map(async (obj) => {
         const newAptObj: IOwnerApt = { ...obj, ownerId: req.decoded.id };
         await AptModel.create(newAptObj);
-
-      })
-    }else{
+      });
+    } else {
       const newAptObj: IOwnerApt = { ...req.body, ownerId: req.decoded.id };
       await AptModel.create(newAptObj);
     }
-    
+
     res.status(201).send(resTemplate.success.created);
   } catch (e) {
     console.error(e);
@@ -63,8 +62,6 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
   }
   try {
     const data: IClientApt = req.body;
-    console.log(data);
-    
     const aptsArray = await AptModel.findByUserFilters(data, req.decoded.id);
     res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
   } catch (e) {

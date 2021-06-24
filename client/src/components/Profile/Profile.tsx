@@ -1,31 +1,35 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./profile.css";
 import { userSelectors } from "../../store/userSlice";
 import { setIsLogged } from "../../store/authSlice";
+import {
+  setIsprofileClicked,
+  profileSelectors,
+} from "../../store/profileSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 
 function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { isprofileClicked } = useSelector(profileSelectors);
   const { user } = useSelector(userSelectors);
   const [showInfo, setShowInfo] = useState(false);
-
   const logOutHandler = () => {
     dispatch(setIsLogged({ isLogged: false }));
+    dispatch(setIsprofileClicked({ isprofileClicked: !profileSelectors }));
     Cookies.remove("token");
     history.push("/");
   };
-
+  const clickHandler = () => {
+    setShowInfo((prev) => !prev);
+    dispatch(setIsprofileClicked({ isprofileClicked: !isprofileClicked }));
+  };
   return (
     <div className="Profile-container">
-      <span
-        className="Profile-navbar"
-        onClick={() => setShowInfo((prev) => !prev)}
-      >
-        Profile
+      <span className="Profile-navbar" onClick={clickHandler}>
+        {user.imgUrl ? <img src={user.imgUrl} alt="profile" /> : "Profile"}
       </span>
       {showInfo && (
         <div className="Profile-info-div">

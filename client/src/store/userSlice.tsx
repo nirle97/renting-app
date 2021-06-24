@@ -31,6 +31,7 @@ export const userSlice = createSlice({
       state.user.phoneNumber = payload.user.phoneNumber;
       state.user.email = payload.user.email;
       state.user.age = payload.user.age;
+      state.user.imgUrl = payload.user.imgUrl;
     },
   },
 });

@@ -3,6 +3,7 @@ import "./filter.css";
 import network from "../../utils/network";
 import Range from "./Range";
 import { IFilter } from "../../interfaces/interface";
+
 interface IProps {
   updateFilter: (newFiltterObj: IFilter) => void;
   currentFilter: IFilter;

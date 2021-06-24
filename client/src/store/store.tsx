@@ -1,31 +1,35 @@
-import { configureStore, getDefaultMiddleware  } from "@reduxjs/toolkit";
-import { 
-  persistStore, 
-  persistReducer, 
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { authReducer } from "./authSlice";
 import { userReducer } from "./userSlice";
-import { combineReducers, Store } from '@reduxjs/toolkit'
+import { prefReducer } from "./prefSlice";
+import { profileReducer } from "./profileSlice";
+import { combineReducers, Store } from "@reduxjs/toolkit";
 export type RootState = ReturnType<typeof store.getState>;
 
 const rootReducer = combineReducers({
   authReducer,
-  userReducer
-})
+  userReducer,
+  prefReducer,
+  profileReducer,
+});
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ["userReducer", "authReducer"]
-}
+  whitelist: ["userReducer", "authReducer", "prefReducer", "profileReducer"],
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store: Store = configureStore({
   reducer: persistedReducer,
@@ -36,6 +40,4 @@ export const store: Store = configureStore({
   }),
 });
 
-export const persistor = persistStore(store)
-
-
+export const persistor = persistStore(store);
