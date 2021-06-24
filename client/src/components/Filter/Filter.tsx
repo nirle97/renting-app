@@ -19,21 +19,11 @@ interface IProps {
 function Filter({ currentFilter, setCurrentFilter }: IProps) {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
-  const rentType = useRef(null);
   const [searchValue, setSearchValue] = useState({
     cords: { lat: 0, lng: 0 },
     address: "",
   });
-  const getUserPref = async () => {
-    const {
-      data: { data },
-    } = await network.get("/preference/user-preferences");
-    console.log(data);
-    // setCurrentFilter(data);
-  };
-  useEffect(() => {
-    getUserPref();
-  }, []);
+
   const changeHandler = (e: any) => {
     console.log(currentFilter);
 
@@ -103,20 +93,16 @@ function Filter({ currentFilter, setCurrentFilter }: IProps) {
         <span className="Filter-range-max-span">{currentFilter.roomsMax}</span>
       </div>
       <div>
-        <select id="rentalType" onChange={(e) => changeHandler(e)}>
+        <select id="rentalType" onChange={changeHandler}>
           <option value="short term">short term (1 - 6 months)</option>
           <option value="long term">long term</option>
         </select>
       </div>
       <div>
         <label>Entry date:</label>
-        <input id="entryDate" type="Date" onChange={(e) => changeHandler(e)} />
+        <input id="entryDate" type="Date" onChange={changeHandler} />
         <label>Check out date:</label>
-        <input
-          id="checkOutDate"
-          type="Date"
-          onChange={(e) => changeHandler(e)}
-        />
+        <input id="checkOutDate" type="Date" onChange={changeHandler} />
       </div>
       <div className="Filter-more-opt">
         <span>
