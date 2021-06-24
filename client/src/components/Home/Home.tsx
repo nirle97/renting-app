@@ -19,6 +19,14 @@ function Home() {
     getAptsByFilters();
   }, [currentFilter]);
 
+  const getUserPref = async () => {
+    const {
+      data: { data },
+    } = await network.get("/preference/user-preferences");
+  };
+  useEffect(() => {
+    getUserPref();
+  }, []);
   async function getAptsByFilters() {
     const {
       data: { data },
