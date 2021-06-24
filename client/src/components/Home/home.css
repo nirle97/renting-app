@@ -1,6 +1,6 @@
 .Home-container{
     position: relative;
-    z-index: -2;
+    /* z-index: -2; */
     top: 8vh;
     margin-top: 10vh;
     width: 100vw;
@@ -19,7 +19,8 @@
 
 }
 .Home-apartment-map{
-    width: 30vw;
+    width: 30vw !important;
+    overflow: hidden;
     font-size: 100px;
     background-color: grey;
     float: left;

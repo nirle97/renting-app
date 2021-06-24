@@ -12,17 +12,52 @@ export interface IUser extends Document {
 }
 export interface IOwnerApt extends Document {
   ownerId: String;
-  likedBy: String[];
-  disLikedBy: String[];
-  city: String;
-  pricePerMonth: Number;
-  images: String[];
+  likedBy: string[];
+  disLikedBy: string[];
+  city: string;
+  area:string;
+  street:string;
+  zipCode: number
+  cords: {
+    lat: number,
+    lng: number
+  }
+  pricePerMonth: number;
+  images: string[];
+  rentalType:string;
+  entryDate:Date;
+  checkOutDate:Date;
+  size: number;
+  floor: number;
+  rooms: number;
+  parking: number;
+  porch: boolean;
+  garden: boolean;
+  furnished: boolean;
+  elevator: boolean;
+  handicapAccessible: boolean;
+  petsAllowed: boolean;
+  smokeAllowed: boolean;
 }
 
 export interface IClientApt extends Document {
   city: String;
   priceMin: Number;
   priceMax: Number;
+  rentalType:string;
+  entryDate:Date;
+  checkOutDate:Date;
+  size: number;
+  floor: number;
+  rooms: number;
+  parking: number;
+  porch: boolean;
+  garden: boolean;
+  furnished: boolean;
+  elevator: boolean;
+  handicapAccessible: boolean;
+  petsAllowed: boolean;
+  smokeAllowed: boolean;
 }
 export interface IClientPref extends Document {
   userId: String;

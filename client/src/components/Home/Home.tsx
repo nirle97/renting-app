@@ -3,19 +3,19 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import GooglePlaces from "../GoogleMaps/GooglePlaces"
 import { IFilter, IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
-function Home() {
+import Map from "../Map/Map"
+function Home(){
   const [aptArr, setAptArr] = useState<IApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
-  
   const [currentFilter, SetCurrentFilter] = useState<IFilter>({
     city: "Tel-aviv",
     priceMin: 0,
     priceMax: 10000,
   });
-
+  
+  
   const updateFilter = (newFiltterObj: IFilter) => {
     SetCurrentFilter(newFiltterObj);
   };
@@ -27,9 +27,9 @@ function Home() {
     setAptArr(data);
   };
 
-  const aptPreference = async (preference: string) => {
-    const res = await network.put(
-      `apartment/like-status/${aptArr[aptToDisplay]._id}?status=${preference}`
+const aptPreference = async (preference: string) => {
+  const res = await network.put(
+    `apartment/like-status/${aptArr[aptToDisplay]._id}?status=${preference}`
     );
     setAptToDisplay(aptToDisplay + 1);
   };
@@ -46,7 +46,7 @@ function Home() {
             <Apartment aptPreference={aptPreference} apt={aptArr[aptToDisplay]} />
           </div> 
           <div className="Home-apartment-map">
-          <GooglePlaces />
+            <Map cords={aptArr[aptToDisplay].cords}/>
           </div>
 
         </div>
@@ -58,3 +58,5 @@ function Home() {
 }
 
 export default Home;
+
+

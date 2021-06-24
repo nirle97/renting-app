@@ -31,6 +31,10 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: Number,
     require: true
   },
+  cords: {
+    type: Object,
+    require: true
+  },
   pricePerMonth: {
     type: Number,
     require: true,
@@ -80,11 +84,15 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     require: true
   },
   porch: {
-    type: Number,
+    type: Boolean,
+    require: true
+  },
+  garden: {
+    type: Boolean,
     require: true
   },
   furnished: {
-    type: Number,
+    type: Boolean,
     require: true
   },
   handicapAccessible: {

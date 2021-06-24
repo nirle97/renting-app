@@ -33,4 +33,8 @@ export interface IApt {
   ownerId: string;
   pricePerMonth: number;
   _id: string;
+  cords: {
+    lat: number,
+    lng: number
+  };
 }
