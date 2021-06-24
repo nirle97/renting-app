@@ -14,11 +14,19 @@ export default function UploadApt() {
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInput({
       ...formInput,
-      [e.target.name]:
-        e.target.name === "pricePerMonth"
+      [e.target.id]:
+        e.target.name === "number"
           ? Number(e.target.value)
           : e.target.value,
     });
+  };
+  const booleanChangeHandler = (e: any) => {
+    setFormInput({
+      ...formInput,
+      [e.target.id]: !e.target.value,
+    });
+    e.target.value = !e.target.value;
+    e.target.classList.toggle("selected");
   };
   const uploadImgs = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -54,7 +62,8 @@ export default function UploadApt() {
                 type="text"
                 value={formInput.pricePerMonth}
                 onChange={changeHandler}
-                name="pricePerMonth"
+                id="pricePerMonth"
+                name="number"
               />
             </div>
             <div className="UploadApt-div-input">
@@ -65,7 +74,8 @@ export default function UploadApt() {
                 accept=".jpg,.jpeg,.png,.PNG"
                 multiple
                 onChange={uploadImgs}
-                name="images"
+                id="images"
+                name="img"
               />
             </div>
             <div className="UploadApt-div-input">
@@ -73,8 +83,9 @@ export default function UploadApt() {
               <select
                 ref={formInput.rentalType}
                 className="UploadApt-input"
-                name="rentalType"
-                // onChange={changeHandler}
+                id="rentalType"
+                name="text"
+                onChange={(e) => changeHandler}
               >
                 <option value="short term">short term (1 - 6 months)</option>
                 <option value="long term">long term</option>
@@ -86,7 +97,8 @@ export default function UploadApt() {
                 className="UploadApt-input"
                 type="Date"
                 onChange={changeHandler}
-                name="entryDate"
+                id="entryDate"
+                name="text"
               />
             </div>
             <div className="UploadApt-div-input">
@@ -95,9 +107,115 @@ export default function UploadApt() {
                 className="UploadApt-input"
                 type="Date"
                 onChange={changeHandler}
-                name="checkOutDate"
+                id="checkOutDate"
+                name="text"
               />
             </div>
+            <div className="UploadApt-div-input">
+              <label>size(m²):</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.size}
+                onChange={changeHandler}
+                id="size"
+                name="number"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>floor:</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.floor}
+                onChange={changeHandler}
+                id="floor"
+                name="number"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>rooms:</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.rooms}
+                onChange={changeHandler}
+                id="rooms"
+                name="number"
+              />
+            </div>
+            <div className="Filter-more-opt">
+          <span>
+            <span
+              id="parking"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-parking"></i>Parking
+            </span>
+            <span
+              id="porch"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-store"></i>Porch
+            </span>
+            <span
+              id="garden"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-seedling"></i>Garden
+            </span>
+          </span>
+          <span>
+            <span
+              id="furnished"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-sofa"></i>Furnished
+            </span>
+            <span
+              id="elevator"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="far fa-caret-square-up"></i> Elevator
+            </span>
+            <span
+              id="handicapAccessible"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-wheelchair">Handicap Accessible</i>
+            </span>
+          </span>
+          <span>
+            <span
+              id="petsAllowed"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-paw">Pets</i>
+            </span>
+            <span
+              id="smokeAllowed"
+              className="Filter-more-opt-span"
+              value={false}
+              onClick={booleanChangeHandler}
+            >
+              <i className="fas fa-smoking"></i>smoke
+            </span>
+          </span>
+        </div>
           </form>
           <button onClick={submitHandler}>close</button>
         </div>
@@ -106,12 +224,6 @@ export default function UploadApt() {
   );
 }
 // {
-//   rentalType: string;
-//   entryDate: Date;
-//   checkOutDate: Date;
-//   size: number;
-//   floor: number;
-//   rooms: number;
 //   parking: boolean;
 //   porch: boolean;
 //   garden: boolean;
