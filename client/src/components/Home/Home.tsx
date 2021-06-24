@@ -8,6 +8,7 @@ import { IFilter, IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
 import { useSelector } from "react-redux";
+import Map from "../Map/Map";
 function Home() {
   const [aptArr, setAptArr] = useState<IApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
@@ -50,6 +51,18 @@ function Home() {
             <Apartment
               aptPreference={aptPreference}
               apt={aptArr[aptToDisplay]}
+            />
+          </div>
+          <div className="Home-apartment-map">
+            <Map
+              cords={
+                aptArr[aptToDisplay].cords
+                  ? aptArr[aptToDisplay].cords
+                  : {
+                      lat: 32.1149489,
+                      lng: 34.8271349,
+                    }
+              }
             />
           </div>
           <div className="Home-apartment-map">map</div>

@@ -65,7 +65,6 @@ const a =  [{
 "city": "Tel-aviv",
 "pricePerMonth" : 9000,
 }]
-a.map(async (apt) => {
-        axios.post("lochalhost:8080/apartment/create",apt);
 
-})
+
+
