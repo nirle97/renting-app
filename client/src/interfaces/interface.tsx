@@ -17,24 +17,54 @@ export interface IUser extends ISignIn {
 }
 
 export interface IUploadNewApt {
-  city: string;
-  price: number;
+  address: string;
+  pricePerMonth: number;
+  images: string[];
+  rentalType: string;
+  entryDate: Date;
+  checkOutDate: Date;
+  size: number;
+  floor: number;
+  rooms: number;
+  parking: boolean;
+  porch: boolean;
+  garden: boolean;
+  furnished: boolean;
+  elevator: boolean;
+  handicapAccessible: boolean;
+  petsAllowed: boolean;
+  smokeAllowed: boolean;
 }
 
 export interface IFilter {
-  city: String;
+  address: string;
   priceMin: Number;
   priceMax: Number;
+  rentalType: string;
+  entryDate: Date;
+  checkOutDate: Date;
+  sizeMin: number;
+  sizeMax: number;
+  roomsMin: number;
+  roomsMax: number;
+  parking: boolean;
+  porch: boolean;
+  garden: boolean;
+  furnished: boolean;
+  elevator: boolean;
+  handicapAccessible: boolean;
+  petsAllowed: boolean;
+  smokeAllowed: boolean;
 }
 
 export interface IApt {
-  city: string;
+  address: string;
   images: string[];
   ownerId: string;
   pricePerMonth: number;
   _id: string;
   cords: {
-    lat: number,
-    lng: number
+    lat: number;
+    lng: number;
   };
 }

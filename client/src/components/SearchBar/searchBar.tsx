@@ -1,7 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setPreferences, prefSelectors } from "../../store/prefSlice";
-
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -10,9 +7,26 @@ interface LatLng {
   lat: number;
   lng: number;
 }
-export default function SearchBar() {
-  const dispatch = useDispatch();
-  const { preferences } = useSelector(prefSelectors);
+interface IProps {
+  searchValue: {
+    cords: {
+      lat: number;
+      lng: number;
+    };
+    address: string;
+  };
+  setSearchValue: React.Dispatch<
+    React.SetStateAction<{
+      cords: {
+        lat: number;
+        lng: number;
+      };
+      address: string;
+    }>
+  >;
+}
+
+export default function SearchBar({ searchValue, setSearchValue }: IProps) {
   const [address, setAddress] = React.useState("");
   const [coordinates, setCoordinates] = React.useState<LatLng>({
     lat: 0,
@@ -24,9 +38,10 @@ export default function SearchBar() {
     const latLng: LatLng = await getLatLng(results[0]);
     setAddress(value);
     setCoordinates(latLng);
-    dispatch(
-      setPreferences({ preferences: { ...preferences, address: value } })
-    );
+    setSearchValue({
+      cords: { lat: latLng.lat, lng: latLng.lng },
+      address: value,
+    });
   };
 
   return (

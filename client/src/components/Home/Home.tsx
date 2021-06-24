@@ -3,28 +3,22 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import SearchBar from "../SearchBar/searchBar";
 import { IFilter, IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
 import { useSelector } from "react-redux";
 import Map from "../Map/Map";
+import { clientFiltersObj } from "../../utils/utils";
 function Home() {
   const [aptArr, setAptArr] = useState<IApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const { isprofileClicked } = useSelector(profileSelectors);
-  const [currentFilter, SetCurrentFilter] = useState<IFilter>({
-    city: "Tel-aviv",
-    priceMin: 0,
-    priceMax: 10000,
-  });
+  const [currentFilter, setCurrentFilter] = useState<IFilter>(clientFiltersObj);
 
-  const updateFilter = (newFiltterObj: IFilter) => {
-    SetCurrentFilter(newFiltterObj);
-  };
   useEffect(() => {
     getAptsByFilters();
-  }, []);
+  }, [currentFilter]);
+
   async function getAptsByFilters() {
     const {
       data: { data },
@@ -42,9 +36,11 @@ function Home() {
   return (
     <div className={`${isprofileClicked && "z-index"} Home-container`}>
       <div className="Home-filter-component">
-        <Filter currentFilter={currentFilter} updateFilter={updateFilter} />
+        <Filter
+          currentFilter={currentFilter}
+          setCurrentFilter={setCurrentFilter}
+        />
       </div>
-      <SearchBar />
       {aptToDisplay < aptArr.length ? (
         <div className="Home-left-side">
           <div className="Home-apartment-component">

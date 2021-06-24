@@ -15,25 +15,13 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: String,
     require: true,
   },
-  city: {
+  address: {
     type: String,
     require: true,
   },
-  area: {
-    type: String,
-    require: true
-  },
-  street: {
-    type: String,
-    require: true
-  },
-  ZipCode: {
-    type: Number,
-    require: true
-  },
   cords: {
     type: Object,
-    require: true
+    require: true,
   },
   pricePerMonth: {
     type: Number,
@@ -41,7 +29,7 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   },
   images: {
     type: Array,
-    require: true
+    require: true,
   },
   likedBy: {
     type: Array,
@@ -53,61 +41,60 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   },
   rentalType: {
     type: String,
-    require: true
+    require: true,
   },
   entryDate: {
     type: Date,
-    require: true
+    require: true,
   },
   checkOutDate: {
     type: Date,
-    require: true
+    require: true,
   },
   size: {
     type: Number,
-    require: true
+    require: true,
   },
   floor: {
     type: Number,
-    require: true
+    require: true,
   },
   rooms: {
     type: Number,
-    require: true
+    require: true,
   },
   elevator: {
     type: Boolean,
-    require: true
+    require: true,
   },
   parking: {
     type: Number,
-    require: true
+    require: true,
   },
   porch: {
     type: Boolean,
-    require: true
+    require: true,
   },
   garden: {
     type: Boolean,
-    require: true
+    require: true,
   },
   furnished: {
     type: Boolean,
-    require: true
+    require: true,
   },
   handicapAccessible: {
     type: Boolean,
-    require: true
+    require: true,
   },
   petsAllowed: {
     type: Boolean,
-    require: true
+    require: true,
   },
   smokeAllowed: {
     type: Boolean,
-    require: true
+    require: true,
   },
-  
 });
 
 aptSchema.static(
@@ -146,17 +133,30 @@ aptSchema.static(
     try {
       let filtersObj: { [key: string]: {} } = {
         pricePerMonth: { $gt: aptData.priceMin, $lt: aptData.priceMax },
-        city: aptData.city,
+        address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
+        rentalType: aptData["rentalType"],
+        size: { $gt: aptData.sizeMin, $lt: aptData.sizeMax },
+        rooms: { $gt: aptData.roomsMin, $lt: aptData.roomsMax },
+        parking: aptData.parking,
+        porch: aptData.porch,
+        garden: aptData.garden,
+        furnished: aptData.furnished,
+        elevator: aptData.elevator,
+        handicapAccessible: aptData.handicapAccessible,
+        petsAllowed: aptData.petsAllowed,
+        smokeAllowed: aptData.smokeAllowed,
       };
+      // entryDate: Date;
+      // checkOutDate: Date;
 
       Object.entries(aptData).forEach(([key, value]) => {
         if (value === null) {
           delete filtersObj[key];
         }
       });
-      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy", ]);
+      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy"]);
     } catch (e) {
       console.error(e);
     }

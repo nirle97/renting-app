@@ -14,23 +14,20 @@ export interface IOwnerApt extends Document {
   ownerId: String;
   likedBy: string[];
   disLikedBy: string[];
-  city: string;
-  area:string;
-  street:string;
-  zipCode: number
+  address: string;
   cords: {
-    lat: number,
-    lng: number
-  }
+    lat: number;
+    lng: number;
+  };
   pricePerMonth: number;
   images: string[];
-  rentalType:string;
-  entryDate:Date;
-  checkOutDate:Date;
+  rentalType: string;
+  entryDate: Date;
+  checkOutDate: Date;
   size: number;
   floor: number;
   rooms: number;
-  parking: number;
+  parking: boolean;
   porch: boolean;
   garden: boolean;
   furnished: boolean;
@@ -41,16 +38,17 @@ export interface IOwnerApt extends Document {
 }
 
 export interface IClientApt extends Document {
-  city: String;
+  address: string;
   priceMin: Number;
   priceMax: Number;
-  rentalType:string;
-  entryDate:Date;
-  checkOutDate:Date;
-  size: number;
-  floor: number;
-  rooms: number;
-  parking: number;
+  rentalType: string;
+  entryDate: Date;
+  checkOutDate: Date;
+  sizeMin: number;
+  sizeMax: number;
+  roomsMin: number;
+  roomsMax: number;
+  parking: boolean;
   porch: boolean;
   garden: boolean;
   furnished: boolean;

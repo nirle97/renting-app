@@ -4,16 +4,18 @@ import Cookies from "js-cookie";
 
 export interface PrefState {
   preferences: {
-    userId: string | undefined;
+    userId?: string | undefined;
     address: string;
-    pricePerMonth: number;
+    priceMin: Number;
+    priceMax: Number;
     rentalType: string;
     entryDate: Date;
     checkOutDate: Date;
-    size: number;
-    floor: number;
-    rooms: number;
-    parking: number;
+    sizeMin: number;
+    sizeMax: number;
+    roomsMin: number;
+    roomsMax: number;
+    parking: boolean;
     porch: boolean;
     garden: boolean;
     furnished: boolean;
@@ -27,14 +29,16 @@ export const initialState: PrefState = {
   preferences: {
     userId: Cookies.get("id"),
     address: "",
-    pricePerMonth: 0,
+    priceMin: 0,
+    priceMax: 0,
     rentalType: "",
     entryDate: new Date(),
     checkOutDate: new Date(),
-    size: 0,
-    floor: 0,
-    rooms: 0,
-    parking: 0,
+    sizeMin: 0,
+    sizeMax: 0,
+    roomsMin: 0,
+    roomsMax: 0,
+    parking: false,
     porch: false,
     garden: false,
     furnished: false,
@@ -50,13 +54,15 @@ export const prefSlice = createSlice({
   reducers: {
     setPreferences: (state, { payload }: PayloadAction<PrefState>) => {
       state.preferences.address = payload.preferences.address;
-      state.preferences.pricePerMonth = payload.preferences.pricePerMonth;
+      state.preferences.priceMin = payload.preferences.priceMin;
+      state.preferences.priceMax = payload.preferences.priceMax;
       state.preferences.rentalType = payload.preferences.rentalType;
       state.preferences.entryDate = payload.preferences.entryDate;
       state.preferences.checkOutDate = payload.preferences.checkOutDate;
-      state.preferences.size = payload.preferences.size;
-      state.preferences.floor = payload.preferences.floor;
-      state.preferences.rooms = payload.preferences.rooms;
+      state.preferences.sizeMin = payload.preferences.sizeMin;
+      state.preferences.sizeMax = payload.preferences.sizeMax;
+      state.preferences.roomsMin = payload.preferences.roomsMin;
+      state.preferences.roomsMax = payload.preferences.roomsMax;
       state.preferences.parking = payload.preferences.parking;
       state.preferences.porch = payload.preferences.porch;
       state.preferences.garden = payload.preferences.garden;

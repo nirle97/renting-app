@@ -1,41 +1,40 @@
 import React, { useState, useCallback } from "react";
 import "./map.css";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-
+require("dotenv").config();
 interface IProps {
-  cords:  {
-    lat: number,
-    lng: number
-  }
+  cords: {
+    lat: number;
+    lng: number;
+  };
 }
-function Map({ cords }: IProps){
-  const [mapContainerStyle, setMapContainerStyle] = useState(
-    {
-      height: "70vh",
-      width: "40vw",
-    })
-  const [options, setOptions] = useState(
-    {
-      disableDefaultUI: false,
-      zoomControl: true,
-    })
+function Map({ cords }: IProps) {
+  const [mapContainerStyle, setMapContainerStyle] = useState({
+    height: "70vh",
+    width: "40vw",
+  });
+  const [options, setOptions] = useState({
+    disableDefaultUI: false,
+    zoomControl: true,
+  });
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "",
+    googleMapsApiKey: process.env.REACT_APP_API_KEY
+      ? process.env.REACT_APP_API_KEY
+      : "",
     libraries: ["places"],
-});
-  
-  const mapRef:React.MutableRefObject<any> = React.useRef();
-  
+  });
+
+  const mapRef: React.MutableRefObject<any> = React.useRef();
+
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
-  
 
-  return (    
+  return (
     <div>
-      { loadError && <span>"Error"</span>} 
-      { !isLoaded && <span>"Loading..."</span>}
+      {loadError && <span>"Error"</span>}
+      {!isLoaded && <span>"Loading..."</span>}
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
@@ -44,14 +43,10 @@ function Map({ cords }: IProps){
         options={options}
         onLoad={onMapLoad}
       >
-        <Marker
-          position={cords}  
-        />
+        <Marker position={cords} />
       </GoogleMap>
-    </div>    
+    </div>
   );
 }
 
 export default Map;
-
-
