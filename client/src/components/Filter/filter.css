@@ -12,6 +12,13 @@
   display: flex;
   flex-direction: row;
 }
+.Filter-range-container{
+  height: 80px;
+}
+.Filter-range-span{
+  height: 10px;
+
+}
 .Filter-range-name {
   float: left;
 }
@@ -41,4 +48,7 @@
 .selected {
   color: black;
   background-color: rgba(242, 85, 90, 1);
+}
+.Filter-search{
+  background-color:white ;
 }

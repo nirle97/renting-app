@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./apartment.css";
 import { IApt } from "../../interfaces/interface";
-import { useEffect } from "react";
 interface IProps {
   apt: IApt;
   aptPreference: (preference: string) => void;

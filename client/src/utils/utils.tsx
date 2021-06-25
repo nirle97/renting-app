@@ -25,6 +25,10 @@ export const clientFiltersObj = {
 };
 export const ownerFiltersObj = {
   address: "",
+  cords: {
+    lat: 0,
+    lng: 0
+  },
   pricePerMonth: 0,
   images: [],
   size: 0,

@@ -19,6 +19,10 @@ export interface IUser extends ISignIn {
 
 export interface IUploadNewApt {
   address: string;
+  cords: {
+    lat: number;
+    lng: number;
+  };
   pricePerMonth: number;
   images: string[];
   rentalType: string;

@@ -25,8 +25,6 @@ function Home() {
   const getUserPref = async () => {
     const { data: { data } } = await network.get("/preference/user-preferences");
     if (data.preferences) {      
-      console.log(data.preferences);
-      
       dispatch(setPreferences({preferences: data.preferences}))
     }
   };
