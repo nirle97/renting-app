@@ -25,8 +25,6 @@ function Filter({ currentFilter, setCurrentFilter }: IProps) {
   });
 
   const changeHandler = (e: any) => {
-    console.log(currentFilter);
-
     setCurrentFilter({
       ...currentFilter,
       [e.target.id]: e.target.value,

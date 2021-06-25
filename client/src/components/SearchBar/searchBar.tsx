@@ -27,11 +27,10 @@ interface IProps {
 }
 
 export default function SearchBar({ searchValue, setSearchValue }: IProps) {
-  const [address, setAddress] = React.useState("");
-  const [coordinates, setCoordinates] = React.useState<LatLng>({
-    lat: 0,
-    lng: 0,
-  });
+  const [address, setAddress] = React.useState(searchValue.address);
+  const [coordinates, setCoordinates] = React.useState<LatLng>(
+    searchValue.cords
+  );
 
   const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
