@@ -3,6 +3,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import { useSelector } from "react-redux";
+import { setPreferences, prefSelectors, PrefState } from "../../store/prefSlice";
 interface LatLng {
   lat: number;
   lng: number;
@@ -27,7 +29,8 @@ interface IProps {
 }
 
 export default function SearchBar({ searchValue, setSearchValue }: IProps) {
-  const [address, setAddress] = React.useState(searchValue.address);
+  const { preferences }: PrefState = useSelector(prefSelectors);
+  const [address, setAddress] = React.useState(preferences.address);
   const [coordinates, setCoordinates] = React.useState<LatLng>(
     searchValue.cords
   );

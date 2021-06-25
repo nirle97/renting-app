@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import { IFilter, IApt } from "../../interfaces/interface";
+import {  IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
-import { useSelector } from "react-redux";
+import { prefSelectors, setPreferences } from "../../store/prefSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Map from "../Map/Map";
-import { clientFiltersObj } from "../../utils/utils";
+
 function Home() {
   const [aptArr, setAptArr] = useState<IApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const { isprofileClicked } = useSelector(profileSelectors);
-  const [currentFilter, setCurrentFilter] = useState<IFilter>(clientFiltersObj);
-
-  useEffect(() => {
-    getAptsByFilters();
-  }, [currentFilter]);
-
-  const getUserPref = async () => {
-    const {
-      data: { data },
-    } = await network.get("/preference/user-preferences");
-  };
+  const dispatch = useDispatch();
+  const { preferences } = useSelector(prefSelectors);
+  
   useEffect(() => {
     getUserPref();
   }, []);
+
+  
+  const getUserPref = async () => {
+    const { data: { data } } = await network.get("/preference/user-preferences");
+    if (data.preferences) {      
+      console.log(data.preferences);
+      
+      dispatch(setPreferences({preferences: data.preferences}))
+    }
+  };
+
+  useEffect(() => {
+    getAptsByFilters();
+  }, [preferences]);
+  
+
   async function getAptsByFilters() {
-    const {
-      data: { data },
-    } = await network.post("apartment/filtered-apts", currentFilter);
+    const { data: { data } } = await network.post("apartment/filtered-apts", preferences);
     setAptArr(data);
   }
 
@@ -44,10 +51,7 @@ function Home() {
   return (
     <div className={`${isprofileClicked && "z-index"} Home-container`}>
       <div className="Home-filter-component">
-        <Filter
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
-        />
+        <Filter />
       </div>
       {aptToDisplay < aptArr.length ? (
         <div className="Home-left-side">

@@ -1,22 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./filter.css";
 import Range from "./Range";
-import { IFilter } from "../../interfaces/interface";
 import SearchBar from "../SearchBar/searchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreferences, prefSelectors } from "../../store/prefSlice";
 import network from "../../utils/network";
-declare module "react" {
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    value?: boolean;
-  }
-}
-interface IProps {
-  setCurrentFilter: React.Dispatch<React.SetStateAction<IFilter>>;
-  currentFilter: IFilter;
-}
+import UserPreferences from "../Preferences/UserPreferences"
 
-function Filter({ currentFilter, setCurrentFilter }: IProps) {
+function Filter() {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
   const [searchValue, setSearchValue] = useState({
@@ -24,29 +15,18 @@ function Filter({ currentFilter, setCurrentFilter }: IProps) {
     address: "",
   });
 
-  const changeHandler = (e: any) => {
-    setCurrentFilter({
-      ...currentFilter,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const booleanChangeHandler = (e: any) => {
-    setCurrentFilter({
-      ...currentFilter,
-      [e.target.id]: !e.target.value,
-    });
-    e.target.value = !e.target.value;
-    e.target.classList.toggle("selected");
-  };
-
   const savePreferences = async () => {
-    await network.put("/preference/user-preferences", currentFilter);
+    await network.put("/preference/user-preferences", preferences);
   };
 
   useEffect(() => {
-    setCurrentFilter({ ...currentFilter, address: searchValue.address });
+    dispatch(setPreferences({preferences: {...preferences, address: searchValue.address}}))
+    setSearchValue({...searchValue,address: preferences.address })
   }, [searchValue]);
+  
+  useEffect(() => {
+    setSearchValue({...searchValue,address: preferences.address })
+  }, []);
 
   return (
     <div className="Filter-container">
@@ -57,122 +37,35 @@ function Filter({ currentFilter, setCurrentFilter }: IProps) {
       <div className="Filter-range-container">
         <span className="Filter-range-name"> price range: </span>
         <Range
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
-          max={1000}
+          max={10000}
           step={100}
           type="price"
         />
-        <span className="Filter-range-min-span">{currentFilter.priceMin}</span>
-        <span className="Filter-range-max-span">{currentFilter.priceMax}</span>
+        <span className="Filter-range-min-span">{preferences.priceMin}</span>
+        <span className="Filter-range-max-span">{preferences.priceMax}</span>
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> size(m²): </span>
         <Range
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
           max={300}
           step={5}
           type="size"
         />
-        <span className="Filter-range-min-span">{currentFilter.sizeMin}</span>
-        <span className="Filter-range-max-span">{currentFilter.sizeMax}</span>
+        <span className="Filter-range-min-span">{preferences.sizeMin}</span>
+        <span className="Filter-range-max-span">{preferences.sizeMax}</span>
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> rooms: </span>
         <Range
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
           max={10}
           step={1}
           type="rooms"
         />
-        <span className="Filter-range-min-span">{currentFilter.roomsMin}</span>
-        <span className="Filter-range-max-span">{currentFilter.roomsMax}</span>
+        <span className="Filter-range-min-span">{preferences.roomsMin}</span>
+        <span className="Filter-range-max-span">{preferences.roomsMax}</span>
       </div>
       <div>
-        <select id="rentalType" onChange={changeHandler}>
-          <option value="short term">short term (1 - 6 months)</option>
-          <option value="long term">long term</option>
-        </select>
-      </div>
-      <div>
-        <label>Entry date:</label>
-        <input id="entryDate" type="Date" onChange={changeHandler} />
-        <label>Check out date:</label>
-        <input id="checkOutDate" type="Date" onChange={changeHandler} />
-      </div>
-      <div className="Filter-more-opt">
-        <span>
-          <span
-            id="parking"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-parking"></i>Parking
-          </span>
-          <span
-            id="porch"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-store"></i>Porch
-          </span>
-          <span
-            id="garden"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-seedling"></i>Garden
-          </span>
-        </span>
-        <span>
-          <span
-            id="furnished"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-sofa"></i>Furnished
-          </span>
-          <span
-            id="elevator"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="far fa-caret-square-up"></i> Elevator
-          </span>
-          <span
-            id="handicapAccessible"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-wheelchair">Handicap Accessible</i>
-          </span>
-        </span>
-        <span>
-          <span
-            id="petsAllowed"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-paw">Pets</i>
-          </span>
-          <span
-            id="smokeAllowed"
-            className="Filter-more-opt-span"
-            value={false}
-            onClick={booleanChangeHandler}
-          >
-            <i className="fas fa-smoking"></i>smoke
-          </span>
-        </span>
+        <UserPreferences />
       </div>
       <button onClick={savePreferences}>confirm</button>
     </div>

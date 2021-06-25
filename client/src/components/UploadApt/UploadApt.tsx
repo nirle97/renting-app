@@ -3,6 +3,8 @@ import "./uploadApt.css";
 import { IUploadNewApt } from "../../interfaces/interface";
 import { ownerFiltersObj } from "../../utils/utils";
 import SearchBar from "../SearchBar/searchBar";
+import OwnerPreferences from "../Preferences/OwnerPreferences"
+
 export default function UploadApt() {
   const [openForm, setOpenForm] = useState(false);
   const [imgFiles, setImgFiles] = useState<{}[]>([]);
@@ -11,23 +13,11 @@ export default function UploadApt() {
     cords: { lat: 0, lng: 0 },
     address: "",
   });
+
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormInput({
-      ...formInput,
-      [e.target.id]:
-        e.target.name === "number"
-          ? Number(e.target.value)
-          : e.target.value,
-    });
+    setFormInput({...formInput, [e.target.id]: e.target.value})
   };
-  const booleanChangeHandler = (e: any) => {
-    setFormInput({
-      ...formInput,
-      [e.target.id]: !e.target.value,
-    });
-    e.target.value = !e.target.value;
-    e.target.classList.toggle("selected");
-  };
+
   const uploadImgs = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImgFiles([...imgFiles, e.target.files[0]]);
@@ -144,78 +134,10 @@ export default function UploadApt() {
                 name="number"
               />
             </div>
-            <div className="Filter-more-opt">
-          <span>
-            <span
-              id="parking"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-parking"></i>Parking
-            </span>
-            <span
-              id="porch"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-store"></i>Porch
-            </span>
-            <span
-              id="garden"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-seedling"></i>Garden
-            </span>
-          </span>
-          <span>
-            <span
-              id="furnished"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-sofa"></i>Furnished
-            </span>
-            <span
-              id="elevator"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="far fa-caret-square-up"></i> Elevator
-            </span>
-            <span
-              id="handicapAccessible"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-wheelchair">Handicap Accessible</i>
-            </span>
-          </span>
-          <span>
-            <span
-              id="petsAllowed"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-paw">Pets</i>
-            </span>
-            <span
-              id="smokeAllowed"
-              className="Filter-more-opt-span"
-              value={false}
-              onClick={booleanChangeHandler}
-            >
-              <i className="fas fa-smoking"></i>smoke
-            </span>
-          </span>
-        </div>
+            <div>
+              <OwnerPreferences formInput={formInput} setFormInput={setFormInput}/>
+            </div>
+
           </form>
           <button onClick={submitHandler}>close</button>
         </div>
@@ -223,13 +145,3 @@ export default function UploadApt() {
     </div>
   );
 }
-// {
-//   parking: boolean;
-//   porch: boolean;
-//   garden: boolean;
-//   furnished: boolean;
-//   elevator: boolean;
-//   handicapAccessible: boolean;
-//   petsAllowed: boolean;
-//   smokeAllowed: boolean;
-// }

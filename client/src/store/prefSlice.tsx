@@ -9,8 +9,8 @@ export interface PrefState {
     priceMin: Number;
     priceMax: Number;
     rentalType: string;
-    entryDate: Date;
-    checkOutDate: Date;
+    entryDate: string;
+    checkOutDate: string;
     sizeMin: number;
     sizeMax: number;
     roomsMin: number;
@@ -32,8 +32,8 @@ export const initialState: PrefState = {
     priceMin: 0,
     priceMax: 0,
     rentalType: "",
-    entryDate: new Date(),
-    checkOutDate: new Date(),
+    entryDate: new Date().toLocaleDateString(),
+    checkOutDate: new Date().toLocaleDateString(),
     sizeMin: 0,
     sizeMax: 0,
     roomsMin: 0,

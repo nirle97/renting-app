@@ -21,8 +21,8 @@ export interface IUploadNewApt {
   pricePerMonth: number;
   images: string[];
   rentalType: string;
-  entryDate: Date;
-  checkOutDate: Date;
+  entryDate: string;
+  checkOutDate: string;
   size: number;
   floor: number;
   rooms: number;
@@ -67,4 +67,18 @@ export interface IApt {
     lat: number;
     lng: number;
   };
+}
+
+export interface IAdvancedPref {
+  rentalType: string;
+  entryDate: Date;
+  checkOutDate: Date;
+  parking: boolean;
+  porch: boolean;
+  garden: boolean;
+  furnished: boolean;
+  elevator: boolean;
+  handicapAccessible: boolean;
+  petsAllowed: boolean;
+  smokeAllowed: boolean;
 }
