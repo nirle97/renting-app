@@ -14,6 +14,7 @@ export interface IUser extends ISignIn {
   phoneNumber: string;
   age: string;
   imgUrl?: string;
+  imgFile?: {}
 }
 
 export interface IUploadNewApt {

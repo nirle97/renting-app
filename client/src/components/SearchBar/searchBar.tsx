@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -31,10 +31,12 @@ interface IProps {
 export default function SearchBar({ searchValue, setSearchValue }: IProps) {
   const { preferences }: PrefState = useSelector(prefSelectors);
   const [address, setAddress] = React.useState(preferences.address);
-  const [coordinates, setCoordinates] = React.useState<LatLng>(
-    searchValue.cords
-  );
-
+  const [coordinates, setCoordinates] = React.useState<LatLng>(searchValue.cords);
+    useEffect(()=>{
+      console.log(preferences.address);
+      console.log(address);
+      
+    },[])
   const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
     const latLng: LatLng = await getLatLng(results[0]);

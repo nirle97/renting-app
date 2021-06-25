@@ -13,8 +13,6 @@ const setUserPreferences = async (
     return;
   }
   try {
-    console.log(req.body);
-    
     await UserPrefModel.createIfNotExistsByUserId(req.body, req.decoded.id);
     res.status(200).send(resTemplate.success.created);
   } catch (e) {

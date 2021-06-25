@@ -21,9 +21,9 @@ function Filter() {
 
   useEffect(() => {
     dispatch(setPreferences({preferences: {...preferences, address: searchValue.address}}))
-    setSearchValue({...searchValue,address: preferences.address })
+    // setSearchValue({...searchValue,address: preferences.address })
   }, [searchValue]);
-  
+
   useEffect(() => {
     setSearchValue({...searchValue,address: preferences.address })
   }, []);
@@ -32,7 +32,7 @@ function Filter() {
     <div className="Filter-container">
       <div className="Filter-address">
         Address:{" "}
-        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />{" "}
+        <SearchBar searchValue={preferences.address} setSearchValue={setSearchValue} />{" "}
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> price range: </span>

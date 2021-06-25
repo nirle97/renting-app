@@ -20,9 +20,15 @@ function SignUp() {
     password: "",
     age: "",
     imgUrl: "",
+    imgFile: {}
   });
   const history = useHistory();
+
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFormInput({...formInput, [e.target.name]: e.target.files[0]
+      });
+    }
     setFormInput({
       ...formInput,
       [e.target.name]:
@@ -127,6 +133,17 @@ function SignUp() {
             onChange={changeHandler}
             name="age"
             placeholder="Age"
+          />
+          <label>
+            <i className="fas fa-camera"></i>
+          </label>
+          <input
+            className="SignUp-input"
+            type="file"
+            accept=".jpg,.jpeg,.png,.PNG"
+            multiple
+            onChange={changeHandler}
+            name="imgFile"
           />
         </div>
         {emptyFldMsg && (
