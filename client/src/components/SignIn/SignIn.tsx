@@ -35,6 +35,8 @@ function SignIn() {
         const {
           data: { data },
         } = await network.post("/login/sign-in", formInput);
+        console.log(data);
+
         dispatch(setIsLogged({ isLogged: true }));
         Cookies.set("token", data.accessToken, { expires: 1, secure: true });
         Cookies.set("id", data.id, { expires: 1, secure: true });
@@ -55,7 +57,6 @@ function SignIn() {
     const {
       data: { data },
     } = await network.post("/googleAuth/login", { tokenId });
-    console.log(data);
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
     Cookies.set("id", data.id, { secure: true });

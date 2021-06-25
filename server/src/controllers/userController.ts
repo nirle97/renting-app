@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { UserModel } from "../db/models/UserModel";
 import { AptModel } from "../db/models/AptModel";
 import { resTemplate } from "../utils/responses";
+import { getFileStream } from "../utils/s3";
 interface Decoded extends Request {
   decoded: { id: String };
 }
@@ -42,5 +43,14 @@ const getLikedApts = async (req: Decoded, res: Response): Promise<void> => {
   }
 };
 
-const userController = { getUser, getLikedApts };
+const getProfileImg = async (req: Decoded, res: Response) => {
+  const key = req.params.key;
+  console.log(key);
+
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+};
+
+const userController = { getUser, getLikedApts, getProfileImg };
 export default userController;

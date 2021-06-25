@@ -3,6 +3,12 @@ const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 import { UserModel } from "../db/models/UserModel";
 import { IUser } from "../interfaces/interface";
 import { resTemplate } from "../utils/responses";
+import { uploadFile } from "../utils/s3";
+import fs from "fs";
+import util from "util";
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+const unlinkFile = util.promisify(fs.unlink);
 
 interface Decoded extends Request {
   decoded: {
@@ -11,6 +17,7 @@ interface Decoded extends Request {
     email: String;
     phoneNumber: String;
     age: Number;
+    imgUrl: String;
   };
 }
 const signUp = async (req: Request, res: Response): Promise<void> => {
@@ -22,7 +29,7 @@ const signUp = async (req: Request, res: Response): Promise<void> => {
   credentials.password = hashSync(credentials.password, genSaltSync(10));
 
   try {
-    await UserModel.create(credentials, { new: true });
+    await UserModel.create(credentials);
     res.status(201).send(resTemplate.success.created);
   } catch (e) {
     console.error(e);
@@ -58,6 +65,7 @@ const signIn = async (
         email: result.email,
         phoneNumber: result.phoneNumber,
         age: result.age,
+        imgUrl: result.imgUrl,
       };
       next();
     }
@@ -66,5 +74,24 @@ const signIn = async (
     res.status(500).send(resTemplate.serverError);
   }
 };
-const loginController = { signUp, signIn };
+
+const uploadProfileImg = async (req: Request, res: Response): Promise<void> => {
+  if (!req.file) {
+    res.status(400).send(resTemplate.clientError.badRequest);
+    return;
+  }
+  try {
+    const result = await uploadFile(req.file.path, req.file.filename);
+    await unlinkFile(req.file.path);
+    res.status(201).send({
+      ...resTemplate.success.created,
+      data: `/user/profile-image/${result.Key}`,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(resTemplate.serverError);
+  }
+};
+
+const loginController = { signUp, signIn, uploadProfileImg };
 export default loginController;

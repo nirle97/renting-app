@@ -9,10 +9,14 @@ import { useDispatch } from "react-redux";
 import { setIsLogged } from "../../store/authSlice";
 import { setUser } from "../../store/userSlice";
 import Cookies from "js-cookie";
+import axios from "axios";
 require("dotenv").config();
+
 function SignUp() {
   const dispatch = useDispatch();
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
+  const [file, setFile] = useState<string | Blob>("");
+  const [image, setImages] = useState("");
   const [formInput, setFormInput] = useState<IUser>({
     fullName: "",
     phoneNumber: "",
@@ -20,14 +24,12 @@ function SignUp() {
     password: "",
     age: "",
     imgUrl: "",
-    imgFile: {}
   });
   const history = useHistory();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFormInput({...formInput, [e.target.name]: e.target.files[0]
-      });
+    if (e.target.name === "imgUrl" && e.target.files) {
+      setFile(e.target.files[0]);
     }
     setFormInput({
       ...formInput,
@@ -35,11 +37,29 @@ function SignUp() {
         e.target.name === "age" ? Number(e.target.value) : e.target.value,
     });
   };
+
+  async function postImage(
+    image: string | Blob,
+    description: string
+  ): Promise<void> {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("description", description);
+
+    const result = await axios.post("/login/profile-image", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    setImages(result.data.data);
+    return result.data.data;
+  }
+
   const registerUser = async (e: any) => {
     try {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
-        await network.post("/login/sign-up", formInput);
+        const url = await postImage(file, "profileImg");
+        setFormInput({ ...formInput, imgUrl: image });
+        await network.post("/login/sign-up", { ...formInput, imgUrl: url });
         history.push("/");
       } else {
         setEmptyFldMsg(true);
@@ -139,11 +159,11 @@ function SignUp() {
           </label>
           <input
             className="SignUp-input"
+            id="upload-pic"
             type="file"
             accept=".jpg,.jpeg,.png,.PNG"
-            multiple
             onChange={changeHandler}
-            name="imgFile"
+            name="imgUrl"
           />
         </div>
         {emptyFldMsg && (

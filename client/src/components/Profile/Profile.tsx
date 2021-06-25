@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./profile.css";
 import { userSelectors } from "../../store/userSlice";
@@ -9,6 +9,7 @@ import {
 } from "../../store/profileSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import netwrok from "../../utils/network";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -16,6 +17,12 @@ function Profile() {
   const { isprofileClicked } = useSelector(profileSelectors);
   const { user } = useSelector(userSelectors);
   const [showInfo, setShowInfo] = useState(false);
+  // const getUserImg = async () => {
+  //   const url = await netwrok.get(`/user/profile-image/${user.imgUrl}`);
+  //   return url;
+  // };
+  // useEffect(() => {});
+
   const logOutHandler = () => {
     dispatch(setIsLogged({ isLogged: false }));
     dispatch(setIsprofileClicked({ isprofileClicked: !profileSelectors }));

@@ -1,12 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-declare module 'axios' {
-  export interface AxiosRequestConfig {
-    city: String;
-    priceMin: Number;
-    priceMax: Number;
-  }
-}
 const network = axios.create();
 
 const getAccessToken = () => Cookies.get("token");
@@ -23,7 +16,9 @@ network.interceptors.response.use(
     const originalRequest = error.config;
     if (status === 403) {
       try {
-        const { data: { data: accessToken} } = await axios.post("/auth/generate-new-token", {
+        const {
+          data: { data: accessToken },
+        } = await axios.post("/auth/generate-new-token", {
           id: Cookies.get("id"),
         });
         Cookies.set("token", accessToken);

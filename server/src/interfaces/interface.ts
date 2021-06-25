@@ -8,7 +8,7 @@ export interface IUser extends Document {
   age: Number;
   likedApts: {}[];
   refreshToken?: String | null;
-  imgUrl?: String;
+  imgUrl: String;
 }
 export interface IOwnerApt extends Document {
   ownerId: String;

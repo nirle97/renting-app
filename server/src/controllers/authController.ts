@@ -15,6 +15,7 @@ interface ISignInUser extends Request {
     phoneNumber?: String;
     age?: Number;
     imgUrl?: String;
+    imgFile?: {};
   };
 }
 const vlidateToken = (req: Request, res: Response): void => {
@@ -69,8 +70,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
     });
     await UserModel.findOneAndUpdate(
       { email: req.decoded.email },
-      { refreshToken: refreshToken },
-      { new: true }
+      { refreshToken: refreshToken }
     );
     res.status(200).send({
       ...resTemplate.success.general,
@@ -80,6 +80,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
         email: req.decoded.email,
         fullName: req.decoded.fullName,
         imgUrl: req.decoded.imgUrl,
+        imgFile: req.decoded.imgFile,
         age: req.decoded.age,
         phoneNumber: req.decoded.phoneNumber,
       },

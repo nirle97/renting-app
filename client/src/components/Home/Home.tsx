@@ -3,7 +3,7 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import {  IApt } from "../../interfaces/interface";
+import { IApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
 import { prefSelectors, setPreferences } from "../../store/prefSlice";
@@ -16,28 +16,30 @@ function Home() {
   const { isprofileClicked } = useSelector(profileSelectors);
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
-  
+
   useEffect(() => {
     getUserPref();
   }, []);
 
-  
   const getUserPref = async () => {
-    const { data: { data } } = await network.get("/preference/user-preferences");
-    if (data.preferences) {      
+    const {
+      data: { data },
+    } = await network.get("/preference/user-preferences");
+    if (data) {
       console.log(data.preferences);
-      
-      dispatch(setPreferences({preferences: data.preferences}))
+
+      dispatch(setPreferences({ preferences: data.preferences }));
     }
   };
 
   useEffect(() => {
     getAptsByFilters();
   }, [preferences]);
-  
 
   async function getAptsByFilters() {
-    const { data: { data } } = await network.post("apartment/filtered-apts", preferences);
+    const {
+      data: { data },
+    } = await network.post("apartment/filtered-apts", preferences);
     setAptArr(data);
   }
 
