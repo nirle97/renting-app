@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./uploadApt.css";
 import { IUploadNewApt } from "../../interfaces/interface";
 import { ownerFiltersObj } from "../../utils/utils";
 import SearchBar from "../SearchBar/searchBar";
 import OwnerPreferences from "../Preferences/OwnerPreferences"
+import network from "../../utils/network";
 
 export default function UploadApt() {
   const [openForm, setOpenForm] = useState(false);
@@ -23,7 +24,14 @@ export default function UploadApt() {
       setImgFiles([...imgFiles, e.target.files[0]]);
     }
   };
-  const submitHandler = () => {
+  useEffect(()=> {
+    setFormInput({...formInput, address: searchValue.address, cords:searchValue.cords})
+  },[searchValue])
+
+  const submitHandler = async () => {
+   console.log(formInput);
+   const a = await network.post("/apartment/create", formInput)
+   console.log(a);
     setOpenForm(false);
   };
 
@@ -43,6 +51,7 @@ export default function UploadApt() {
               <SearchBar
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
+                searchBarClass="UploadApts-search"
               />
             </div>
             <div className="UploadApt-div-input">
@@ -54,51 +63,6 @@ export default function UploadApt() {
                 onChange={changeHandler}
                 id="pricePerMonth"
                 name="number"
-              />
-            </div>
-            <div className="UploadApt-div-input">
-              <label>Images:</label>
-              <input
-                className="UploadApt-input"
-                type="file"
-                accept=".jpg,.jpeg,.png,.PNG"
-                multiple
-                onChange={uploadImgs}
-                id="images"
-                name="img"
-              />
-            </div>
-            <div className="UploadApt-div-input">
-              <label>Rental Type:</label>
-              <select
-                ref={formInput.rentalType}
-                className="UploadApt-input"
-                id="rentalType"
-                name="text"
-                onChange={(e) => changeHandler}
-              >
-                <option value="short term">short term (1 - 6 months)</option>
-                <option value="long term">long term</option>
-              </select>
-            </div>
-            <div className="UploadApt-div-input">
-              <label>Entry Date:</label>
-              <input
-                className="UploadApt-input"
-                type="Date"
-                onChange={changeHandler}
-                id="entryDate"
-                name="text"
-              />
-            </div>
-            <div className="UploadApt-div-input">
-              <label>Check out date:</label>
-              <input
-                className="UploadApt-input"
-                type="Date"
-                onChange={changeHandler}
-                id="checkOutDate"
-                name="text"
               />
             </div>
             <div className="UploadApt-div-input">
@@ -134,12 +98,24 @@ export default function UploadApt() {
                 name="number"
               />
             </div>
+            <div className="UploadApt-div-input">
+              <label>Images:</label>
+              <input
+                className="UploadApt-input"
+                type="file"
+                accept=".jpg,.jpeg,.png,.PNG"
+                multiple
+                onChange={uploadImgs}
+                id="images"
+                name="img"
+              />
+            </div>
             <div>
               <OwnerPreferences formInput={formInput} setFormInput={setFormInput}/>
             </div>
 
           </form>
-          <button onClick={submitHandler}>close</button>
+          <button onClick={submitHandler}>submit</button>
         </div>
       )}
     </div>

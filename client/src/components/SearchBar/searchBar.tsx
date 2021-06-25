@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import { useSelector } from "react-redux";
-import {
-  setPreferences,
-  prefSelectors,
-  PrefState,
-} from "../../store/prefSlice";
+
 interface LatLng {
   lat: number;
   lng: number;
 }
 interface IProps {
+  searchBarClass: string;
   searchValue: {
     cords: {
       lat: number;
@@ -32,18 +28,17 @@ interface IProps {
   >;
 }
 
-export default function SearchBar({ searchValue, setSearchValue }: IProps) {
-  const { preferences }: PrefState = useSelector(prefSelectors);
-  const [address, setAddress] = React.useState(preferences.address);
-  const [coordinates, setCoordinates] = React.useState<LatLng>(
-    searchValue.cords
-  );
+export default function SearchBar({
+  searchValue,
+  setSearchValue,
+  searchBarClass,
+}: IProps) {
+  const [address, setAddress] = React.useState(searchValue.address);
 
   const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
     const latLng: LatLng = await getLatLng(results[0]);
     setAddress(value);
-    setCoordinates(latLng);
     setSearchValue({
       cords: { lat: latLng.lat, lng: latLng.lng },
       address: value,
@@ -59,13 +54,23 @@ export default function SearchBar({ searchValue, setSearchValue }: IProps) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <input {...getInputProps({ placeholder: "Type address" })} />
+            <input
+              className={searchBarClass}
+              {...getInputProps({ placeholder: "Type address" })}
+            />
             <div>
               {loading ? <div>...loading</div> : null}
               {suggestions.map((suggestion, i) => {
-                const style = {
-                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
-                };
+                const style =
+                  searchBarClass === "Filter-search"
+                    ? {
+                        backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                      }
+                    : {
+                        backgroundColor: suggestion.active
+                          ? "#41b6e6"
+                          : "#f5cabc",
+                      };
 
                 return (
                   <div

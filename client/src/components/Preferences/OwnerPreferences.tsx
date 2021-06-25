@@ -15,23 +15,27 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
   };
 
   const booleanChangeHandler = (e: any) => {
-    setFormInput({...formInput, [e.target.id]: !e.target.value})
-    e.target.classList.toggle("selected");
+    if(e.target.id){
+      setFormInput({...formInput, [e.target.id]: !e.target.value})
+      e.target.classList.toggle("selected");
+    }
   };
 
   return (
     <div className="OwnerPreferences-container">
-      <div>
-        <select id="rentalType" onChange={changeHandler} value={formInput.rentalType}>
+      <div className="OwnerPreferences-div-input">
+        <select className="OwnerPreferences-input" id="rentalType" onChange={changeHandler} value={formInput.rentalType}>
           <option value="short term">short term (1 - 6 months)</option>
           <option value="long term">long term</option>
         </select>
       </div>
-      <div>
+      <div className="OwnerPreferences-div-input">
         <label>Entry date:</label>
-        <input id="entryDate" type="date" onChange={changeHandler} value={formInput.entryDate} />
+        <input className="OwnerPreferences-input" id="entryDate" type="date" onChange={changeHandler} value={formInput.entryDate} />
+      </div>
+      <div className="OwnerPreferences-div-input">
         <label>Check out date:</label>
-        <input id="checkOutDate" type="date" onChange={changeHandler} value={formInput.entryDate} />
+        <input className="OwnerPreferences-input" id="checkOutDate" type="date" onChange={changeHandler} value={formInput.checkOutDate} />
       </div>
       <div className="OwnerPreferences-more-opt">
         <span>
@@ -41,7 +45,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.parking}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-parking"></i>Parking
+            <i className="fas fa-parking OwnerPreferences-i"></i>Parking
           </span>
           <span
             id="porch"
@@ -49,7 +53,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.porch}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-store"></i>Porch
+            <i className="fas fa-store OwnerPreferences-i"></i>Porch
           </span>
           <span
             id="garden"
@@ -57,7 +61,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.garden}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-seedling"></i>Garden
+            <i className="fas fa-seedling OwnerPreferences-i"></i>Garden
           </span>
         </span>
         <span>
@@ -67,7 +71,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.furnished}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-sofa"></i>Furnished
+            <i className="fas fa-couch OwnerPreferences-i"></i>Furnished
           </span>
           <span
             id="elevator"
@@ -75,7 +79,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.elevator}
             onClick={booleanChangeHandler}
           >
-            <i className="far fa-caret-square-up"></i> Elevator
+            <i className="far fa-caret-square-up OwnerPreferences-i"></i> Elevator
           </span>
           <span
             id="handicapAccessible"
@@ -83,7 +87,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.handicapAccessible}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-wheelchair">Handicap Accessible</i>
+            <i className="fas fa-wheelchair OwnerPreferences-i"></i> Accessible
           </span>
         </span>
         <span>
@@ -93,7 +97,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.petsAllowed}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-paw">Pets</i>
+            <i className="fas fa-paw OwnerPreferences-i"></i> Pets
           </span>
           <span
             id="smokeAllowed"
@@ -101,7 +105,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             value={formInput.smokeAllowed}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-smoking"></i>smoke
+            <i className="fas fa-smoking OwnerPreferences-i"></i>smoke
           </span>
         </span>
       </div>

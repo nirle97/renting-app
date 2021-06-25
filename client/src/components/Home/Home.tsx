@@ -25,9 +25,7 @@ function Home() {
     const {
       data: { data },
     } = await network.get("/preference/user-preferences");
-    if (data) {
-      console.log(data.preferences);
-
+    if (data.preferences) {
       dispatch(setPreferences({ preferences: data.preferences }));
     }
   };

@@ -9,11 +9,11 @@ interface IProps {
   };
 }
 function Map({ cords }: IProps) {
-  const [mapContainerStyle, setMapContainerStyle] = useState({
+  const [mapContainerStyle] = useState({
     height: "70vh",
     width: "40vw",
   });
-  const [options, setOptions] = useState({
+  const [options] = useState({
     disableDefaultUI: false,
     zoomControl: true,
   });

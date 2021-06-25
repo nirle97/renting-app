@@ -16,24 +16,28 @@ function UserPreferences() {
   };
 
   const booleanChangeHandler = (e: any) => {
-    dispatch(setPreferences({preferences: {...preferences, [e.target.id]: !e.target.value}}))
+    if(e.target.id){
+      dispatch(setPreferences({preferences: {...preferences, [e.target.id]: !e.target.value}}))
+    }
   };
-  const selectedClassName = ["UserPreferences-more-opt-span", "U erPreferences-more-opt-span selected"]
+  const selectedClassName = ["UserPreferences-more-opt-span", "UserPreferences-more-opt-span selected"]
   
   return (
     <div className="UserPreferences-container">
-      <div>
-        <select id="rentalType" onChange={changeHandler} value={preferences.rentalType}>
-          <option value="short term">short term (1 - 6 months)</option>
-          <option value="long term">long term</option>
-        </select>
-      </div>
-      <div>
-        <label>Entry date:</label>
-        <input id="entryDate" type="date" onChange={changeHandler} value={preferences.entryDate} />
-        <label>Check out date:</label>
-        <input id="checkOutDate" type="date" onChange={changeHandler} value={preferences.checkOutDate} />
-      </div>
+        <div>
+          <select id="rentalType" onChange={changeHandler} value={preferences.rentalType}>
+            <option value="short term">short term (1 - 6 months)</option>
+            <option value="long term">long term</option>
+          </select>
+        </div>
+        <div className="UserPreferences-input-div">
+          <label>Entry date: </label>
+          <input id="entryDate" type="date" onChange={changeHandler} value={preferences.entryDate} />
+        </div>
+        <div className="UserPreferences-input-div">
+          <label>Check out date: </label>
+          <input id="checkOutDate" type="date" onChange={changeHandler} value={preferences.checkOutDate} />
+        </div>
       <div className="UserPreferences-more-opt">
         <span>
           <span
@@ -42,7 +46,7 @@ function UserPreferences() {
             value={preferences.parking}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-parking"></i>Parking
+            <i className="fas fa-parking UserPreferences-i"></i>Parking
           </span>
           <span
             id="porch"
@@ -50,7 +54,7 @@ function UserPreferences() {
             value={preferences.porch}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-store"></i>Porch
+            <i className="fas fa-store UserPreferences-i"></i>Porch
           </span>
           <span
             id="garden"
@@ -58,7 +62,7 @@ function UserPreferences() {
             value={preferences.garden}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-seedling"></i>Garden
+            <i className="fas fa-seedling UserPreferences-i"></i>Garden
           </span>
         </span>
         <span>
@@ -68,7 +72,7 @@ function UserPreferences() {
             value={preferences.furnished}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-sofa"></i>Furnished
+            <i className="fas fa-couch UserPreferences-i"></i>Furnished
           </span>
           <span
             id="elevator"
@@ -76,7 +80,7 @@ function UserPreferences() {
             value={preferences.elevator}
             onClick={booleanChangeHandler}
           >
-            <i className="far fa-caret-square-up"></i> Elevator
+            <i className="far fa-caret-square-up UserPreferences-i"></i> Elevator
           </span>
           <span
             id="handicapAccessible"
@@ -84,7 +88,7 @@ function UserPreferences() {
             value={preferences.handicapAccessible}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-wheelchair">Handicap Accessible</i>
+            <i className="fas fa-wheelchair UserPreferences-i"></i>Accessible
           </span>
         </span>
         <span>
@@ -94,7 +98,7 @@ function UserPreferences() {
             value={preferences.petsAllowed}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-paw">Pets</i>
+            <i className="fas fa-paw UserPreferences-i"></i>Pets
           </span>
           <span
             id="smokeAllowed"
@@ -102,7 +106,7 @@ function UserPreferences() {
             value={preferences.smokeAllowed}
             onClick={booleanChangeHandler}
           >
-            <i className="fas fa-smoking"></i>smoke
+            <i className="fas fa-smoking UserPreferences-i"></i>smoke
           </span>
         </span>
       </div>

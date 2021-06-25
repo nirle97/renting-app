@@ -1,11 +1,9 @@
 import "./navBar.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Profile from "../Profile/Profile";
 
 function NavBar() {
-  const dispatch = useDispatch()
 
   return (
     <div className={"NavBar-container"}>
