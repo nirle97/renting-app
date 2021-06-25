@@ -14,7 +14,7 @@ interface IProps {
 
 function Range({ setCurrentFilter, currentFilter, max, step, type }: IProps) {
   const dispatch = useDispatch();
-  const [filtterInput, setFiltterInput] = useState<number[]>([20, 37]);
+  const [filtterInput, setFiltterInput] = useState<number[]>([currentFilter.priceMin, currentFilter.priceMax]);
   const { preferences } = useSelector(prefSelectors);
   const changeHandler = (e: any, newValue: number | number[]) => {
     const value = newValue as number[];

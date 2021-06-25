@@ -38,8 +38,8 @@ export interface IUploadNewApt {
 
 export interface IFilter {
   address: string;
-  priceMin: Number;
-  priceMax: Number;
+  priceMin: number;
+  priceMax: number;
   rentalType: string;
   entryDate: Date;
   checkOutDate: Date;
