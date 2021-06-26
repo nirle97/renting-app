@@ -25,13 +25,13 @@ function Home() {
     const {
       data: { data },
     } = await network.get("/preference/user-preferences");
-    if (data) {      
+    if (data) {
       dispatch(setPreferences({ preferences: data.preferences }));
     }
   };
 
   const aptPreference = async (preference: string) => {
-    const res = await network.put(
+    await network.put(
       `apartment/like-status/${aptArr[aptToDisplay]._id}?status=${preference}`
     );
     setAptToDisplay(aptToDisplay + 1);

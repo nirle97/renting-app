@@ -39,8 +39,8 @@ export interface IOwnerApt extends Document {
 
 export interface IClientApt extends Document {
   address: string;
-  priceMin: Number;
-  priceMax: Number;
+  priceMin: number;
+  priceMax: number;
   rentalType: string;
   entryDate: Date;
   checkOutDate: Date;

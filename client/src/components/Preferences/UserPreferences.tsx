@@ -53,6 +53,7 @@ function UserPreferences() {
           id="rentalType"
           onChange={changeHandler}
           value={preferences.rentalType}
+          defaultValue="short term"
         >
           <option value="short term">short term (1 - 6 months)</option>
           <option value="long term">long term</option>

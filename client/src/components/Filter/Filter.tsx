@@ -20,11 +20,11 @@ function Filter({ setAptArr }: IProps) {
 
   const savePreferences = async () => {
     await network.put("/preference/user-preferences", preferences);
-    dispatch(setPreferences({ preferences }));
     const {
       data: { data },
     } = await network.post("/apartment/filtered-apts", preferences);
     setAptArr(data);
+    console.log(preferences);
   };
 
   useEffect(() => {
@@ -39,16 +39,6 @@ function Filter({ setAptArr }: IProps) {
     setSearchValue({ ...searchValue, address: preferences.address });
   }, []);
 
-  // useEffect(() => {
-  //   getAptsByFilters();
-  // }, [preferences]);
-
-  // async function getAptsByFilters() {
-  //   const {
-  //     data: { data },
-  //   } = await network.post("apartment/filtered-apts", preferences);
-  //   setAptArr(data);
-  // }
   return (
     <div className="Filter-container">
       <div className="Filter-address">
