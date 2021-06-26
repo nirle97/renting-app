@@ -30,17 +30,6 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    getAptsByFilters();
-  }, [preferences]);
-
-  async function getAptsByFilters() {
-    const {
-      data: { data },
-    } = await network.post("apartment/filtered-apts", preferences);
-    setAptArr(data);
-  }
-
   const aptPreference = async (preference: string) => {
     const res = await network.put(
       `apartment/like-status/${aptArr[aptToDisplay]._id}?status=${preference}`
@@ -51,7 +40,7 @@ function Home() {
   return (
     <div className={`${isprofileClicked && "z-index"} Home-container`}>
       <div className="Home-filter-component">
-        <Filter />
+        <Filter setAptArr={setAptArr} />
       </div>
       {aptToDisplay < aptArr.length ? (
         <div className="Home-left-side">

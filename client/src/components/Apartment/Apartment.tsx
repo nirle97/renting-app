@@ -12,7 +12,6 @@ function Apartment({ apt, aptPreference }: IProps) {
   return (
     <div className="Apartment-container">
       <div className="Apartment-top-img-and-buttons">
-        {/* {picToDisplay !== 0 && ( */}
         <span
           className="Apartment-top-section-left-button Apartment-btn"
           onClick={() => setPicToDisplay((prev) => --prev)}
@@ -26,7 +25,6 @@ function Apartment({ apt, aptPreference }: IProps) {
             alt="apartment pics"
           />
         </div>
-        {/* {picToDisplay !== apt.images.length - 1 && ( */}
         <span
           className="Apartment-top-section-right-button Apartment-btn"
           onClick={() => setPicToDisplay((prev) => ++prev)}
