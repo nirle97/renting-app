@@ -46,7 +46,7 @@ const generateNewToken = async (req: Request, res: Response): Promise<void> => {
       }
     );
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.status(401).send(resTemplate.clientError.unAuthorized);
   }
 };

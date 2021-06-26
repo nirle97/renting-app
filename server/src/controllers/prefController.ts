@@ -31,7 +31,11 @@ const getUserPreferences = async (
   }
   try {
     const userPref = await UserPrefModel.findOne({ userId: req.decoded.id });
-    res.status(200).send({ ...resTemplate.success.general, data: userPref });
+    if (userPref) {
+      res.status(200).send({ ...resTemplate.success.general, data: userPref });
+    } else {
+      res.status(200).send({ ...resTemplate.success.noContent });
+    }
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
