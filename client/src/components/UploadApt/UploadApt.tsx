@@ -42,13 +42,19 @@ export default function UploadApt() {
     return result.data.data;
   }
 
-  const submitHandler = async () => {
+  const submitHandler = async (e:any) => {
+    console.log(e.target);
+    
+    e.target.hidden = true;
     if (files) {
       const url = await postImage(files, "AptsImg");
     }
     setFormInput({ ...formInput, imagesUrl: images });
     await network.post("/apartment/create", formInput);
+    console.log(formInput);
+    e.target.hidden = false;
     setOpenForm(false);
+
   };
 
   useEffect(() => {

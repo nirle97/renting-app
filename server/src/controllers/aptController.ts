@@ -22,10 +22,13 @@ const addNewApt = async (req: Decoded, res: Response): Promise<void> => {
     if (Array.isArray(req.body)) {
       req.body.map(async (obj) => {
         const newAptObj: IOwnerApt = { ...obj, ownerId: req.decoded.id };
+        newAptObj.likedBy = ["a"];
+        newAptObj.disLikedBy = ["a"];
         await AptModel.create(newAptObj);
       });
     } else {
       const newAptObj: IOwnerApt = { ...req.body, ownerId: req.decoded.id };
+      console.log(newAptObj);
       await AptModel.create(newAptObj);
     }
 

@@ -10,10 +10,10 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
     setFormInput({...formInput, [e.target.id]: e.target.value})
   };
 
-  const booleanChangeHandler = (e: any) => {
+  const booleanChangeHandler = async (e: any) => {
     if(e.target.id){
-      setFormInput({...formInput, [e.target.id]: e.target.classList[1]? true : false})
-      e.target.classList.toggle("selected");
+      setFormInput({...formInput, [e.target.id]: e.target.classList[1]? false : true})
+      e.target.classList.toggle("selected");      
     }
   };
 

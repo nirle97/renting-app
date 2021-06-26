@@ -33,11 +33,13 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   },
   likedBy: {
     type: Array,
-    unique: true,
+    default: [],
+    sparse: true,
   },
   disLikedBy: {
     type: Array,
-    unique: true,
+    default: [],
+    sparse: true,
   },
   rentalType: {
     type: String,
@@ -68,7 +70,7 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     require: true,
   },
   parking: {
-    type: Number,
+    type: Boolean,
     require: true,
   },
   porch: {
