@@ -1,10 +1,5 @@
 import "./ownerPreferences.css";
 import { IUploadNewApt } from "../../interfaces/interface";
-declare module "react" {
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    value?: boolean;
-  }
-}
 interface IProps {
   formInput: IUploadNewApt;
   setFormInput: React.Dispatch<React.SetStateAction<IUploadNewApt>>;
@@ -16,7 +11,10 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
 
   const booleanChangeHandler = (e: any) => {
     if (e.target.id) {
-      setFormInput({ ...formInput, [e.target.id]: !e.target.value });
+      setFormInput({
+        ...formInput,
+        [e.target.id]: e.target.classList[1] ? true : false,
+      });
       e.target.classList.toggle("selected");
     }
   };
@@ -24,6 +22,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
   return (
     <div className="OwnerPreferences-container">
       <div className="OwnerPreferences-div-input">
+        <label>Rental type:</label>
         <select
           className="OwnerPreferences-input"
           id="rentalType"
@@ -59,7 +58,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="parking"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.parking}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-parking OwnerPreferences-i"></i>Parking
@@ -67,7 +65,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="porch"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.porch}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-store OwnerPreferences-i"></i>Porch
@@ -75,7 +72,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="garden"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.garden}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-seedling OwnerPreferences-i"></i>Garden
@@ -85,7 +81,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="furnished"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.furnished}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-couch OwnerPreferences-i"></i>Furnished
@@ -93,7 +88,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="elevator"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.elevator}
             onClick={booleanChangeHandler}
           >
             <i className="far fa-caret-square-up OwnerPreferences-i"></i>{" "}
@@ -102,7 +96,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="handicapAccessible"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.handicapAccessible}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-wheelchair OwnerPreferences-i"></i> Accessible
@@ -112,7 +105,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="petsAllowed"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.petsAllowed}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-paw OwnerPreferences-i"></i> Pets
@@ -120,7 +112,6 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           <span
             id="smokeAllowed"
             className="OwnerPreferences-more-opt-span"
-            value={formInput.smokeAllowed}
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-smoking OwnerPreferences-i"></i>smoke
