@@ -20,7 +20,7 @@ export interface IOwnerApt extends Document {
     lng: number;
   };
   pricePerMonth: number;
-  images: string[];
+  imagesUrl: string[];
   rentalType: string;
   entryDate: Date;
   checkOutDate: Date;

@@ -3,7 +3,12 @@ import { AptModel } from "../db/models/AptModel";
 import { UserModel } from "../db/models/UserModel";
 import { IOwnerApt, IClientApt } from "../interfaces/interface";
 import { resTemplate } from "../utils/responses";
-
+import { uploadFile, getFileStream } from "../utils/s3";
+import fs from "fs";
+import util from "util";
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+const unlinkFile = util.promisify(fs.unlink);
 interface Decoded extends Request {
   decoded: { id: String };
 }
@@ -80,10 +85,40 @@ const getAptsByOwner = async (req: Decoded, res: Response): Promise<void> => {
   }
 };
 
+const uploadAptImages = async (req: Request, res: Response): Promise<void> => {
+  if (!req.files || !req.files.length) {
+    res.status(400).send(resTemplate.clientError.badRequest);
+    return;
+  }
+  try {
+    const aptImgsUrls = [];
+    const files: any = req.files;
+    for (let i = 0; i < req.files.length; i++) {
+      const file = files[i];
+      const result = await uploadFile(file.path, file.filename);
+      aptImgsUrls.push(`/apartment/apt-images/${result.Key}`);
+      await unlinkFile(file.path);
+    }
+    res.status(201).send({
+      ...resTemplate.success.created,
+      data: aptImgsUrls,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(resTemplate.serverError);
+  }
+};
+const getAptImg = async (req: Decoded, res: Response) => {
+  const key = req.params.key;
+  const readStream = getFileStream(key);
+  readStream.pipe(res);
+};
 const aptController = {
   addNewApt,
   setLikeStatus,
   getAptsByFilters,
   getAptsByOwner,
+  uploadAptImages,
+  getAptImg,
 };
 export default aptController;

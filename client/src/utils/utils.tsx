@@ -1,4 +1,3 @@
-
 export const advancedFilterObj = {
   rentalType: "",
   entryDate: new Date().toLocaleDateString(),
@@ -11,7 +10,7 @@ export const advancedFilterObj = {
   handicapAccessible: false,
   petsAllowed: false,
   smokeAllowed: false,
-}
+};
 
 export const clientFiltersObj = {
   address: "",
@@ -25,9 +24,10 @@ export const clientFiltersObj = {
 };
 export const ownerFiltersObj = {
   address: "",
+  imagesUrl: [],
   cords: {
     lat: 0,
-    lng: 0
+    lng: 0,
   },
   pricePerMonth: 0,
   images: [],
@@ -36,4 +36,3 @@ export const ownerFiltersObj = {
   rooms: 0,
   ...advancedFilterObj,
 };
-
