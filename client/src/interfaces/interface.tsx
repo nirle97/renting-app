@@ -23,7 +23,7 @@ export interface IUploadNewApt {
     lng: number;
   };
   pricePerMonth: number;
-  images: string[];
+  imagesUrl: string[];
   rentalType: string;
   entryDate: string;
   checkOutDate: string;
@@ -63,7 +63,7 @@ export interface IFilter {
 
 export interface IApt {
   address: string;
-  images: string[];
+  imagesUrl: string[];
   ownerId: string;
   pricePerMonth: number;
   _id: string;

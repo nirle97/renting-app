@@ -3,12 +3,13 @@ import "./uploadApt.css";
 import { IUploadNewApt } from "../../interfaces/interface";
 import { ownerFiltersObj } from "../../utils/utils";
 import SearchBar from "../SearchBar/searchBar";
-import OwnerPreferences from "../Preferences/OwnerPreferences"
+import OwnerPreferences from "../Preferences/OwnerPreferences";
 import network from "../../utils/network";
-
+import axios from "axios";
 export default function UploadApt() {
+  const [files, setFiles] = useState<any>();
+  const [images, setImages] = useState([]);
   const [openForm, setOpenForm] = useState(false);
-  const [imgFiles, setImgFiles] = useState<{}[]>([]);
   const [formInput, setFormInput] = useState<IUploadNewApt>(ownerFiltersObj);
   const [searchValue, setSearchValue] = useState({
     cords: { lat: 0, lng: 0 },
@@ -16,25 +17,47 @@ export default function UploadApt() {
   });
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormInput({...formInput, [e.target.id]: e.target.value})
+    setFormInput({ ...formInput, [e.target.id]: e.target.value });
   };
 
-  const uploadImgs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImgFiles([...imgFiles, e.target.files[0]]);
+  const setImgsToUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "apt-images" && e.target.files) {
+      setFiles(e.target.files);
     }
   };
-  useEffect(()=> {
-    setFormInput({...formInput, address: searchValue.address, cords:searchValue.cords})
-  },[searchValue])
+  async function postImage(files: any, description: any): Promise<void> {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("apt-images", files[i]);
+    }
+    formData.append("description", description);
+    const result = await network.post(
+      "/apartment/owner-apts-images",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    setImages(result.data.data);
+    return result.data.data;
+  }
 
   const submitHandler = async () => {
-   console.log(formInput);
-   const a = await network.post("/apartment/create", formInput)
-   console.log(a);
+    if (files) {
+      const url = await postImage(files, "AptsImg");
+    }
+    setFormInput({ ...formInput, imagesUrl: images });
+    await network.post("/apartment/create", formInput);
     setOpenForm(false);
   };
 
+  useEffect(() => {
+    setFormInput({
+      ...formInput,
+      address: searchValue.address,
+      cords: searchValue.cords,
+    });
+  }, [searchValue]);
   return (
     <div className="UploadApt-container">
       <span
@@ -105,15 +128,17 @@ export default function UploadApt() {
                 type="file"
                 accept=".jpg,.jpeg,.png,.PNG"
                 multiple
-                onChange={uploadImgs}
+                onChange={setImgsToUpload}
                 id="images"
-                name="img"
+                name="apt-images"
               />
             </div>
             <div>
-              <OwnerPreferences formInput={formInput} setFormInput={setFormInput}/>
+              <OwnerPreferences
+                formInput={formInput}
+                setFormInput={setFormInput}
+              />
             </div>
-
           </form>
           <button onClick={submitHandler}>submit</button>
         </div>

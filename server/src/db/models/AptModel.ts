@@ -27,7 +27,7 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: Number,
     require: true,
   },
-  images: {
+  imagesUrl: {
     type: Array,
     require: true,
   },
@@ -148,9 +148,6 @@ aptSchema.static(
         petsAllowed: aptData.petsAllowed,
         smokeAllowed: aptData.smokeAllowed,
       };
-      // entryDate: Date;
-      // checkOutDate: Date;
-
       Object.entries(aptData).forEach(([key, value]) => {
         if (value === null) {
           delete filtersObj[key];
