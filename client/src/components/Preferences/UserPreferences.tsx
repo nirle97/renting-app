@@ -1,6 +1,10 @@
 import "./userPreferences.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setPreferences, prefSelectors, PrefState } from "../../store/prefSlice";
+import {
+  setPreferences,
+  prefSelectors,
+  PrefState,
+} from "../../store/prefSlice";
 import { useEffect } from "react";
 
 function UserPreferences() {
@@ -8,46 +12,70 @@ function UserPreferences() {
   const { preferences }: PrefState = useSelector(prefSelectors);
 
   const changeHandler = (e: any) => {
-      dispatch(setPreferences({preferences: {...preferences, [e.target.id]: e.target.value}}))
-  };  
-  useEffect(()=> {    
-    const spans = document.querySelectorAll('.UserPreferences-more-opt-span')
+    dispatch(
+      setPreferences({
+        preferences: { ...preferences, [e.target.id]: e.target.value },
+      })
+    );
+  };
+  useEffect(() => {
+    const spans = document.querySelectorAll(".UserPreferences-more-opt-span");
     spans.forEach((span) => {
-    let id = span.id.toString()
-    const entries = Object.entries(preferences);     
-    for (const entry of entries) {
-      if(entry[0] === id && entry[1] === true){
-        span.classList.add("selected")
+      let id = span.id.toString();
+      const entries = Object.entries(preferences);
+      for (const entry of entries) {
+        if (entry[0] === id && entry[1] === true) {
+          span.classList.add("selected");
+        }
       }
-    }
-    }) 
-  },[])
+    });
+  }, []);
 
   const booleanChangeHandler = (e: any) => {
-
-    if(e.target.id){
-      dispatch(setPreferences({preferences: {...preferences, [e.target.id]: e.target.classList[1]? false : true}}))
+    if (e.target.id) {
+      dispatch(
+        setPreferences({
+          preferences: {
+            ...preferences,
+            [e.target.id]: e.target.classList[1] ? false : true,
+          },
+        })
+      );
       e.target.classList.toggle("selected");
     }
   };
-  
+
   return (
     <div className="UserPreferences-container">
-        <div>
-            <label>Rental type:</label>
-            <select id="rentalType" onChange={changeHandler} value={preferences.rentalType}>
-            <option value="short term">short term (1 - 6 months)</option>
-            <option value="long term">long term</option>
-          </select>
-        </div>
-        <div className="UserPreferences-input-div">
-          <label>Entry date: </label>
-          <input id="entryDate" type="date" onChange={changeHandler} value={preferences.entryDate} />
-        </div>
-        <div className="UserPreferences-input-div">
-          <label>Check out date: </label>
-          <input id="checkOutDate" type="date" onChange={changeHandler} value={preferences.checkOutDate} />
-        </div>
+      <div>
+        <label>Rental type:</label>
+        <select
+          id="rentalType"
+          onChange={changeHandler}
+          value={preferences.rentalType}
+        >
+          <option value="short term">short term (1 - 6 months)</option>
+          <option value="long term">long term</option>
+        </select>
+      </div>
+      <div className="UserPreferences-input-div">
+        <label>Entry date: </label>
+        <input
+          id="entryDate"
+          type="date"
+          onChange={changeHandler}
+          value={preferences.entryDate}
+        />
+      </div>
+      <div className="UserPreferences-input-div">
+        <label>Check out date: </label>
+        <input
+          id="checkOutDate"
+          type="date"
+          onChange={changeHandler}
+          value={preferences.checkOutDate}
+        />
+      </div>
       <div className="UserPreferences-more-opt">
         <span>
           <span
@@ -85,7 +113,8 @@ function UserPreferences() {
             className="UserPreferences-more-opt-span"
             onClick={booleanChangeHandler}
           >
-            <i className="far fa-caret-square-up UserPreferences-i"></i> Elevator
+            <i className="far fa-caret-square-up UserPreferences-i"></i>{" "}
+            Elevator
           </span>
           <span
             id="handicapAccessible"

@@ -40,6 +40,7 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     type: Array,
     default: [],
     sparse: true,
+
   },
   rentalType: {
     type: String,
@@ -134,21 +135,21 @@ aptSchema.static(
   ): Promise<IOwnerApt[] | undefined> {
     try {
       let filtersObj: { [key: string]: {} } = {
-        pricePerMonth: { $gt: aptData.priceMin, $lt: aptData.priceMax },
-        address: { $in: [aptData.address] },
-        likedBy: { $ne: userId },
-        disLikedBy: { $ne: userId },
-        rentalType: aptData["rentalType"],
-        size: { $gt: aptData.sizeMin, $lt: aptData.sizeMax },
-        rooms: { $gt: aptData.roomsMin, $lt: aptData.roomsMax },
-        parking: aptData.parking,
-        porch: aptData.porch,
-        garden: aptData.garden,
-        furnished: aptData.furnished,
-        elevator: aptData.elevator,
-        handicapAccessible: aptData.handicapAccessible,
-        petsAllowed: aptData.petsAllowed,
-        smokeAllowed: aptData.smokeAllowed,
+        // pricePerMonth: { $gt: aptData.priceMin, $lt: aptData.priceMax },
+        // address: { $in: [aptData.address] },
+        // likedBy: { $ne: userId },
+        // disLikedBy: { $ne: userId },
+        // rentalType: aptData["rentalType"],
+        // size: { $gt: aptData.sizeMin, $lt: aptData.sizeMax },
+        // rooms: { $gt: aptData.roomsMin, $lt: aptData.roomsMax },
+        // parking: aptData.parking,
+        // porch: aptData.porch,
+        // garden: aptData.garden,
+        // furnished: aptData.furnished,
+        // elevator: aptData.elevator,
+        // handicapAccessible: aptData.handicapAccessible,
+        // petsAllowed: aptData.petsAllowed,
+        // smokeAllowed: aptData.smokeAllowed,
       };
       Object.entries(aptData).forEach(([key, value]) => {
         if (value === null) {

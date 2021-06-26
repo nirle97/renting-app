@@ -75,7 +75,6 @@ function SignUp() {
     const {
       data: { data },
     } = await network.post("/googleAuth/login", { tokenId });
-    console.log(data);
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
     Cookies.set("id", data.id, { secure: true });

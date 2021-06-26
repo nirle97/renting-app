@@ -9,13 +9,27 @@ interface IProps {
 function Apartment({ apt, aptPreference }: IProps) {
   const [picToDisplay, setPicToDisplay] = useState<number>(0);
 
+  const passImg = (status: string) => {
+    if (status === "forward") {
+      if (picToDisplay === apt.imagesUrl.length - 1) {
+        setPicToDisplay(0);
+      } else {
+        setPicToDisplay((prev) => prev++);
+      }
+    } else {
+      if (picToDisplay === 0) {
+        setPicToDisplay(apt.imagesUrl.length - 1);
+      } else {
+        setPicToDisplay((prev) => prev--);
+      }
+    }
+  };
   return (
     <div className="Apartment-container">
       <div className="Apartment-top-img-and-buttons">
-        {/* {picToDisplay !== 0 && ( */}
         <span
           className="Apartment-top-section-left-button Apartment-btn"
-          onClick={() => setPicToDisplay((prev) => --prev)}
+          onClick={() => passImg("backward")}
         >
           <i className="fas fa-arrow-left Apartment-btn-text"></i>
         </span>
@@ -26,10 +40,9 @@ function Apartment({ apt, aptPreference }: IProps) {
             alt="apartment pics"
           />
         </div>
-        {/* {picToDisplay !== apt.images.length - 1 && ( */}
         <span
           className="Apartment-top-section-right-button Apartment-btn"
-          onClick={() => setPicToDisplay((prev) => ++prev)}
+          onClick={() => passImg("forward")}
         >
           <i className="fas fa-arrow-right Apartment-btn-text"></i>
         </span>

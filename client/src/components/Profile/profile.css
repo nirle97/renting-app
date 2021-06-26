@@ -8,7 +8,8 @@
 }
 .Profile-navbar img {
   border-radius: 50%;
-  transform: scale(0.5);
+  max-width: 6vw;
+  max-height: 8vh;
 }
 .Profile-info-div {
   position: absolute;

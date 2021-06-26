@@ -1,19 +1,19 @@
 import "./ownerPreferences.css";
-import { IUploadNewApt } from "../../interfaces/interface"
-
+import { IUploadNewApt } from "../../interfaces/interface";
 interface IProps {
-    formInput: IUploadNewApt
-    setFormInput: React.Dispatch<React.SetStateAction<IUploadNewApt>>
-  }
+  formInput: IUploadNewApt;
+  setFormInput: React.Dispatch<React.SetStateAction<IUploadNewApt>>;
+}
 function OwnerPreferences({ formInput, setFormInput }: IProps) {
   const changeHandler = (e: any) => {
-    setFormInput({...formInput, [e.target.id]: e.target.value})
+    setFormInput({ ...formInput, [e.target.id]: e.target.value });
   };
 
   const booleanChangeHandler = async (e: any) => {
     if(e.target.id){
       setFormInput({...formInput, [e.target.id]: e.target.classList[1]? false : true})
       e.target.classList.toggle("selected");      
+
     }
   };
 
@@ -21,18 +21,35 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
     <div className="OwnerPreferences-container">
       <div className="OwnerPreferences-div-input">
         <label>Rental type:</label>
-        <select className="OwnerPreferences-input" id="rentalType" onChange={changeHandler} value={formInput.rentalType}>
+        <select
+          className="OwnerPreferences-input"
+          id="rentalType"
+          onChange={changeHandler}
+          value={formInput.rentalType}
+        >
           <option value="short term">short term (1 - 6 months)</option>
           <option value="long term">long term</option>
         </select>
       </div>
       <div className="OwnerPreferences-div-input">
         <label>Entry date:</label>
-        <input className="OwnerPreferences-input" id="entryDate" type="date" onChange={changeHandler} value={formInput.entryDate} />
+        <input
+          className="OwnerPreferences-input"
+          id="entryDate"
+          type="date"
+          onChange={changeHandler}
+          value={formInput.entryDate}
+        />
       </div>
       <div className="OwnerPreferences-div-input">
         <label>Check out date:</label>
-        <input className="OwnerPreferences-input" id="checkOutDate" type="date" onChange={changeHandler} value={formInput.checkOutDate} />
+        <input
+          className="OwnerPreferences-input"
+          id="checkOutDate"
+          type="date"
+          onChange={changeHandler}
+          value={formInput.checkOutDate}
+        />
       </div>
       <div className="OwnerPreferences-more-opt">
         <span>
@@ -71,7 +88,8 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
             className="OwnerPreferences-more-opt-span"
             onClick={booleanChangeHandler}
           >
-            <i className="far fa-caret-square-up OwnerPreferences-i"></i> Elevator
+            <i className="far fa-caret-square-up OwnerPreferences-i"></i>{" "}
+            Elevator
           </span>
           <span
             id="handicapAccessible"
@@ -102,4 +120,3 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
   );
 }
 export default OwnerPreferences;
-;
