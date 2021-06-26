@@ -20,9 +20,10 @@ function Filter({ setAptArr }: IProps) {
 
   const savePreferences = async () => {
     await network.put("/preference/user-preferences", preferences);
+    dispatch(setPreferences({ preferences }));
     const {
       data: { data },
-    } = await network.post("apartment/filtered-apts", preferences);
+    } = await network.post("/apartment/filtered-apts", preferences);
     setAptArr(data);
   };
 
