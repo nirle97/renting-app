@@ -19,3 +19,10 @@
 .Home-apartment-component {
   width: 50vw;
 }
+.Home-map-button-span{
+  margin-top: 15px;
+  height: 50px;
+  width: 500px;
+  cursor: pointer;
+  background-color: cyan;
+}

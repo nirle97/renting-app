@@ -17,6 +17,7 @@ interface Decoded extends Request {
     email: String;
     phoneNumber: String;
     age: Number;
+    isOwner: Boolean;
     imgUrl: String;
   };
 }
@@ -65,10 +66,14 @@ const signIn = async (
         email: result.email,
         phoneNumber: result.phoneNumber,
         age: result.age,
+        isOwner: result.isOwner,
         imgUrl: result.imgUrl,
       };
       next();
+    }else{
+      res.status(401).send(resTemplate.clientError.unAuthorized);
     }
+
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);

@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password?: String;
   phoneNumber: String;
   age: Number;
+  isOwner: Boolean;
   likedApts: {}[];
   refreshToken?: String | null;
   imgUrl: String;

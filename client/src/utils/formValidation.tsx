@@ -1,12 +1,14 @@
 import { IUser, ISignIn } from "../interfaces/interface";
 export default class FormValidation {
   static isFormEmpty = (formInput: IUser): boolean => {
+ 
     if (
       formInput.fullName === "" ||
       formInput.phoneNumber === "" ||
       formInput.email === "" ||
       formInput.password === "" ||
-      formInput.age === ""
+      formInput.age === "" ||
+      formInput.isOwner === null
     ) {
       return false;
     }
@@ -46,7 +48,8 @@ export default class FormValidation {
       // FormValidation.isPasswordOk(formInput) &&
       FormValidation.isEmailOk(formInput) &&
       FormValidation.isNameOk(formInput) &&
-      FormValidation.isNumberOk(formInput)
+      FormValidation.isNumberOk(formInput)&&
+      FormValidation.isFormEmpty(formInput)
     ) {
       return true;
     }

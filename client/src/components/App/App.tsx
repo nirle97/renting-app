@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLogged, authSelectors } from "../../store/authSlice";
+import { userSelectors } from "../../store/userSlice";
 import network from "../../utils/network";
 import NavBar from "../Navbar/NavBar";
 import Home from "../Home/Home";
@@ -13,6 +14,8 @@ import Likes from "../Likes/Likes";
 
 function App() {
   const { isLogged } = useSelector(authSelectors);
+  const { user } = useSelector(userSelectors);
+  
   const dispatch = useDispatch();
 
   async function validateToken() {
@@ -34,13 +37,20 @@ function App() {
             <Route exact path="/sign-up" component={SignUp} />
           </Switch>
         </>
-      ) : (
+      ) : user.isOwner? 
+        <>
+        <NavBar />
+        <UploadApt />
+        <Switch>
+            {/* <Route exact path="/" component={HomeOwner} /> */}
+          </Switch>
+        </>
+      :(
         <>
           <NavBar />
-          <UploadApt />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/likes" component={Likes} />
+            {/* <Route exact path="/likes" component={Likes} /> */}
           </Switch>
         </>
       )}

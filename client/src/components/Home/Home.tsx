@@ -13,6 +13,7 @@ import Map from "../Map/Map";
 function Home() {
   const [aptArr, setAptArr] = useState<IUploadNewApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
+  const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
@@ -37,6 +38,9 @@ function Home() {
     setAptToDisplay(aptToDisplay + 1);
   };
 
+  const scrollToMap = () =>{
+    setShowMap((prev)=> !prev)
+  }
   return (
     <div className={`${isprofileClicked && "z-index"} Home-container`}>
       <div className="Home-filter-component">
@@ -50,18 +54,25 @@ function Home() {
               apt={aptArr[aptToDisplay]}
             />
           </div>
-          <div className="Home-apartment-map">
-            <Map
-              cords={
-                aptArr[aptToDisplay].cords
-                  ? aptArr[aptToDisplay].cords
-                  : {
-                      lat: 32.1149489,
-                      lng: 34.8271349,
-                    }
-              }
-            />
-          </div>
+          <span className="Home-map-button-span" onClick={scrollToMap}>
+            <i className="fas fa-long-arrow-alt-down"></i> 
+            Scroll down for GoogleMap 
+            <i className="fas fa-long-arrow-alt-down"></i>
+          </span>
+          {showMap && (
+            <div className="Home-apartment-map">
+              <Map
+                cords={
+                  aptArr[aptToDisplay].cords
+                    ? aptArr[aptToDisplay].cords
+                    : {
+                        lat: 32.1149489,
+                        lng: 34.8271349,
+                      }
+                }
+              />
+            </div>
+          )}
         </div>
       ) : (
         <div>no new apartments are found for your filters</div>

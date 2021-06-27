@@ -3,12 +3,13 @@ import { RootState } from "./store";
 
 export interface UserState {
   user: {
-    id: String;
-    fullName: String;
-    phoneNumber?: String;
-    age?: Number;
-    email: String;
-    imgUrl: String;
+    id: string;
+    fullName: string;
+    phoneNumber?: string;
+    age?: number;
+    isOwner: boolean
+    email: string;
+    imgUrl: string;
   };
 }
 export const initialState: UserState = {
@@ -18,6 +19,7 @@ export const initialState: UserState = {
     phoneNumber: "",
     email: "",
     age: 0,
+    isOwner: false,
     imgUrl: "",
   },
 };
@@ -31,6 +33,7 @@ export const userSlice = createSlice({
       state.user.phoneNumber = payload.user.phoneNumber;
       state.user.email = payload.user.email;
       state.user.age = payload.user.age;
+      state.user.isOwner = payload.user.isOwner;
       state.user.imgUrl = payload.user.imgUrl;
     },
   },

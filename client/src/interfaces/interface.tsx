@@ -14,6 +14,7 @@ export interface IUser extends ISignIn {
   phoneNumber: string;
   age: string;
   imgUrl: string;
+  isOwner: boolean | null;
 }
 
 export interface IUploadNewApt {

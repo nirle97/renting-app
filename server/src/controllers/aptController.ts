@@ -89,8 +89,8 @@ const getAptsByOwner = async (req: Decoded, res: Response): Promise<void> => {
 };
 const getAptsByLikes = async (req: Decoded, res: Response): Promise<void> => {
   try {
-    const aptsArray = await AptModel.find({ likedBy: req.decoded.id });
-    res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
+    // const aptsArray = await AptModel.find({ likedBy: req.decoded.id });
+    // res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);

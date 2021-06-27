@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   password: {
     type: String,
+    require: true,
   },
   phoneNumber: {
     type: String,
@@ -20,6 +21,10 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   age: {
     type: Number,
+  },
+  isOwner: {
+    type: Boolean,
+    require: true,
   },
   likedApts: {
     type: Array,
