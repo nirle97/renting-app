@@ -1,4 +1,6 @@
 .Home-container {
+  display: flex;
+  flex-direction: row-reverse;
   position: relative;
   top: 8vh;
   margin-top: 5vh;
@@ -16,14 +18,6 @@
 }
 .Home-apartment-component {
   width: 50vw;
-  float: right;
 }
 .Home-apartment-map {
-  width: 30vw;
-  font-size: 100px;
-  background-color: grey;
-  float: left;
-}
-.Home-apartment-map {
-  float: left;
 }

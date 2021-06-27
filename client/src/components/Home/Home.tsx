@@ -3,7 +3,7 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import { IApt } from "../../interfaces/interface";
+import { IApt, IUploadNewApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
 import { prefSelectors, setPreferences } from "../../store/prefSlice";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Map from "../Map/Map";
 
 function Home() {
-  const [aptArr, setAptArr] = useState<IApt[]>([]);
+  const [aptArr, setAptArr] = useState<IUploadNewApt[]>([]);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const { isprofileClicked } = useSelector(profileSelectors);
   const dispatch = useDispatch();
@@ -62,7 +62,6 @@ function Home() {
               }
             />
           </div>
-          <div className="Home-apartment-map">map</div>
         </div>
       ) : (
         <div>no new apartments are found for your filters</div>

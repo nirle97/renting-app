@@ -17,6 +17,7 @@ export interface IUser extends ISignIn {
 }
 
 export interface IUploadNewApt {
+  _id?: string;
   address: string;
   cords: {
     lat: number;

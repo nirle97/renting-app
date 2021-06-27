@@ -1,59 +1,79 @@
-/* .Apartment-container{
-    width: 40vw;
-    display: block
-} */
-
-.Apartment-top-img-and-buttons{
-    width: 50vw;
-    height: 45vh;
-    display: flex;
-    justify-content: space-around;
-    float: right;
+.Apartment-container {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
 }
-.Apartment-img{
-    width:40vw;
-    height: 45vh;
+.Apartment-img-desc {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
 }
-.Apartment-top-section-right-button{
-    background-color: grey;
-    width:3vw;
-    margin-top: 22vh;
+.Apartment-description-container {
+  position: relative;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  float: left;
+  border: 1px solid black;
 }
-.Apartment-top-section-left-button{
-    background-color: grey;
-    width:3vw;
-    margin-top: 22vh;
+.Apartment-description {
+  display: flex;
+  width: 30vw;
+  height: 10vh;
+  border: 1px solid blue;
+  padding: 10px;
+  background-color: blanchedalmond;
+}
+.Apartment-description span {
+  font-size: 18px;
+  padding: 0 5px;
+}
+.Apartment-top-img-and-buttons {
+  width: 50vw;
+  height: 45vh;
+  display: flex;
+  justify-content: space-around;
+  float: right;
+}
+.Apartment-img {
+  width: 40vw;
+  height: 45vh;
+}
+.Apartment-top-section-right-button {
+  background-color: grey;
+  width: 3vw;
+  margin-top: 22vh;
+}
+.Apartment-top-section-left-button {
+  background-color: grey;
+  width: 3vw;
+  margin-top: 22vh;
 }
 .Apartment-thumbs-up-button {
-    background-color: green;
-    margin-left: 15px;
-    
+  background-color: green;
+  margin-left: 15px;
 }
 .Apartment-thumbs-down-button {
-    background-color: red;
-    margin-right: 15px;
-
+  background-color: red;
+  margin-right: 15px;
 }
 .Apartment-btn {
-    display:flex;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-}  
-.Apartment-btn-text{
-    font-size: 25px;
-    margin: auto
+  display: flex;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
-.Apartment-like-dislike-div{
-    display: flex;
-    justify-content: center;    
+.Apartment-btn-text {
+  font-size: 25px;
+  margin: auto;
 }
-.Apartment-description{
-    width:100%;
-    display: flex;
-    justify-content: space-evenly;
+.Apartment-like-dislike-div {
+  display: flex;
+  justify-content: center;
+}
 
-}
-.Apartment-description-text{
-    font-size: 20px;
+.Apartment-description-text {
+  font-size: 20px;
 }

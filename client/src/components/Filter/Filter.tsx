@@ -24,7 +24,6 @@ function Filter({ setAptArr }: IProps) {
       data: { data },
     } = await network.post("/apartment/filtered-apts", preferences);
     setAptArr(data);
-    console.log(preferences);
   };
 
   useEffect(() => {

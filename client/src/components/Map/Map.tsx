@@ -11,7 +11,7 @@ interface IProps {
 function Map({ cords }: IProps) {
   const [mapContainerStyle] = useState({
     height: "70vh",
-    width: "40vw",
+    width: "100vw",
   });
   const [options] = useState({
     disableDefaultUI: false,

@@ -43,15 +43,12 @@ export default function UploadApt() {
   }
 
   const submitHandler = async (e: any) => {
-    console.log(e.target);
-
     e.target.hidden = true;
     if (files) {
       await postImage(files, "AptsImg");
     }
     setFormInput({ ...formInput, imagesUrl: images });
     await network.post("/apartment/create", formInput);
-    console.log(formInput);
     e.target.hidden = false;
     setOpenForm(false);
   };
