@@ -52,9 +52,9 @@ export default function UploadApt() {
     e.target.hidden = true;
     setFormInput({ ...formInput, imagesUrl: images });
     const { data: newApt } = await network.post("/apartment/create", formInput);
-    // if (files) {
-    await postImage(files, "AptsImg", newApt.data.id);
-    // }
+    if (files) {
+      await postImage(files, "AptsImg", newApt.data.id);
+    }
 
     e.target.hidden = false;
     setOpenForm(false);
