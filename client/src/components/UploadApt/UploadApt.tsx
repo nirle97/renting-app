@@ -5,7 +5,6 @@ import { ownerFiltersObj } from "../../utils/utils";
 import SearchBar from "../SearchBar/searchBar";
 import OwnerPreferences from "../Preferences/OwnerPreferences";
 import network from "../../utils/network";
-import axios from "axios";
 export default function UploadApt() {
   const [files, setFiles] = useState<any>();
   const [images, setImages] = useState([]);
@@ -17,7 +16,10 @@ export default function UploadApt() {
   });
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormInput({ ...formInput, [e.target.id]: e.target.value });
+    setFormInput({
+      ...formInput,
+      [e.target.id]: e.target.value,
+    });
   };
 
   const setImgsToUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,12 +27,16 @@ export default function UploadApt() {
       setFiles(e.target.files);
     }
   };
-  async function postImage(files: any, description: any): Promise<void> {
+  async function postImage(
+    files: any,
+    description: string,
+    aptId: string
+  ): Promise<void> {
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append("apt-images", files[i]);
     }
-    formData.append("description", description);
+    formData.append("description", aptId);
     const result = await network.post(
       "/apartment/owner-apts-images",
       formData,
@@ -44,11 +50,11 @@ export default function UploadApt() {
 
   const submitHandler = async (e: any) => {
     e.target.hidden = true;
-    if (files) {
-      await postImage(files, "AptsImg");
-    }
     setFormInput({ ...formInput, imagesUrl: images });
-    await network.post("/apartment/create", formInput);
+    const { data: newApt } = await network.post("/apartment/create", formInput);
+    // if (files) {
+    await postImage(files, "AptsImg", newApt.data.id);
+    // }
     e.target.hidden = false;
     setOpenForm(false);
   };
@@ -72,12 +78,19 @@ export default function UploadApt() {
         <div className="UploadApt-form">
           <form>
             <div className="UploadApt-div-input">
-              <label>address:</label>
-              <SearchBar
+              <label>address: </label>
+
+              <input
+                type="text"
+                id="address"
+                value={formInput.address}
+                onChange={changeHandler}
+              />
+              {/* <SearchBar
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
                 searchBarClass="UploadApts-search"
-              />
+              /> */}
             </div>
             <div className="UploadApt-div-input">
               <label>Price / Month:</label>

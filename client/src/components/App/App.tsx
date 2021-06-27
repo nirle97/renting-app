@@ -9,6 +9,7 @@ import Home from "../Home/Home";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import UploadApt from "../UploadApt/UploadApt";
+import Likes from "../Likes/Likes";
 
 function App() {
   const { isLogged } = useSelector(authSelectors);
@@ -39,6 +40,7 @@ function App() {
           <UploadApt />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/likes" component={Likes} />
           </Switch>
         </>
       )}
