@@ -110,14 +110,12 @@ aptSchema.static(
       if (status === "likedBy") {
         await AptModel.findOneAndUpdate(
           { _id: aptId },
-          { $push: { likedBy: userId } },
-          { new: true }
+          { $push: { likedBy: userId } }
         );
       } else {
         await AptModel.findOneAndUpdate(
           { _id: aptId },
-          { $push: { disLikedBy: userId } },
-          { new: true }
+          { $push: { disLikedBy: userId } }
         );
       }
     } catch (e) {
@@ -138,9 +136,9 @@ aptSchema.static(
         address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
-        // rentalType: aptData.rentalType,
-        // size: { $gt: aptData.sizeMin, $lt: aptData.sizeMax },
-        // rooms: { $gt: aptData.roomsMin, $lt: aptData.roomsMax },
+        rentalType: aptData.rentalType,
+        size: { $gte: aptData.sizeMin, $lte: aptData.sizeMax },
+        rooms: { $gte: aptData.roomsMin, $lte: aptData.roomsMax },
         parking: aptData.parking,
         porch: aptData.porch,
         garden: aptData.garden,
@@ -151,7 +149,7 @@ aptSchema.static(
         smokeAllowed: aptData.smokeAllowed,
       };
       Object.entries(aptData).forEach(([key, value]) => {
-        if (value === null) {
+        if (value === null || value === "") {
           delete filtersObj[key];
         }
       });

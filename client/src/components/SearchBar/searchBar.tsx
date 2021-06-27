@@ -34,7 +34,6 @@ export default function SearchBar({
   searchBarClass,
 }: IProps) {
   const [address, setAddress] = React.useState(searchValue.address);
-
   const handleSelect = async (value: string) => {
     const results = await geocodeByAddress(value);
     const latLng: LatLng = await getLatLng(results[0]);

@@ -10,10 +10,12 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
   };
 
   const booleanChangeHandler = async (e: any) => {
-    if(e.target.id){
-      setFormInput({...formInput, [e.target.id]: e.target.classList[1]? false : true})
-      e.target.classList.toggle("selected");      
-
+    if (e.target.id) {
+      setFormInput({
+        ...formInput,
+        [e.target.id]: e.target.classList[1] ? false : true,
+      });
+      e.target.classList.toggle("selected");
     }
   };
 
@@ -26,6 +28,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           id="rentalType"
           onChange={changeHandler}
           value={formInput.rentalType}
+          defaultValue="short term"
         >
           <option value="short term">short term (1 - 6 months)</option>
           <option value="long term">long term</option>

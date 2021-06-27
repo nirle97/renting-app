@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import "./filter.css";
 import { IApt } from "../../interfaces/interface";
 import Range from "./Range";
