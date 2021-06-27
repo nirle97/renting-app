@@ -46,11 +46,11 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     require: true,
   },
   entryDate: {
-    type: Date,
+    type: Number,
     require: true,
   },
   checkOutDate: {
-    type: Date,
+    type: Number,
     require: true,
   },
   size: {
@@ -133,10 +133,12 @@ aptSchema.static(
     try {
       let filtersObj: { [key: string]: {} } = {
         pricePerMonth:  aptData.priceMax === 10000 ? { $gte: aptData.priceMin } : { $gte: aptData.priceMin, $lte: aptData.priceMax },
-        address: { $in: [aptData.address] },
+        // address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         rentalType: aptData.rentalType,
+        entryDate: { $lte: aptData.entryDate },
+        checkOutDate: { $gte: aptData.checkOutDate },
         size: aptData.sizeMax === 300 ? { $gte: aptData.sizeMin } : { $gte: aptData.sizeMin, $lte: aptData.sizeMax },
         rooms: aptData.roomsMax === 10 ? { $gte: aptData.roomsMin } : { $gte: aptData.roomsMin, $lte: aptData.roomsMax },
         parking: aptData.parking,

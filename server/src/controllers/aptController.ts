@@ -19,19 +19,14 @@ const addNewApt = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    if (Array.isArray(req.body)) {
-      req.body.map(async (obj) => {
-        const newAptObj: IOwnerApt = { ...obj, ownerId: req.decoded.id };
-        newAptObj.likedBy = ["a"];
-        newAptObj.disLikedBy = ["a"];
-        await AptModel.create(newAptObj);
-      });
-    } else {
-      const newAptObj: IOwnerApt = { ...req.body, ownerId: req.decoded.id };
+      const newAptObj: IOwnerApt = { 
+        ...req.body,
+        ownerId: req.decoded.id,
+        entryDate: dateConvertor(req.body.entryDate),
+        checkOutDate: dateConvertor(req.body.checkOutDate),
+       };
       console.log(newAptObj);
       await AptModel.create(newAptObj);
-    }
-
     res.status(201).send(resTemplate.success.created);
   } catch (e) {
     console.error(e);
@@ -69,7 +64,11 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    const data: IClientApt = req.body;
+    const data: IClientApt = {
+      ...req.body,
+      entryDate: dateConvertor(req.body.entryDate),
+      checkOutDate: dateConvertor(req.body.checkOutDate),
+    };
     console.log(data);
     const aptsArray = await AptModel.findByUserFilters(data, req.decoded.id);
     console.log(aptsArray);
@@ -118,6 +117,10 @@ const getAptImg = async (req: Decoded, res: Response) => {
   const readStream = getFileStream(key);
   readStream.pipe(res);
 };
+function dateConvertor(date:Date): number {
+  return (new Date(date)).getTime()
+
+}
 const aptController = {
   addNewApt,
   setLikeStatus,

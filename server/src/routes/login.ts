@@ -6,8 +6,8 @@ const upload = multer({ dest: "uploads/" });
 
 login.post("/sign-up", loginController.signUp);
 login.post("/sign-in", loginController.signIn, authController.createToken);
-login.post(
-  "/profile-image",
-  upload.single("image"),
-  loginController.uploadProfileImg
-);
+// login.post(
+//   "/profile-image",
+//   upload.single("image"),
+//   loginController.uploadProfileImg
+// );

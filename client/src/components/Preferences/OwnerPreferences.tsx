@@ -28,10 +28,13 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
           id="rentalType"
           onChange={changeHandler}
           value={formInput.rentalType}
-          defaultValue="short term"
+          defaultValue="monthly"
         >
-          <option value="short term">short term (1 - 6 months)</option>
-          <option value="long term">long term</option>
+          <option value="monthly">0 - 1 month</option>
+          <option value="short-term">1 - 3 months</option>
+          <option value="mid-term">3 - 6 months</option>
+          <option value="up-to-a-year">6 - 12 months</option>
+          <option value="long-term">long term</option>
         </select>
       </div>
       <div className="OwnerPreferences-div-input">
