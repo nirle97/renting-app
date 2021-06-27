@@ -88,6 +88,15 @@ const getAptsByOwner = async (req: Decoded, res: Response): Promise<void> => {
     res.status(500).send(resTemplate.serverError);
   }
 };
+const getAptsByLikes = async (req: Decoded, res: Response): Promise<void> => {
+  try {
+    const aptsArray = await AptModel.find({ likedBy: req.decoded.id });
+    res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(resTemplate.serverError);
+  }
+};
 
 const uploadAptImages = async (req: Request, res: Response): Promise<void> => {
   if (!req.files || !req.files.length) {
@@ -128,5 +137,6 @@ const aptController = {
   getAptsByOwner,
   uploadAptImages,
   getAptImg,
+  getAptsByLikes,
 };
 export default aptController;
