@@ -22,11 +22,10 @@ const addNewApt = async (req: Decoded, res: Response): Promise<void> => {
     const newAptObj: IOwnerApt = {
       ...req.body,
       ownerId: req.decoded.id,
-      entryDate: dateConvertor(req.body.entryDate),
-      checkOutDate: dateConvertor(req.body.checkOutDate),
+      entryDate: dateToMilliSc(req.body.entryDate),
+      checkOutDate: dateToMilliSc(req.body.checkOutDate),
     };
     const newApt = await AptModel.create(newAptObj);
-    await AptModel.create(newAptObj);
     res
       .status(201)
       .send({ ...resTemplate.success.created, data: { id: newApt._id } });
@@ -67,8 +66,8 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
   try {
     const data: IClientApt = {
       ...req.body,
-      entryDate: dateConvertor(req.body.entryDate),
-      checkOutDate: dateConvertor(req.body.checkOutDate),
+      entryDate: dateToMilliSc(req.body.entryDate),
+      checkOutDate: dateToMilliSc(req.body.checkOutDate),
     };
     const aptsArray = await AptModel.findByUserFilters(data, req.decoded.id);
     res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
@@ -89,8 +88,15 @@ const getAptsByOwner = async (req: Decoded, res: Response): Promise<void> => {
 };
 const getAptsByLikes = async (req: Decoded, res: Response): Promise<void> => {
   try {
-    // const aptsArray = await AptModel.find({ likedBy: req.decoded.id });
-    // res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
+    const user = await UserModel.findById({ _id: req.decoded.id }, [
+      "likedApts",
+    ]);
+    if (user) {
+      const aptsArray = await AptModel.find({ _id: { $in: user.likedApts } });
+      res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
+    } else {
+      res.status(200).send(resTemplate.success.noContent);
+    }
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
@@ -127,7 +133,7 @@ const getAptImg = async (req: Decoded, res: Response) => {
   const readStream = getFileStream(key);
   readStream.pipe(res);
 };
-function dateConvertor(date: Date): number {
+function dateToMilliSc(date: Date): number {
   return new Date(date).getTime();
 }
 const aptController = {
