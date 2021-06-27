@@ -22,7 +22,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
   return (
     <div className="OwnerPreferences-container">
       <div className="OwnerPreferences-div-input">
-        <label>Rental type:</label>
+        <label >Rental type:</label>
         <select
           className="OwnerPreferences-input"
           id="rentalType"
@@ -35,7 +35,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
         </select>
       </div>
       <div className="OwnerPreferences-div-input">
-        <label>Entry date:</label>
+        <label >Entry date:</label>
         <input
           className="OwnerPreferences-input"
           id="entryDate"
@@ -45,7 +45,7 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
         />
       </div>
       <div className="OwnerPreferences-div-input">
-        <label>Check out date:</label>
+        <label >Check out date:</label>
         <input
           className="OwnerPreferences-input"
           id="checkOutDate"

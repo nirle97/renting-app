@@ -45,7 +45,7 @@ export default function SearchBar({
   };
 
   return (
-    <div>
+    <div className="searchBar-container">
       <PlacesAutocomplete
         value={address}
         onChange={setAddress}
