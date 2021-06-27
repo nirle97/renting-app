@@ -41,3 +41,13 @@
     flex-direction: row;
     justify-content: center;
   }
+  .UserPreferences-label{
+    width:200px;
+    text-align: left;
+    float: left;
+    margin-right: 4px;
+  }
+  .UserPreferences-input-select{
+    float: right;
+    width: 150px;
+  }

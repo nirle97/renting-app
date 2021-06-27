@@ -47,10 +47,11 @@ function UserPreferences() {
 
   return (
     <div className="UserPreferences-container">
-      <div>
-        <label>Rental type:</label>
+      <div className="UserPreferences-input-div">
+        <label className="UserPreferences-label">Rental type:</label>
         <select
           id="rentalType"
+          className="UserPreferences-input-select"
           onChange={changeHandler}
           value={preferences.rentalType}
         >
@@ -60,18 +61,20 @@ function UserPreferences() {
         </select>
       </div>
       <div className="UserPreferences-input-div">
-        <label>Entry date: </label>
+        <label className="UserPreferences-label">Entry date: </label>
         <input
           id="entryDate"
+          className="UserPreferences-input-select"
           type="date"
           onChange={changeHandler}
           value={preferences.entryDate}
         />
       </div>
       <div className="UserPreferences-input-div">
-        <label>Check out date: </label>
+        <label className="UserPreferences-label">Check out date: </label>
         <input
           id="checkOutDate"
+          className="UserPreferences-input-select"
           type="date"
           onChange={changeHandler}
           value={preferences.checkOutDate}

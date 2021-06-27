@@ -132,13 +132,13 @@ aptSchema.static(
   ): Promise<IOwnerApt[] | undefined> {
     try {
       let filtersObj: { [key: string]: {} } = {
-        pricePerMonth: { $gt: aptData.priceMin, $lt: aptData.priceMax },
+        pricePerMonth:  aptData.priceMax === 10000 ? { $gte: aptData.priceMin } : { $gte: aptData.priceMin, $lte: aptData.priceMax },
         address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         rentalType: aptData.rentalType,
-        size: { $gte: aptData.sizeMin, $lte: aptData.sizeMax },
-        rooms: { $gte: aptData.roomsMin, $lte: aptData.roomsMax },
+        size: aptData.sizeMax === 300 ? { $gte: aptData.sizeMin } : { $gte: aptData.sizeMin, $lte: aptData.sizeMax },
+        rooms: aptData.roomsMax === 10 ? { $gte: aptData.roomsMin } : { $gte: aptData.roomsMin, $lte: aptData.roomsMax },
         parking: aptData.parking,
         porch: aptData.porch,
         garden: aptData.garden,
@@ -148,6 +148,7 @@ aptSchema.static(
         petsAllowed: aptData.petsAllowed,
         smokeAllowed: aptData.smokeAllowed,
       };
+
       Object.entries(aptData).forEach(([key, value]) => {
         if (value === null || value === "") {
           delete filtersObj[key];
