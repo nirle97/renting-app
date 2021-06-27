@@ -7,10 +7,11 @@ apartment.post("/create", validToken, aptController.addNewApt);
 apartment.put("/like-status/:aptId", validToken, aptController.setLikeStatus);
 apartment.post("/filtered-apts", validToken, aptController.getAptsByFilters);
 apartment.get("/owner-apts", validToken, aptController.getAptsByOwner);
-apartment.post(
-  "/owner-apts-images",
-  validToken,
-  upload.array("apt-images"),
-  aptController.uploadAptImages
-);
-apartment.get("/apt-images/:key", validToken, aptController.getAptImg);
+apartment.get("/liked-apts", validToken, aptController.getAptsByLikes);
+// apartment.post(
+//   "/owner-apts-images",
+//   validToken,
+//   upload.array("apt-images"),
+//   aptController.uploadAptImages
+// );
+// apartment.get("/apt-images/:key", validToken aptController.getAptImg);

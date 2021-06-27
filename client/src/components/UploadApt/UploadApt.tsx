@@ -55,6 +55,7 @@ export default function UploadApt() {
     // if (files) {
     await postImage(files, "AptsImg", newApt.data.id);
     // }
+
     e.target.hidden = false;
     setOpenForm(false);
   };

@@ -58,7 +58,7 @@ function SignUp() {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
         const url = await postImage(file, "profileImg");
-        setFormInput({ ...formInput, imgUrl: image });
+        setFormInput({ ...formInput, imgUrl: image });        
         await network.post("/login/sign-up", { ...formInput, imgUrl: url });
         history.push("/");
       } else {
