@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import "./sliderImg.css"
-// interface IProps {
-//     sliderData: string[]
-//   }
-// function ImageSlider ({ sliderData }:IProps) {
-function ImageSlider () {
+interface IProps {
+    // sliderData: string[]
+    size: string;
+  }
+function ImageSlider ({ size }: IProps) {
   const [current, setCurrent] = useState(0);
   const [images, setImages] = useState([
     "/images/apts/house0.jpg",
@@ -28,21 +28,21 @@ function ImageSlider () {
   }
 
   return (
-    <div className='slider-container'>
-        <span className='left-arrow' onClick={prevSlide} > <i className="fas fa-arrow-left"></i></span>
-        <span className='right-arrow' onClick={nextSlide} > <i className="fas fa-arrow-right"></i></span>
+    <div className={size === "small" ? 'slider-container-small' : 'slider-container-big'}>
+        <span className='left-arrow slider-btn' onClick={prevSlide} > <i className="fas fa-arrow-left slider-i"></i></span>
       {images.map((slide, index) => {
-          return (
-            <div
-              className={index === current ? 'slide active' : 'slide'}
-              key={index}
-              >
-                {index === current && (
-                <img src={slide} alt='Apartment img' className='image' />
-                )}
+        return (
+          <div
+          className={index === current ? 'slide active' : 'slide'}
+          key={index}
+          >
+                {index === current && (                  
+                  <img src={slide} alt='Apartment img' className={size === "small" ? 'image-small' : 'image-big'} />
+                  )}
             </div>
             );
-            })}
+          })}
+          <span className='right-arrow slider-btn' onClick={nextSlide} > <i className="fas fa-arrow-right slider-i"></i></span>
     </div>
   );
 };

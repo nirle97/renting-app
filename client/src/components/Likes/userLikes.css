@@ -1,5 +1,5 @@
 .Likes {
-  position: relative;
+  /* position: relative; */
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -9,28 +9,77 @@
 }
 .Likes-apt-div {
   display: flex;
-  flex-direction: row-reverse;
-  height: 30vh;
-  width: 80vw;
-  margin-bottom: 15vh;
+  height: 32.7vh;
+  width: 70vw;
+  margin-bottom: 5vh;
   border: 1px solid grey;
+  border-radius: 10px;
+
 }
 .Likes-img-div {
-  margin-left: 20vw;
+  float: right;
+  width: 25vw;
+  height: 30vh;
+  margin-top: 3.7vh;
+  margin-left: 8vh;
 }
 .Likes-description-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
   float: left;
 }
-.Likes-description {
+.Likes-description-main{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 20vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+
+}
+.Likes-description-main-miniContainer{
   display: flex;
   flex-direction: row;
-  width: 40vw;
-  border-bottom: 1px solid grey;
+  margin-bottom: 1.5vh;
+  font-weight: 700;
 }
-.Likes-description span {
-  font-size: 18px;
-  padding: 0 5px;
+.description-text-span{
+  margin-bottom: 1.5vh;
+  font-weight: 700;
+
+}
+.Likes-description-secondary{
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+  height: 30vh;
+  justify-content: flex-end;
+}
+.Likes-description-secondary-left{
+  display: flex;
+  flex-direction: column;
+  width: 8vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+
+}
+.Likes-description-secondary-right{
+  display: flex;
+  flex-direction: column;
+  width: 12vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+}
+.description-secondary-text-span{
+  margin-bottom: 2.5vh;
+  font-weight: 700;
+}
+
+.description-check{
+  color:green
+}
+.description-un-check{
+  color:red
+  
 }
