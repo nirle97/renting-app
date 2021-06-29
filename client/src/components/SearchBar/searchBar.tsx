@@ -1,4 +1,5 @@
 import React from "react";
+import "./searchBar.css";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -54,7 +55,7 @@ export default function SearchBar({
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input
-              className={searchBarClass}
+              id="SearchBar-input"
               {...getInputProps({ placeholder: "Type address" })}
             />
             <div>

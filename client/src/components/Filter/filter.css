@@ -1,22 +1,55 @@
 .Filter-container {
-  position: relative;
+  position: fixed;
   float: right;
-  padding: 10px;
   border: 1px solid black;
-  min-height: 85vh;
-  max-height: 80vh;
+  min-height: 90vh;
   width: 20vw;
   background-color: rgb(236, 236, 236);
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 80vh;
+  font-size: 16px;
+  font-weight: 700;
+}
+.Filter-container::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.Filter-container::-webkit-scrollbar-track {
+  background: white;
+}
+.Filter-container::-webkit-scrollbar-thumb {
+  background: grey;
+}
+.Filter-filters {
+  padding: 0 15px;
+}
+.Filter-header {
+  position: relative;
+  height: 6vh;
+  background-color: rgb(242, 85, 90);
+  color: white;
+  line-height: 50px;
+}
+.fa-filter {
+  color: black;
 }
 .Filter-address {
   display: flex;
   flex-direction: row;
+  line-height: 50px;
+  margin-bottom: 3%;
+}
+#address {
+  outline: none;
+  border: none;
+  background-color: rgb(236, 236, 236);
+  margin-left: 1vw;
 }
 .searchBar-container {
   margin-left: 10px;
+}
+#price-range-name {
+  min-width: 28%;
 }
 .Filter-range-container {
   height: 100px;
@@ -32,6 +65,11 @@
   width: 90px;
   text-align: left;
 }
+#price-min-max {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 .Filter-range-min-span {
   float: left;
   margin-top: 30px;
@@ -39,8 +77,10 @@
 }
 .Filter-range-max-span {
   float: right;
+  margin-left: 90%;
   margin-top: 30px;
 }
+
 .Range-slider {
   padding: 5px;
   height: 10px;
@@ -61,8 +101,15 @@
 }
 .selected {
   color: black;
-  background-color: rgba(242, 85, 90, 1);
+  background-color: rgb(242, 85, 90);
 }
 .Filter-search {
+  background-color: white;
+}
+#Filter-searchApt-btn {
+  color: rgba(242, 85, 90, 1);
+  border: 1px solid rgba(242, 85, 90, 1);
+}
+#Filter-searchApt-btn:hover {
   background-color: white;
 }

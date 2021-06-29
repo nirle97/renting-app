@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: row-reverse;
   position: relative;
-  top: 8vh;
-  margin-top: 5vh;
+  top: 0;
+  margin-top: 4vh;
   width: 100vw;
 }
 .z-index {
@@ -19,10 +19,31 @@
 .Home-apartment-component {
   width: 50vw;
 }
-.Home-map-button-span{
+.Home-map-button-span {
   margin-top: 15px;
   height: 50px;
   width: 500px;
   cursor: pointer;
   background-color: cyan;
+}
+.Home-filter-btn {
+  z-index: 111;
+  position: relative;
+  font-size: 30px;
+  right: -40%;
+  top: 10%;
+  color: black;
+  cursor: pointer;
+}
+.toggle-filters {
+  transform: translateX(100%);
+  transition: transform 1s ease;
+}
+.Home-noNew-div {
+  position: relative;
+  right: 20%;
+  top: 40%;
+}
+.Home-noNew-img {
+  width: 50%;
 }

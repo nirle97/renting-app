@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import { authReducer } from "./authSlice";
 import { userReducer } from "./userSlice";
 import { prefReducer } from "./prefSlice";
+import { aptReducer } from "./aptSlice";
 import { profileReducer } from "./profileSlice";
 import { combineReducers, Store } from "@reduxjs/toolkit";
 export type RootState = ReturnType<typeof store.getState>;
@@ -22,11 +23,18 @@ const rootReducer = combineReducers({
   userReducer,
   prefReducer,
   profileReducer,
+  aptReducer,
 });
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userReducer", "authReducer", "prefReducer", "profileReducer"],
+  whitelist: [
+    "userReducer",
+    "authReducer",
+    "prefReducer",
+    "profileReducer",
+    "aptReducer",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
