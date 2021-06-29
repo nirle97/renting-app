@@ -145,8 +145,8 @@ aptSchema.static(
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         rentalType: aptData.rentalType,
-        // entryDate: { $lte: aptData.entryDate },
-        // checkOutDate: { $gte: aptData.checkOutDate },
+        entryDate: { $lte: aptData.entryDate },
+        checkOutDate: { $gte: aptData.checkOutDate },
         size:
           aptData.sizeMax === 300
             ? { $gte: aptData.sizeMin }

@@ -31,7 +31,8 @@ export default function HomeOwner() {
             ))}
           </div> */}
           <div className="HomeOwner-img-div">
-            <ImageSlider sliderData={apt.imagesUrl}/>
+            {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
+            <ImageSlider />
           </div>
           <div className="HomeOwner-description-container">
             <div className="HomeOwner-description">

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import "./userLikes.css";
 import network from "../../utils/network";
 import { IUploadNewApt } from "../../interfaces/interface";
+import ImageSlider from "../SliderImg/SliderImg";
 
 export default function Likes() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
-  const [picToDisplay, setPicToDisplay] = useState<number>(0);
 
   useEffect(() => {
     getLikedApts();
@@ -21,12 +21,8 @@ export default function Likes() {
       {aptsArr.map((apt, i) => (
         <div key={`likedApt-${i}`} className="Likes-apt-div">
           <div className="Likes-img-div">
-            <img
-              className="Likes-img"
-              // src={apt.imagesUrl[picToDisplay]}
-              src={`/images/apts/house${picToDisplay}.jpg`}
-              alt="Likes pics"
-            />
+            {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
+            <ImageSlider />
           </div>
           <div className="Likes-description-container">
             <div className="Likes-description">
