@@ -18,6 +18,14 @@ function Filter({ setAptArr }: IProps) {
     address: "",
   });
 
+  const devChangeHandler = (e: any) => {
+    dispatch(
+      setPreferences({
+        preferences: { ...preferences, [e.target.id]: e.target.value },
+      })
+    );
+  };
+
   const savePreferences = async () => {
     await network.put("/preference/user-preferences", preferences);
     const {
@@ -42,6 +50,12 @@ function Filter({ setAptArr }: IProps) {
     <div className="Filter-container">
       <div className="Filter-address">
         Address:{" "}
+        <input
+          type="text"
+          id="address"
+          value={preferences.address}
+          onChange={devChangeHandler}
+        />
         {/* <SearchBar
           searchValue={{ ...searchValue, address: preferences.address }}
           setSearchValue={setSearchValue}

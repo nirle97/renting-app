@@ -23,7 +23,8 @@ export default function Likes() {
           <div className="Likes-img-div">
             <img
               className="Likes-img"
-              src={apt.imagesUrl[picToDisplay]}
+              // src={apt.imagesUrl[picToDisplay]}
+              src={`/images/apts/house${picToDisplay}.jpg`}
               alt="Likes pics"
             />
           </div>
