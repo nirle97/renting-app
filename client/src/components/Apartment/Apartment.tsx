@@ -1,53 +1,22 @@
 import { useState } from "react";
 import "./apartment.css";
 import { IApt, IUploadNewApt } from "../../interfaces/interface";
+import ImageSlider from "../SliderImg/SliderImg"
+
 interface IProps {
   apt: IUploadNewApt;
   aptPreference: (preference: string) => void;
 }
 
 function Apartment({ apt, aptPreference }: IProps) {
-  const [picToDisplay, setPicToDisplay] = useState<number>(0);
-  const passImg = (status: string) => {
-    if (status === "forward") {
-      if (picToDisplay === apt.imagesUrl.length - 1) {
-        setPicToDisplay(0);
-      } else {
-        setPicToDisplay((prev) => prev++);
-      }
-    } else {
-      if (picToDisplay === 0) {
-        setPicToDisplay(apt.imagesUrl.length - 1);
-      } else {
-        setPicToDisplay((prev) => prev--);
-      }
-    }
-  };
-
   return (
     <div className="Apartment-container">
       <div className="Apartment-img-desc">
-        <div className="Apartment-top-img-and-buttons">
-          <span
-            className="Apartment-top-section-left-button Apartment-btn"
-            onClick={() => passImg("backward")}
-          >
-            <i className="fas fa-arrow-left Apartment-btn-text"></i>
-          </span>
+        <div className="Apartment--img-and-buttons">
           <div className="Apartment-img-div">
-            <img
-              className="Apartment-img"
-              src={`/images/apts/house${picToDisplay}.jpg`}
-              // src={apt.imagesUrl[picToDisplay]}
-              alt="apartment pics"
-            />
+            {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
+            <ImageSlider/>
           </div>
-          <span
-            className="Apartment-top-section-right-button Apartment-btn"
-            onClick={() => passImg("forward")}
-          >
-            <i className="fas fa-arrow-right Apartment-btn-text"></i>
-          </span>
         </div>
         <div className="Apartment-description-container">
           <div className="Apartment-description">

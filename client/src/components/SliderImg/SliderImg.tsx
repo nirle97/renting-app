@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import "./sliderImg.css"
-interface IProps {
-    sliderData: string[]
-  }
-function ImageSlider ({ sliderData }:IProps) {
+// interface IProps {
+//     sliderData: string[]
+//   }
+// function ImageSlider ({ sliderData }:IProps) {
+function ImageSlider () {
   const [current, setCurrent] = useState(0);
-  const length = sliderData.length;
+  const [images, setImages] = useState([
+    "/images/apts/house0.jpg",
+    "/images/apts/house1.jpg",
+    "/images/apts/house2.jpg",
+    "/images/apts/house3.jpg"
+  ]);
+  const length = images.length;
 
 
   const nextSlide = () => {
@@ -16,7 +23,7 @@ function ImageSlider ({ sliderData }:IProps) {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  if (!Array.isArray(sliderData) || sliderData.length <= 0) {
+  if (!Array.isArray(images) || images.length <= 0) {
     return null;
   }
 
@@ -24,7 +31,7 @@ function ImageSlider ({ sliderData }:IProps) {
     <div className='slider-container'>
         <span className='left-arrow' onClick={prevSlide} > <i className="fas fa-arrow-left"></i></span>
         <span className='right-arrow' onClick={nextSlide} > <i className="fas fa-arrow-right"></i></span>
-      {sliderData.map((slide, index) => {
+      {images.map((slide, index) => {
           return (
             <div
               className={index === current ? 'slide active' : 'slide'}
