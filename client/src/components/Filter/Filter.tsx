@@ -41,12 +41,12 @@ function Filter({ setAptArr }: IProps) {
   return (
     <div className="Filter-container">
       <div className="Filter-address">
-        Address: {" "}
-        <SearchBar
+        Address:{" "}
+        {/* <SearchBar
           searchValue={{ ...searchValue, address: preferences.address }}
           setSearchValue={setSearchValue}
           searchBarClass="Filter-search"
-        />{" "}
+        />{" "} */}
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> price range: </span>
@@ -54,7 +54,10 @@ function Filter({ setAptArr }: IProps) {
           <Range max={10000} step={100} type="price" />
         </span>
         <span className="Filter-range-min-span">{preferences.priceMin}</span>
-        <span className="Filter-range-max-span">{preferences.priceMax}{preferences.priceMax === 10000 && "+"}</span>
+        <span className="Filter-range-max-span">
+          {preferences.priceMax}
+          {preferences.priceMax === 10000 && "+"}
+        </span>
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> size(m²): </span>
@@ -62,13 +65,19 @@ function Filter({ setAptArr }: IProps) {
           <Range max={300} step={5} type="size" />
         </span>
         <span className="Filter-range-min-span">{preferences.sizeMin}</span>
-        <span className="Filter-range-max-span">{preferences.sizeMax}{preferences.sizeMax === 300 && "+"}</span>
+        <span className="Filter-range-max-span">
+          {preferences.sizeMax}
+          {preferences.sizeMax === 300 && "+"}
+        </span>
       </div>
       <div className="Filter-range-container">
         <span className="Filter-range-name"> rooms: </span>
         <Range max={10} step={1} type="rooms" />
         <span className="Filter-range-min-span">{preferences.roomsMin}</span>
-        <span className="Filter-range-max-span">{preferences.roomsMax}{preferences.roomsMax === 10 && "+"}</span>
+        <span className="Filter-range-max-span">
+          {preferences.roomsMax}
+          {preferences.roomsMax === 10 && "+"}
+        </span>
       </div>
       <div>
         <UserPreferences />

@@ -141,12 +141,12 @@ aptSchema.static(
           aptData.priceMax === 10000
             ? { $gte: aptData.priceMin }
             : { $gte: aptData.priceMin, $lte: aptData.priceMax },
-        // address: { $in: [aptData.address] },
+        address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         rentalType: aptData.rentalType,
-        entryDate: { $lte: aptData.entryDate },
-        checkOutDate: { $gte: aptData.checkOutDate },
+        // entryDate: { $lte: aptData.entryDate },
+        // checkOutDate: { $gte: aptData.checkOutDate },
         size:
           aptData.sizeMax === 300
             ? { $gte: aptData.sizeMin }
