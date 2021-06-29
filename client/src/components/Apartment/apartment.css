@@ -41,16 +41,6 @@
   width: 40vw;
   height: 45vh;
 }
-.Apartment-top-section-right-button {
-  background-color: grey;
-  width: 3vw;
-  margin-top: 22vh;
-}
-.Apartment-top-section-left-button {
-  background-color: grey;
-  width: 3vw;
-  margin-top: 22vh;
-}
 .Apartment-thumbs-up-button {
   background-color: green;
   margin-left: 15px;
@@ -65,7 +55,6 @@
   width: 50px;
   border-radius: 50%;
   cursor: pointer;
-
 }
 .Apartment-btn-text {
   font-size: 25px;

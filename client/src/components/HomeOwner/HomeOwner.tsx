@@ -19,76 +19,66 @@ export default function HomeOwner() {
     
   };
   return (
-    <div className="HomeOwner-container">
+    <div className="HomeOwner">
       {aptsArr.map((apt, i) => (
-        <div key={`likedApt-${i}`} className="HomeOwner-apt-container">
-          {/* <div>
-            {apt.likedByUser&& apt.likedByUser.map((user, i) => (
-              <div>name: {user.fullName}</div>
-              <div>age: {user.age}</div>
-              <div>phoneNumber: {user.phoneNumber}</div>
-              <div>email: {user.email}</div>
-            ))}
-          </div> */}
+        <div key={`HomeOwner-${i}`} className="HomeOwner-apt-div">
           <div className="HomeOwner-img-div">
             {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
-            <ImageSlider />
+            <ImageSlider size="small"/>
           </div>
           <div className="HomeOwner-description-container">
-            <div className="HomeOwner-description">
-              <span className="description-text">Address:{apt.address}</span>
-            </div>
-            <div className="HomeOwner-description">
-              <span className="description-text">
-                Price per month: {apt.pricePerMonth}
+            <div className="HomeOwner-description-main">
+              <span className="description-text-span">{apt.address}</span>
+              <span className="HomeOwner-description-main-miniContainer">
+                <span className="description-text">Size: {`${apt.size}m²`}</span>
+                <span className="description-text">|</span>
+                <span className="description-text">Rooms: {apt.rooms}</span>
+                <span className="description-text">|</span>
+                <span className="description-text">Floor: {apt.floor}</span>
               </span>
-              <span className="description-text">
+              <span className="description-text-span">
+                {apt.pricePerMonth}₪/Per month
+              </span>
+              <span className="description-text-span">
                 Rental Type: {apt.rentalType}
               </span>
-            </div>
-            <div className="HomeOwner-description">
-              <span className="description-text">
+              <span className="description-text-span">
                 Entry Date: {new Date(apt.entryDate).toLocaleDateString()}
               </span>
-              <span className="description-text">
-                CheckOut Date: {new Date(apt.entryDate).toLocaleDateString()}
+              <span className="description-text-span">
+                CheckOut Date: {new Date(apt.checkOutDate).toLocaleDateString()}
               </span>
             </div>
-            <div className="HomeOwner-description left">
-              <span className="description-text">Size: {`${apt.size}m²`}</span>
-              <span className="description-text">Rooms: {apt.rooms}</span>
-              <span className="description-text">Floor: {apt.floor}</span>
+            <div className="HomeOwner-description-secondary">
+              <div className="HomeOwner-description-secondary-left">
+                <span className="description-secondary-text-span">
+                  Parking: {apt.parking ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Porch: {apt.porch ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check "></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Garden: {apt.garden ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Furnished: {apt.furnished ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+              </div>
+              <div className="HomeOwner-description-secondary-right">
+                <span className="description-secondary-text-span">
+                  Elevator: {apt.elevator ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Pets Allowed: {apt.petsAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Smoke Allowed: {apt.smokeAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Handicap Accessible: {apt.handicapAccessible ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+              </div>
             </div>
-            {/* <div className="HomeOwner-description left">
-              <span className="description-text">
-                Parking: {apt.parking ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Porch: {apt.porch ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Garden: {apt.garden ? "Yes" : "No"}
-              </span>
-            </div>
-            <div className="HomeOwner-description">
-              <span className="description-text">
-                Furnished: {apt.furnished ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Elevator: {apt.elevator ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Handicap Accessible: {apt.handicapAccessible ? "Yes" : "No"}
-              </span>
-            </div>
-            <div className="HomeOwner-description">
-              <span className="description-text">
-                Pets Allowed: {apt.petsAllowed ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Smoke Allowed: {apt.smokeAllowed ? "Yes" : "No"}
-              </span>
-            </div> */}
           </div>
         </div>
       ))}

@@ -15,7 +15,7 @@ function Apartment({ apt, aptPreference }: IProps) {
         <div className="Apartment--img-and-buttons">
           <div className="Apartment-img-div">
             {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
-            <ImageSlider/>
+            <ImageSlider size="big"/>
           </div>
         </div>
         <div className="Apartment-description-container">

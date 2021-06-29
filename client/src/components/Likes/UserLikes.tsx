@@ -22,62 +22,60 @@ export default function Likes() {
         <div key={`likedApt-${i}`} className="Likes-apt-div">
           <div className="Likes-img-div">
             {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
-            <ImageSlider/>
+            <ImageSlider size="small"/>
           </div>
           <div className="Likes-description-container">
-            <div className="Likes-description">
-              <span className="description-text">Address:{apt.address}</span>
-            </div>
-            <div className="Likes-description">
-              <span className="description-text">
-                Price per month: {apt.pricePerMonth}
+            <div className="Likes-description-main">
+              <span className="description-text-span">{apt.address}</span>
+              <span className="Likes-description-main-miniContainer">
+                <span className="description-text">Size: {`${apt.size}m²`}</span>
+                <span className="description-text">|</span>
+                <span className="description-text">Rooms: {apt.rooms}</span>
+                <span className="description-text">|</span>
+                <span className="description-text">Floor: {apt.floor}</span>
               </span>
-              <span className="description-text">
+              <span className="description-text-span">
+                {apt.pricePerMonth}₪/Per month
+              </span>
+              <span className="description-text-span">
                 Rental Type: {apt.rentalType}
               </span>
-            </div>
-            <div className="Likes-description">
-              <span className="description-text">
+              <span className="description-text-span">
                 Entry Date: {new Date(apt.entryDate).toLocaleDateString()}
               </span>
-              <span className="description-text">
-                CheckOut Date: {new Date(apt.entryDate).toLocaleDateString()}
+              <span className="description-text-span">
+                CheckOut Date: {new Date(apt.checkOutDate).toLocaleDateString()}
               </span>
             </div>
-            <div className="Likes-description left">
-              <span className="description-text">Size: {`${apt.size}m²`}</span>
-              <span className="description-text">Rooms: {apt.rooms}</span>
-              <span className="description-text">Floor: {apt.floor}</span>
-            </div>
-            <div className="Likes-description left">
-              <span className="description-text">
-                Parking: {apt.parking ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Porch: {apt.porch ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Garden: {apt.garden ? "Yes" : "No"}
-              </span>
-            </div>
-            <div className="Likes-description">
-              <span className="description-text">
-                Furnished: {apt.furnished ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Elevator: {apt.elevator ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Handicap Accessible: {apt.handicapAccessible ? "Yes" : "No"}
-              </span>
-            </div>
-            <div className="Likes-description">
-              <span className="description-text">
-                Pets Allowed: {apt.petsAllowed ? "Yes" : "No"}
-              </span>
-              <span className="description-text">
-                Smoke Allowed: {apt.smokeAllowed ? "Yes" : "No"}
-              </span>
+            <div className="Likes-description-secondary">
+              <div className="Likes-description-secondary-left">
+                <span className="description-secondary-text-span">
+                  Parking: {apt.parking ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Porch: {apt.porch ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check "></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Garden: {apt.garden ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Furnished: {apt.furnished ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+              </div>
+              <div className="Likes-description-secondary-right">
+                <span className="description-secondary-text-span">
+                  Elevator: {apt.elevator ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Pets Allowed: {apt.petsAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Smoke Allowed: {apt.smokeAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+                <span className="description-secondary-text-span">
+                  Handicap Accessible: {apt.handicapAccessible ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
+                </span>
+              </div>
             </div>
           </div>
         </div>
