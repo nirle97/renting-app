@@ -11,6 +11,7 @@ import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import UploadApt from "../UploadApt/UploadApt";
 import UserLikes from "../Likes/UserLikes";
+import HomeOwner from "../HomeOwner/HomeOwner";
 
 function App() {
   const { isLogged } = useSelector(authSelectors);
@@ -42,7 +43,7 @@ function App() {
         <NavBar />
         <UploadApt />
         <Switch>
-            {/* <Route exact path="/" component={HomeOwner} /> */}
+            <Route exact path="/" component={HomeOwner} />
           </Switch>
         </>
       :(

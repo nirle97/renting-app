@@ -13,7 +13,8 @@ export interface IUser extends Document {
 }
 export interface IOwnerApt extends Document {
   ownerId: String;
-  likedBy: string[];
+  likedBy: string[] ;
+  likedByUser?: {}[];
   disLikedBy: string[];
   address: string;
   cords: {

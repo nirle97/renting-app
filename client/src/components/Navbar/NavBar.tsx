@@ -2,8 +2,11 @@ import "./navBar.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Profile from "../Profile/Profile";
-
+import { useSelector, useDispatch } from "react-redux";
+import { userSelectors } from "../../store/userSlice";
 function NavBar() {
+  const { user } = useSelector(userSelectors);
+
   return (
     <div className={"NavBar-container"}>
       <div className={"NavBar-span-start"}>
@@ -29,14 +32,16 @@ function NavBar() {
         >
           Chat
         </NavLink>
-        <NavLink
-          className={"NavBar-Link"}
-          activeStyle={{ color: "black" }}
-          exact
-          to="/likes"
-        >
-          Likes
-        </NavLink>
+        {!user.isOwner &&
+          <NavLink
+            className={"NavBar-Link"}
+            activeStyle={{ color: "black" }}
+            exact
+            to="/likes"
+          >
+            Likes
+          </NavLink>
+        }
       </div>
       <div className={"NavBar-span-end"}>
         <span className={"NavBar-Link"}>

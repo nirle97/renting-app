@@ -9,12 +9,13 @@ interface Decoded extends Request {
 }
 interface ISignInUser extends Request {
   decoded: {
-    id?: String;
-    fullName: String;
-    email: String;
-    phoneNumber?: String;
-    age?: Number;
-    imgUrl?: String;
+    id?: string;
+    fullName: string;
+    email: string;
+    phoneNumber?: string;
+    age?: number;
+    isOwner: boolean
+    imgUrl?: string;
     imgFile?: {};
   };
 }
@@ -82,6 +83,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
         imgUrl: req.decoded.imgUrl,
         imgFile: req.decoded.imgFile,
         age: req.decoded.age,
+        isOwner: req.decoded.isOwner,
         phoneNumber: req.decoded.phoneNumber,
       },
     });
