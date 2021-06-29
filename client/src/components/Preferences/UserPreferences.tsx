@@ -48,6 +48,12 @@ function UserPreferences() {
   return (
     <div className="UserPreferences-container">
       <div className="UserPreferences-input-div">
+        <input
+          type="text"
+          id="address"
+          value={preferences.address}
+          onChange={changeHandler}
+        />
         <label className="UserPreferences-label">Rental type:</label>
         <select
           id="rentalType"
