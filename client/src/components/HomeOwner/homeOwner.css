@@ -1,0 +1,35 @@
+.HomeOwner-container {
+    width: 100vw;
+    display: flex;
+     align-items: center; 
+    justify-content: space-around;
+    margin-top: 20vh;
+}
+.HomeOwner-apt-container {
+  display: flex;
+  height: 30vh;
+  width: 80vw;
+  margin-bottom: 15vh;
+  border: 1px solid grey;
+}
+.HomeOwner-img-div {
+  width: 40%;
+  border: 1px solid grey;
+}
+.HomeOwner-description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  float: left;
+}
+.HomeOwner-description {
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+  border-bottom: 1px solid grey;
+}
+.HomeOwner-description span {
+  font-size: 18px;
+  padding: 0 5px;
+}
+

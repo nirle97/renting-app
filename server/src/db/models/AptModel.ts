@@ -36,6 +36,11 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     default: [],
     sparse: true,
   },
+  likedByUser: {
+    type: Array,
+    default: [],
+    sparse: true,
+  },
   disLikedBy: {
     type: Array,
     default: [],

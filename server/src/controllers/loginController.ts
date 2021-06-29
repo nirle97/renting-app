@@ -47,7 +47,7 @@ const signIn = async (
     return;
   }
   const credentials = req.body;
-
+  
   try {
     const result: IUser | null = await UserModel.findOne({
       email: credentials.email,
@@ -68,7 +68,7 @@ const signIn = async (
         age: result.age,
         isOwner: result.isOwner,
         imgUrl: result.imgUrl,
-      };
+      };      
       next();
     }else{
       res.status(401).send(resTemplate.clientError.unAuthorized);

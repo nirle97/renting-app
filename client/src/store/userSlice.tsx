@@ -7,8 +7,8 @@ export interface UserState {
     fullName: string;
     phoneNumber?: string;
     age?: number;
-    isOwner: boolean
     email: string;
+    isOwner: boolean;
     imgUrl: string;
   };
 }

@@ -40,6 +40,7 @@ export interface IUploadNewApt {
   handicapAccessible: boolean;
   petsAllowed: boolean;
   smokeAllowed: boolean;
+  likedByUser?: {}[];
 }
 
 export interface IFilter {
