@@ -23,6 +23,7 @@ function Apartment({ apt, aptPreference }: IProps) {
       }
     }
   };
+
   return (
     <div className="Apartment-container">
       <div className="Apartment-img-desc">
@@ -36,7 +37,7 @@ function Apartment({ apt, aptPreference }: IProps) {
           <div className="Apartment-img-div">
             <img
               className="Apartment-img"
-              src={`/client/public/images/apts/house${picToDisplay}.jpg`}
+              src={`/images/apts/house${picToDisplay}.jpg`}
               // src={apt.imagesUrl[picToDisplay]}
               alt="apartment pics"
             />
