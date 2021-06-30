@@ -1,19 +1,19 @@
- .HomeOwner {
+.HomeOwner-container {
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 10vh;
+  cursor: pointer;
 }
 .HomeOwner-apt-div {
   display: flex;
   height: 32.7vh;
   width: 70vw;
-  margin-bottom: 5vh;
   border: 1px solid grey;
   border-radius: 10px;
-
+  margin-top: 3vh;
 }
 .HomeOwner-img-div {
   float: right;
@@ -28,66 +28,99 @@
   align-items: flex-end;
   float: left;
 }
-.HomeOwner-description-main{
+.HomeOwner-description-main {
   display: flex;
   flex-direction: column;
   text-align: left;
   width: 20vw;
   height: 30vh;
   margin-top: 1.5vh;
-
 }
-.HomeOwner-description-main-miniContainer{
+.HomeOwner-description-main-miniContainer {
   display: flex;
   flex-direction: row;
   margin-bottom: 1.5vh;
   font-weight: 700;
 }
-.description-text-span{
+.description-text-span {
   margin-bottom: 1.5vh;
   font-weight: 700;
-
 }
-.HomeOwner-description-secondary{
+.HomeOwner-description-secondary {
   display: flex;
   flex-direction: row;
   width: 20vw;
   height: 30vh;
   justify-content: flex-end;
 }
-.HomeOwner-description-secondary-left{
+.HomeOwner-description-secondary-left {
   display: flex;
   flex-direction: column;
   width: 8vw;
   height: 30vh;
   margin-top: 1.5vh;
-
 }
-.HomeOwner-description-secondary-right{
+.HomeOwner-description-secondary-right {
   display: flex;
   flex-direction: column;
   width: 12vw;
   height: 30vh;
   margin-top: 1.5vh;
 }
-.description-secondary-text-span{
+.description-secondary-text-span {
   margin-bottom: 2.5vh;
   font-weight: 700;
 }
 
-.description-check{
-  color:green
+.description-check {
+  color: green;
 }
-.description-un-check{
-  color:red
-  
+.description-un-check {
+  color: red;
 }
 
-.HomeOwner-users-container{
+.HomeOwner-users-container {
   display: flex;
+  align-items: center;
   height: 16vh;
   width: 70vw;
   margin-bottom: 5vh;
   border: 1px solid grey;
   border-radius: 10px;
+}
+.HomeOwner-likes-div {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 70vw;
+  height: 30vh;
+  border: 1px solid black;
+  margin-bottom: 5vh;
+  color: white;
+  background-color: rgb(64, 66, 73);
+  overflow-x: hidden;
+}
+.HomeOwner-left-arrow,
+.HomeOwner-right-arrow {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: rgb(128, 128, 128, 0.8);
+  color: rgb(0, 0, 0, 0.4);
+  font-size: 2rem;
+}
+.HomeOwner-left-arrow:hover,
+.HomeOwner-right-arrow:hover {
+  color: rgb(0, 0, 0, 1);
+}
+.HomeOwner-right-arrow {
+  position: absolute;
+  right: 1%;
+  top: 40%;
+}
+.HomeOwner-left-arrow {
+  left: 1%;
 }

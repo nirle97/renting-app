@@ -1,19 +1,18 @@
-import { useState } from 'react';
-import "./sliderImg.css"
+import { useState } from "react";
+import "./sliderImg.css";
 interface IProps {
-    // sliderData: string[]
-    size: string;
-  }
-function ImageSlider ({ size }: IProps) {
+  // sliderData: string[]
+  size: string;
+}
+function ImageSlider({ size }: IProps) {
   const [current, setCurrent] = useState(0);
   const [images, setImages] = useState([
     "/images/apts/house0.jpg",
     "/images/apts/house1.jpg",
     "/images/apts/house2.jpg",
-    "/images/apts/house3.jpg"
+    "/images/apts/house3.jpg",
   ]);
   const length = images.length;
-
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -28,23 +27,37 @@ function ImageSlider ({ size }: IProps) {
   }
 
   return (
-    <div className={size === "small" ? 'slider-container-small' : 'slider-container-big'}>
-        <span className='left-arrow slider-btn' onClick={prevSlide} > <i className="fas fa-arrow-left slider-i"></i></span>
+    <div
+      className={
+        size === "small" ? "slider-container-small" : "slider-container-big"
+      }
+    >
+      <span className="left-arrow slider-btn" onClick={prevSlide}>
+        {" "}
+        <i className="fas fa-arrow-left slider-i"></i>
+      </span>
       {images.map((slide, index) => {
         return (
           <div
-          className={index === current ? 'slide active' : 'slide'}
-          key={index}
+            className={index === current ? "slide active" : "slide"}
+            key={index}
           >
-                {index === current && (                  
-                  <img src={slide} alt='Apartment img' className={size === "small" ? 'image-small' : 'image-big'} />
-                  )}
-            </div>
-            );
-          })}
-          <span className='right-arrow slider-btn' onClick={nextSlide} > <i className="fas fa-arrow-right slider-i"></i></span>
+            {index === current && (
+              <img
+                src={slide}
+                alt="Apartment img"
+                className={size === "small" ? "image-small" : "image-big"}
+              />
+            )}
+          </div>
+        );
+      })}
+      <span className="right-arrow slider-btn" onClick={nextSlide}>
+        {" "}
+        <i className="fas fa-arrow-right slider-i"></i>
+      </span>
     </div>
   );
-};
+}
 
 export default ImageSlider;

@@ -12,7 +12,6 @@ import { aptSelectors } from "../../store/aptSlice";
 import Map from "../Map/Map";
 
 function Home() {
-
   const { userApts }: AptState = useSelector(aptSelectors);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const [showMap, setShowMap] = useState<boolean>(false);

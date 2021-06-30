@@ -1,4 +1,5 @@
 .slider-container-small {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,9 +26,10 @@
 }
 
 .slider-btn {
+  position: relative;
   display: flex;
   height: 40px;
-  width: 35px;
+  width: 40px;
   border-radius: 50%;
   cursor: pointer;
   background-color: rgb(128, 128, 128, 0.8);
@@ -45,12 +47,12 @@
 }
 
 .right-arrow {
-  margin-left: -4vw;
+  right: 10%;
   float: right;
 }
 
 .left-arrow {
-  margin-right: -4vw;
+  left: 10%;
   float: left;
 }
 

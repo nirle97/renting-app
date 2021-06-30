@@ -1,8 +1,9 @@
 .UploadApt-container {
   z-index: 100 !important;
 }
-
 .UploadApt-plus .fa-plus-circle {
+  position: fixed;
+  bottom: 5vh;
   color: rgb(242, 85, 90);
   transform: scale(4);
   cursor: pointer;
@@ -47,9 +48,9 @@
   margin-bottom: 5px;
   background-color: rgb(245, 202, 188);
 }
-.UploadApts-search{
-  background-color:rgb(245, 202, 188) ;
+.UploadApts-search {
+  background-color: rgb(245, 202, 188);
   outline: none;
   border: none;
-  color: black
+  color: black;
 }
