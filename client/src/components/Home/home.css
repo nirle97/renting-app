@@ -1,10 +1,9 @@
 .Home-container {
-  display: flex;
-  flex-direction: row-reverse;
-  position: relative;
-  top: 0;
-  margin-top: 4vh;
+  /* display: flex;
+  flex-direction: row-reverse; */
+  /* position: relative; */
   width: 100vw;
+  overflow-x: hidden;
 }
 .z-index {
   z-index: -2;
@@ -14,24 +13,32 @@
   float: right;
   width: 20vw;
 }
-.Home-left-side {
+.Home-main {
   display: flex;
-  justify-content: flex-start;
-  left: 0;
-  min-width: 70vw;
+  flex-direction: row;
+  width: 90vh;
+  /*margin-right: 5vh;
+  margin-left: 5vh;*/
+  /* border-style: solid;  */
+}
+.Home-apartment-map{
+  margin-top: 8vh;
+  display: flex;
+  /* float: left; */
+  margin-left: 2vw;
 }
 .Home-apartment-component {
   display: flex;
-  justify-content: flex-start;
-  width: 50vw;
+  /* float: right; */
+  /* margin */
 }
-.Home-map-button-span {
+/* .Home-map-button-span {
   margin-top: 15px;
   height: 50px;
   width: 500px;
   cursor: pointer;
   background-color: cyan;
-}
+} */
 .Home-filter-btn {
   position: fixed;
   z-index: 1111;

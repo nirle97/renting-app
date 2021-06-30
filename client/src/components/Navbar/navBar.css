@@ -31,12 +31,18 @@
 .NaveBar-logo-img {
   width: 10vw;
 }
-.NavBar-span-end {
+.NavBar-div-end {
   position: absolute;
-  right: 5vw;
+  right: 3vw;
   display: flex;
   justify-content: flex-end;
 }
+
+.NavBar-spinner{
+width: 7.5vh;
+margin-left:5vh;
+}
+
 #NavBar-logo {
   color: black;
   text-decoration: none;

@@ -7,8 +7,12 @@ import { setPreferences, prefSelectors } from "../../store/prefSlice";
 import { setAptsArray } from "../../store/aptSlice";
 import network from "../../utils/network";
 import UserPreferences from "../Preferences/UserPreferences";
+import { setIsDataLoading } from "../../store/spinnerSlice";
 
-function Filter() {
+interface IProps {
+  toggleFilters: () => void
+}
+function Filter( { toggleFilters }: IProps) {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
   const [searchValue, setSearchValue] = useState({
@@ -25,11 +29,15 @@ function Filter() {
   };
 
   const savePreferences = async () => {    
+    dispatch(setIsDataLoading({isDataLoading: true}))
     await network.put("/preference/user-preferences", preferences);
     const {
       data: { data },
     } = await network.post("/apartment/filtered-apts", preferences);
+    dispatch(setIsDataLoading({isDataLoading: false}))
     dispatch(setAptsArray({ userApts: data }));
+    // setOpenFiltersBar(false);
+    toggleFilters();
   };
 
   // useEffect(() => {

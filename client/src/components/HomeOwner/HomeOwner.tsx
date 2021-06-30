@@ -4,6 +4,7 @@ import { IUploadNewApt, IUser } from "../../interfaces/interface";
 import "./homeOwner.css";
 import ImageSlider from "../SliderImg/SliderImg";
 import LikedUser from "./LikedUser";
+import { useDispatch } from "react-redux";
 export default function HomeOwner() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const [selectedAptId, setSelectedAptId] = useState("");
@@ -12,16 +13,18 @@ export default function HomeOwner() {
     min: 0,
     max: 3,
   });
-
+  const dispatch = useDispatch();
   useEffect(() => {
     getOwnerApts();
   }, []);
 
   const getOwnerApts = async () => {
+    dispatch(setIsDataLoading({ isDataLoading: true }));
     const {
       data: { data },
     } = await network.get("/apartment/owner-apts");
     setAptsArr(data);
+    dispatch(setIsDataLoading({ isDataLoading: false }));
   };
 
   const clickedHandler = (e: any) => {

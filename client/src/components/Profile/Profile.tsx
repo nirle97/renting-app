@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./profile.css";
 import { userSelectors } from "../../store/userSlice";
@@ -9,7 +9,6 @@ import {
 } from "../../store/profileSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import netwrok from "../../utils/network";
 
 function Profile() {
   const dispatch = useDispatch();

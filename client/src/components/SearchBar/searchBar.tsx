@@ -44,13 +44,18 @@ export default function SearchBar({
       address: value,
     });
   };
-
+  const searchOptions = {
+    location: new google.maps.LatLng(32.0853, 34.7818),
+    radius: 100000000
+  }
   return (
     <div className="searchBar-container">
       <PlacesAutocomplete
         value={address}
         onChange={setAddress}
         onSelect={handleSelect}
+        searchOptions={searchOptions}
+
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>

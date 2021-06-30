@@ -3,18 +3,23 @@ import "./userLikes.css";
 import network from "../../utils/network";
 import { IUploadNewApt } from "../../interfaces/interface";
 import ImageSlider from "../SliderImg/SliderImg";
-
+import { setIsDataLoading } from "../../store/spinnerSlice";
+import { useDispatch } from "react-redux";
 export default function Likes() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getLikedApts();
   }, []);
   const getLikedApts = async () => {
+    dispatch(setIsDataLoading({isDataLoading: true}))
     const {
       data: { data },
     } = await network.get("/apartment/user-liked-apts");
     setAptsArr(data);
+    dispatch(setIsDataLoading({isDataLoading: false}))
+
   };
   return (
     <div className="Likes">
