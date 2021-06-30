@@ -1,6 +1,7 @@
 .NavBar-container {
   position: fixed;
   display: flex;
+  z-index: 12;
   top: 0;
   width: 100%;
   height: 8vh;

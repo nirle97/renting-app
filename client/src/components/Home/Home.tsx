@@ -3,21 +3,20 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import { IUploadNewApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
-import { prefSelectors, setPreferences } from "../../store/prefSlice";
+import { setPreferences } from "../../store/prefSlice";
+import { setAptsArray, AptState } from "../../store/aptSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { aptSelectors } from "../../store/aptSlice";
 import Map from "../Map/Map";
 function Home() {
-  const { userApts } = useSelector(aptSelectors);
-  console.log(userApts);
-
+  const { userApts }: AptState = useSelector(aptSelectors);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
   const toggleFilterBtn = useRef<HTMLDivElement>(null);
+  const [openFiltersBar, setOpenFiltersBar] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,13 +36,20 @@ function Home() {
     await network.put(
       `apartment/like-status/${userApts[aptToDisplay]._id}?status=${preference}`
     );
+    const updatedUserApts = userApts.slice(aptToDisplay, aptToDisplay);
+    dispatch(setAptsArray({ userApts: updatedUserApts }));
     setAptToDisplay(aptToDisplay + 1);
   };
 
   const toggleFilters = () => {
     if (toggleFilterBtn.current) {
       const filtersDiv = toggleFilterBtn.current.lastChild as HTMLElement;
-      filtersDiv.classList.toggle("toggle-filters");
+      setOpenFiltersBar((prev) => !prev);
+      if (openFiltersBar) {
+        filtersDiv.classList.toggle("close-filters");
+      } else {
+        filtersDiv.classList.toggle("open-filters");
+      }
     }
   };
 
@@ -68,7 +74,7 @@ function Home() {
               apt={userApts[aptToDisplay]}
             />
           </div>
-          <span className="Home-map-button-span" onClick={scrollToMap}>
+          {/* <span className="Home-map-button-span" onClick={scrollToMap}>
             <i className="fas fa-long-arrow-alt-down"></i>
             Scroll down for GoogleMap
             <i className="fas fa-long-arrow-alt-down"></i>
@@ -86,7 +92,7 @@ function Home() {
                 }
               />
             </div>
-          )}
+          )} */}
         </div>
       ) : (
         <div className="Home-noNew-div">

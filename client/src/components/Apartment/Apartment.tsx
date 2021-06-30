@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./apartment.css";
 import { IApt, IUploadNewApt } from "../../interfaces/interface";
-import ImageSlider from "../SliderImg/SliderImg"
+import ImageSlider from "../SliderImg/SliderImg";
 
 interface IProps {
   apt: IUploadNewApt;
@@ -12,10 +12,10 @@ function Apartment({ apt, aptPreference }: IProps) {
   return (
     <div className="Apartment-container">
       <div className="Apartment-img-desc">
-        <div className="Apartment--img-and-buttons">
+        <div className="Apartment-img-and-buttons">
           <div className="Apartment-img-div">
-            {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
-            <ImageSlider size="big"/>
+            {/* <ImageSlider sliderData={apt.imagesUrl} /> */}
+            <ImageSlider size="big" />
           </div>
         </div>
         <div className="Apartment-description-container">

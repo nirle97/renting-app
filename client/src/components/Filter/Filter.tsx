@@ -4,7 +4,7 @@ import Range from "./Range";
 import SearchBar from "../SearchBar/searchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreferences, prefSelectors } from "../../store/prefSlice";
-import { setAptsArray, aptSelectors } from "../../store/aptSlice";
+import { setAptsArray } from "../../store/aptSlice";
 import network from "../../utils/network";
 import UserPreferences from "../Preferences/UserPreferences";
 
@@ -32,13 +32,13 @@ function Filter() {
     dispatch(setAptsArray({ userApts: data }));
   };
 
-  useEffect(() => {
-    dispatch(
-      setPreferences({
-        preferences: { ...preferences, address: searchValue.address },
-      })
-    );
-  }, [searchValue]);
+  // useEffect(() => {
+  //   dispatch(
+  //     setPreferences({
+  //       preferences: { ...preferences, address: searchValue.address },
+  //     })
+  //   );
+  // }, [searchValue]);
 
   useEffect(() => {
     setSearchValue({ ...searchValue, address: preferences.address });

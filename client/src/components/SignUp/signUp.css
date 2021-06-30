@@ -41,6 +41,12 @@
 .SignUp-msg {
   color: red;
 }
+.SignUp-usage-purp-span {
+  margin-right: 2vw;
+}
+.SignUp-purpose {
+  margin: 0 1vw;
+}
 .btn-outline-primary {
   margin-right: 3vw;
 }

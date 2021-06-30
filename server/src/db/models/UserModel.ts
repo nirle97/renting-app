@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema<IUser>({
   isOwner: {
     type: Boolean,
     require: true,
+    default: false,
   },
   likedApts: {
     type: Array,

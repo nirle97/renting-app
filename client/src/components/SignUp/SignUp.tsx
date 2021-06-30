@@ -59,9 +59,9 @@ function SignUp() {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
         // const url = await postImage(file, "profileImg");
-        setFormInput({ ...formInput, imgUrl: image });   
+        setFormInput({ ...formInput, imgUrl: image });
         // await network.post("/login/sign-up", { ...formInput, imgUrl: url });
-        await network.post("/login/sign-up", { ...formInput});
+        await network.post("/login/sign-up", { ...formInput });
         history.push("/");
       } else {
         setEmptyFldMsg(true);
@@ -168,23 +168,22 @@ function SignUp() {
           />
         </div>
         <div className="SignUp-div-input">
-          <span>
-          User type:
-          </span>
-          <label >User</label>
+          <span className="SignUp-usage-purp-span">Usage Purpose:</span>
+          <label>Tenant</label>
           <input
-
             type="radio"
             name="purpose"
             value="User"
-            onChange={()=>setFormInput({...formInput, isOwner: false})}
+            onChange={() => setFormInput({ ...formInput, isOwner: false })}
+            className="SignUp-purpose"
           />
-          <label>Owner</label>
+          <label>Landlord</label>
           <input
             type="radio"
             name="purpose"
             value="Owner"
-            onChange={()=>setFormInput({...formInput, isOwner: true})}
+            onChange={() => setFormInput({ ...formInput, isOwner: true })}
+            className="SignUp-purpose"
           />
         </div>
         {emptyFldMsg && (

@@ -9,6 +9,11 @@
   justify-content: flex-start;
   align-items: center;
 }
+.Apartment-img-and-buttons {
+  position: relative;
+  right: 5%;
+  float: right;
+}
 .Apartment-description-container {
   position: relative;
   left: 0;
