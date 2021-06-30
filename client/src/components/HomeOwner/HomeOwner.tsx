@@ -83,6 +83,7 @@ export default function HomeOwner() {
                     Pets Allowed: {apt.petsAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
                   </span>
                   <span className="description-secondary-text-span">
+                    Smoke Allowed: {apt.smokeAllowed ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
                   </span>
                   <span className="description-secondary-text-span">
                     Handicap Accessible: {apt.handicapAccessible ? <i className="fas fa-check description-check"></i> : <i className="fas fa-times description-un-check"></i>}
