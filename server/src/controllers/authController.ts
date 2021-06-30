@@ -38,7 +38,7 @@ const generateNewToken = async (req: Request, res: Response): Promise<void> => {
           return;
         }
         const accessToken = sign(decoded, process.env.JWT_SECRET, {
-          expiresIn: "10m",
+          expiresIn: "10h",
         });
         res.status(200).send({
           ...resTemplate.success.general,
@@ -67,7 +67,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
       expiresIn: "10h",
     });
     const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
-      expiresIn: "6h",
+      expiresIn: "24h",
     });
     await UserModel.findOneAndUpdate(
       { email: req.decoded.email },

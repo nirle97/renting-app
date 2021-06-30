@@ -3,17 +3,15 @@ import "./home.css";
 import network from "../../utils/network";
 import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
-import { IUploadNewApt } from "../../interfaces/interface";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
-import { prefSelectors, setPreferences } from "../../store/prefSlice";
+import { setPreferences } from "../../store/prefSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { aptSelectors } from "../../store/aptSlice";
 import Map from "../Map/Map";
+
 function Home() {
   const { userApts } = useSelector(aptSelectors);
-  console.log(userApts);
-
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
@@ -47,9 +45,6 @@ function Home() {
     }
   };
 
-  const scrollToMap = () => {
-    setShowMap((prev) => !prev);
-  };
   return (
     <div className={`${isprofileClicked && "z-index"} Home-container`}>
       <div className="Home-filter-component">
@@ -68,9 +63,10 @@ function Home() {
               apt={userApts[aptToDisplay]}
             />
           </div>
-          <span className="Home-map-button-span" onClick={scrollToMap}>
-            <i className="fas fa-long-arrow-alt-down"></i>
-            Scroll down for GoogleMap
+
+          <span className="Home-map-button-span" onClick={ () => setShowMap((prev)=> !prev)}>
+            <i className="fas fa-long-arrow-alt-down"></i> 
+            Scroll down for GoogleMap 
             <i className="fas fa-long-arrow-alt-down"></i>
           </span>
           {showMap && (

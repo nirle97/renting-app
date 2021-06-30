@@ -24,7 +24,7 @@ function Filter() {
     );
   };
 
-  const savePreferences = async () => {
+  const savePreferences = async () => {    
     await network.put("/preference/user-preferences", preferences);
     const {
       data: { data },
