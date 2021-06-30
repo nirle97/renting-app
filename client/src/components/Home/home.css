@@ -10,13 +10,19 @@
   z-index: -2;
 }
 .Home-filter-component {
+  position: relative;
   float: right;
   width: 20vw;
 }
 .Home-left-side {
-  width: 80vw;
+  display: flex;
+  justify-content: flex-start;
+  left: 0;
+  min-width: 70vw;
 }
 .Home-apartment-component {
+  display: flex;
+  justify-content: flex-start;
   width: 50vw;
 }
 .Home-map-button-span {
@@ -27,22 +33,26 @@
   background-color: cyan;
 }
 .Home-filter-btn {
-  z-index: 111;
-  position: relative;
+  position: fixed;
+  z-index: 1111;
   font-size: 30px;
-  right: -40%;
+  right: 2%;
   top: 10%;
   color: black;
   cursor: pointer;
 }
-.toggle-filters {
-  transform: translateX(100%);
+.close-filters {
+  transform: translateX(110%);
+  transition: transform 1s ease;
+}
+.open-filters {
+  transform: translateX(0);
   transition: transform 1s ease;
 }
 .Home-noNew-div {
   position: relative;
   right: 20%;
-  top: 40%;
+  top: 30%;
 }
 .Home-noNew-img {
   width: 50%;

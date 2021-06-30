@@ -17,7 +17,6 @@ function NavBar() {
               src="/images/logo.png"
               alt="logo"
             />
-            {/* <span className={"NavBar-logo-name"}>Hommies</span> */}
           </span>
         </Link>
         <NavLink

@@ -24,26 +24,24 @@
   border-radius: 10px;
 }
 
-
 .slider-btn {
   display: flex;
   height: 40px;
   width: 35px;
   border-radius: 50%;
   cursor: pointer;
-  background-color: rgb(128,128,128,0.8);
-  color: rgb(0,0,0,0.4);
+  background-color: rgb(128, 128, 128, 0.8);
+  color: rgb(0, 0, 0, 0.4);
   align-items: center;
   font-size: 2rem;
   z-index: 10;
 }
 .slider-btn:hover {
-  color: rgb(0,0,0,1);
-
+  color: rgb(0, 0, 0, 1);
 }
 
-.slider-i{
-padding-left: 0.3vw;
+.slider-i {
+  padding-left: 0.3vw;
 }
 
 .right-arrow {
@@ -52,7 +50,7 @@ padding-left: 0.3vw;
 }
 
 .left-arrow {
-  margin-right: -4vw; 
+  margin-right: -4vw;
   float: left;
 }
 
