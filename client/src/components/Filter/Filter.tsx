@@ -7,8 +7,10 @@ import { setPreferences, prefSelectors } from "../../store/prefSlice";
 import { setAptsArray } from "../../store/aptSlice";
 import network from "../../utils/network";
 import UserPreferences from "../Preferences/UserPreferences";
-
-function Filter() {
+interface IProps {
+  toggleFilters: () => void
+}
+function Filter( { toggleFilters }: IProps) {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
   const [searchValue, setSearchValue] = useState({
@@ -30,6 +32,8 @@ function Filter() {
       data: { data },
     } = await network.post("/apartment/filtered-apts", preferences);
     dispatch(setAptsArray({ userApts: data }));
+    // setOpenFiltersBar(false);
+    toggleFilters();
   };
 
   // useEffect(() => {

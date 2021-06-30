@@ -23,8 +23,9 @@ function Home() {
 
   useEffect(() => {
     getUserPref();
+    toggleFilters();
   }, []);
-
+  
   const getUserPref = async () => {
     const {
       data: { data },
@@ -62,15 +63,27 @@ function Home() {
           <i className="fas fa-bars"></i>
         </span>
         <div ref={toggleFilterBtn} className="Home-filter-toggle-div">
-          <Filter />
+          <Filter toggleFilters={toggleFilters}/>
         </div>
       </div>
       {userApts && aptToDisplay < userApts.length ? (
-        <div className="Home-left-side">
+        <div className="Home-main">
           <div className="Home-apartment-component">
             <Apartment
               aptPreference={aptPreference}
               apt={userApts[aptToDisplay]}
+            />
+          </div>
+          <div className="Home-apartment-map">
+            <Map
+              cords={
+                userApts[aptToDisplay].cords
+                  ? userApts[aptToDisplay].cords
+                  : {
+                      lat: 32.1149489,
+                      lng: 34.8271349,
+                    }
+              }
             />
           </div>
           {/* <span className="Home-map-button-span" onClick={scrollToMap}>
@@ -78,20 +91,8 @@ function Home() {
             Scroll down for GoogleMap
             <i className="fas fa-long-arrow-alt-down"></i>
           </span>
-          {showMap && (
-            <div className="Home-apartment-map">
-              <Map
-                cords={
-                  userApts[aptToDisplay].cords
-                    ? userApts[aptToDisplay].cords
-                    : {
-                        lat: 32.1149489,
-                        lng: 34.8271349,
-                      }
-                }
-              />
-            </div>
-          )} */}
+          {showMap && ( */}
+          {/* // )} */}
         </div>
       ) : (
         <div className="Home-noNew-div">

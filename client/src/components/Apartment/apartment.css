@@ -1,4 +1,4 @@
-.Apartment-container {
+/* .Apartment-container {
   display: flex;
   flex-direction: column;
   width: 80vw;
@@ -72,4 +72,123 @@
 
 .Apartment-description-text {
   font-size: 20px;
+} */
+.Apartment {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Apartment-apt-div {
+  margin-top: 8vh;
+  display: flex;
+  flex-direction: column;
+  height: 81vh;
+  width: 43.2vw;
+  margin-bottom: 5vh;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+.Apartment-img-div {
+  margin-top: 1.7vh;
+  margin-left: 1.5vw;
+  width: 40vw;
+  height: 45vh;
+}
+.Apartment-description-container {
+
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: -2vh;
+  margin-left: 1vh;
+
+}
+.Apartment-description-main{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 20vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+
+}
+.Apartment-description-main-miniContainer{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.5vh;
+  font-weight: 700;
+}
+.description-text-span{
+  margin-bottom: 1.5vh;
+  font-weight: 700;
+
+}
+.Apartment-description-secondary{
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+  height: 30vh;
+  justify-content: flex-end;
+}
+.Apartment-description-secondary-left{
+  display: flex;
+  flex-direction: column;
+  width: 8vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+
+}
+.Apartment-description-secondary-right{
+  display: flex;
+  flex-direction: column;
+  width: 12vw;
+  height: 30vh;
+  margin-top: 1.5vh;
+}
+.description-secondary-text-span{
+  margin-bottom: 2.5vh;
+  font-weight: 700;
+}
+
+.description-check{
+  color:green
+}
+.description-un-check{
+  color:red
+  
+}
+
+.Apartment-users-container{
+  display: flex;
+  height: 16vh;
+  width: 70vw;
+  margin-bottom: 5vh;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+.Apartment-thumbs-up-button {
+  background-color: green;
+  margin-left: 15px;
+}
+.Apartment-thumbs-down-button {
+  background-color: red;
+  margin-right: 15px;
+}
+.Apartment-btn {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.Apartment-btn-text {
+  font-size: 25px;
+  margin: auto;
+}
+.Apartment-like-dislike-div {
+  display: flex;
+  justify-content: center;
 }
