@@ -6,6 +6,7 @@ import Apartment from "../Apartment/Apartment";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
 import { setPreferences } from "../../store/prefSlice";
+import { setIsDataLoading } from "../../store/spinnerSlice";
 import { setAptsArray, AptState } from "../../store/aptSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { aptSelectors } from "../../store/aptSlice";
@@ -15,7 +16,7 @@ function Home() {
 
   const { userApts }: AptState = useSelector(aptSelectors);
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
-  const [showMap, setShowMap] = useState<boolean>(false);
+  // const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
   const toggleFilterBtn = useRef<HTMLDivElement>(null);
   const [openFiltersBar, setOpenFiltersBar] = useState(true);
@@ -27,18 +28,22 @@ function Home() {
   }, []);
   
   const getUserPref = async () => {
+    dispatch(setIsDataLoading({isDataLoading: true}))
     const {
       data: { data },
     } = await network.get("/preference/user-preferences");
     if (data) {
       dispatch(setPreferences({ preferences: data.preferences }));
     }
+    dispatch(setIsDataLoading({isDataLoading: false}))
   };
 
   const aptPreference = async (preference: string) => {
+    dispatch(setIsDataLoading({isDataLoading: true}))
     await network.put(
       `apartment/like-status/${userApts[aptToDisplay]._id}?status=${preference}`
     );
+    dispatch(setIsDataLoading({isDataLoading: false}))
     const updatedUserApts = userApts.slice(aptToDisplay, aptToDisplay);
     dispatch(setAptsArray({ userApts: updatedUserApts }));
     setAptToDisplay(aptToDisplay + 1);

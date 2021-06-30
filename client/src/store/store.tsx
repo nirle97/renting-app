@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./authSlice";
+import { spinnerReducer } from "./spinnerSlice";
 import { userReducer } from "./userSlice";
 import { prefReducer } from "./prefSlice";
 import { aptReducer } from "./aptSlice";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   prefReducer,
   profileReducer,
   aptReducer,
+  spinnerReducer,
 });
 const persistConfig = {
   key: "root",
@@ -34,6 +36,7 @@ const persistConfig = {
     "prefReducer",
     "profileReducer",
     "aptReducer",
+    "spinnerReducer",
   ],
 };
 

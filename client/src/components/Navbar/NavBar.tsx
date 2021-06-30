@@ -2,11 +2,12 @@ import "./navBar.css";
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import Profile from "../Profile/Profile";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { userSelectors } from "../../store/userSlice";
+import { spinnerSelectors } from "../../store/spinnerSlice";
 function NavBar() {
   const { user } = useSelector(userSelectors);
-
+  const { isDataLoading } = useSelector(spinnerSelectors);
   return (
     <div className="NavBar-container">
       <div className="NavBar-span-start">
@@ -38,10 +39,13 @@ function NavBar() {
           </NavLink>
         )}
       </div>
-      <div className="NavBar-span-end">
+      <div className="NavBar-div-end">
         <span className="NavBar-Link">
           <Profile />
         </span>
+        {isDataLoading &&
+        <img className="NavBar-spinner" src="/images/spinner.gif" alt="spinner" />        
+        }
       </div>
     </div>
   );

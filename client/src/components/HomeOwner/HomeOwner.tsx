@@ -3,21 +3,27 @@ import network from "../../utils/network";
 import { IUploadNewApt } from "../../interfaces/interface";
 import "./homeOwner.css";
 import ImageSlider from "../SliderImg/SliderImg"
+import { setIsDataLoading } from "../../store/spinnerSlice";
+import { useDispatch } from "react-redux";
 
 export default function HomeOwner() {
   
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const [showUsers, setShowUsers] = useState([-1]);
- 
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     getOwnerApts();
   }, []);
 
   const getOwnerApts = async () => {
+    dispatch(setIsDataLoading({isDataLoading: true}))
     const {
       data: { data },
     } = await network.get("/apartment/owner-apts");
-    setAptsArr(data);    
+    setAptsArr(data);  
+    dispatch(setIsDataLoading({isDataLoading: false}))
+  
   };
    
   const clickedHandler = (e: any) => {
