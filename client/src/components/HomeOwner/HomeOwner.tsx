@@ -10,12 +10,7 @@ export default function HomeOwner() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const [selectedAptId, setSelectedAptId] = useState("");
   const [likedUser, setLikedUser] = useState<IUser[]>();
-  const [user, setUser] = useState<IUser>();
-  const [userIndexToDisplay, setUserIndexToDisplay] = useState({
-    min: 0,
-    max: 3,
-  });
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   const focusedUserDiv = useRef<HTMLDivElement>(null);
   const [currentId, setCurrentId] = useState("");
   const dispatch = useDispatch();
@@ -91,6 +86,78 @@ export default function HomeOwner() {
             age: "12",
             imgUrl: "asdasd.asdads",
           },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
         ]);
       }
     }
@@ -119,7 +186,7 @@ export default function HomeOwner() {
   const prevUser = () => {
     if (likedUser) {
       const newIndex = index - 1;
-      if (newIndex < 0) return;
+      if (newIndex < -1) return;
       addStyle(index);
       setIndex(index - 1);
     }
@@ -128,7 +195,12 @@ export default function HomeOwner() {
   return (
     <div className="HomeOwner-container">
       {aptsArr.map((apt, i) => (
-        <div key={`HomeOwner-${i}`} id={apt._id} onClick={clickedHandler}>
+        <div
+          className="HomeOwner-apt"
+          key={`HomeOwner-${i}`}
+          id={apt._id}
+          onClick={clickedHandler}
+        >
           <div className="HomeOwner-apt-div">
             <div className="HomeOwner-img-div">
               {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
@@ -233,26 +305,28 @@ export default function HomeOwner() {
             </div>
           </div>
           {selectedAptId === apt._id && (
-            // <div className="HomeOwner-likes-div">
-            <>
+            <div className="HomeOwner-apt-container">
               <span className="HomeOwner-left-arrow" onClick={prevUser}>
                 <i id="HomeOwner-arrow-i1" className="fas fa-arrow-left"></i>
               </span>
+
               <div
                 ref={focusedUserDiv}
                 className={`HomeOwner-likes-slider active-slide-${index}`}
               >
                 <div
                   className="HomeOwner-likes-wrapper"
-                  style={{
-                    transform: `translateX(-${
-                      likedUser && index * (100 / likedUser.length)
-                    }%)`,
-                  }}
+                  style={
+                    index > 1
+                      ? {
+                          transform: `translateX(-${
+                            likedUser && index * (90 / 5)
+                          }%)`,
+                        }
+                      : {}
+                  }
                 >
                   {likedUser?.map((user, i) => (
-                    // i >= userIndexToDisplay.min &&
-                    // i <= userIndexToDisplay.max &&
                     <LikedUser
                       key={i}
                       user={user}
@@ -265,8 +339,7 @@ export default function HomeOwner() {
               <span className="HomeOwner-right-arrow" onClick={nextUser}>
                 <i id="HomeOwner-arrow-i2" className="fas fa-arrow-right"></i>
               </span>
-            </>
-            // </div>
+            </div>
           )}
         </div>
       ))}

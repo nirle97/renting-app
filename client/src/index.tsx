@@ -6,7 +6,7 @@ import App from "./components/App/App";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import ErrorBoundary from "./components/ErrorBoundary"
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
