@@ -242,7 +242,7 @@ export default function HomeOwner() {
                 ref={focusedUserDiv}
                 className={`HomeOwner-likes-slider active-slide-${index}`}
               >
-                <div
+                {/* <div
                   className="HomeOwner-likes-wrapper"
                   style={{
                     transform: `translateX(-${
@@ -260,7 +260,7 @@ export default function HomeOwner() {
                       currentId={currentId}
                     />
                   ))}
-                </div>
+                </div> */}
               </div>
               <span className="HomeOwner-right-arrow" onClick={nextUser}>
                 <i id="HomeOwner-arrow-i2" className="fas fa-arrow-right"></i>

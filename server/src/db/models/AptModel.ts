@@ -144,7 +144,7 @@ aptSchema.static(
         address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
-        rentalType: aptData.rentalType,
+        // rentalType: aptData.rentalType,
         entryDate: { $lte: aptData.entryDate },
         checkOutDate: { $gte: aptData.checkOutDate },
         size:
@@ -170,7 +170,7 @@ aptSchema.static(
           delete filtersObj[key];
         }
       });
-      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy"]);
+      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy"]).limit(10);
     } catch (e) {
       console.error(e);
     }

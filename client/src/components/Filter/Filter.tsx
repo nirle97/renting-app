@@ -37,9 +37,10 @@ function Filter( { toggleFilters }: IProps) {
     dispatch(setIsDataLoading({isDataLoading: false}))
     dispatch(setAptsArray({ userApts: data }));
     // setOpenFiltersBar(false);
-    toggleFilters();
+    toggleFilters();    
   };
 
+  
   // useEffect(() => {
   //   dispatch(
   //     setPreferences({

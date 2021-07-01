@@ -24,6 +24,7 @@
   overflow-y: scroll;
   background-color: rgb(245, 202, 188);
   font-size: 18px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.6);
 }
 .UploadApt-form::-webkit-scrollbar {
   width: 0.25rem;

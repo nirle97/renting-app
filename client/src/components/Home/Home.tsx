@@ -5,7 +5,7 @@ import Filter from "../Filter/Filter";
 import Apartment from "../Apartment/Apartment";
 import { useEffect } from "react";
 import { profileSelectors } from "../../store/profileSlice";
-import { setPreferences } from "../../store/prefSlice";
+import { setPreferences, prefSelectors } from "../../store/prefSlice";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 import { setAptsArray, AptState } from "../../store/aptSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ function Home() {
   const [aptToDisplay, setAptToDisplay] = useState<number>(0);
   // const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
+  const { preferences } = useSelector(prefSelectors);
   const toggleFilterBtn = useRef<HTMLDivElement>(null);
   const [openFiltersBar, setOpenFiltersBar] = useState(true);
   const dispatch = useDispatch();
@@ -25,7 +26,23 @@ function Home() {
     getUserPref();
     toggleFilters();
   }, []);
-  
+
+  useEffect(() => {
+    if(userApts.length === 1) getMoreApts();
+  }, [userApts]);
+
+  const getMoreApts = async () => {
+    dispatch(setIsDataLoading({isDataLoading: true}))
+    const {
+      data: { data },
+    } = await network.post("/apartment/filtered-apts", preferences);
+    if(data.length !== 0){
+      dispatch(setIsDataLoading({isDataLoading: false}))
+      dispatch(setAptsArray({ userApts: [ userApts[0], ...data ] }));
+    }else {
+      console.log("no more apts");
+    }
+  } 
   const getUserPref = async () => {
     dispatch(setIsDataLoading({isDataLoading: true}))
     const {
@@ -43,9 +60,9 @@ function Home() {
       `apartment/like-status/${userApts[aptToDisplay]._id}?status=${preference}`
     );
     dispatch(setIsDataLoading({isDataLoading: false}))
-    const updatedUserApts = userApts.slice(aptToDisplay, aptToDisplay);
-    dispatch(setAptsArray({ userApts: updatedUserApts }));
-    setAptToDisplay(aptToDisplay + 1);
+    const updatedUserApts = userApts.slice(1);
+    await dispatch(setAptsArray({ userApts: updatedUserApts }));
+    // setAptToDisplay(aptToDisplay + 1);    
   };
 
   const toggleFilters = () => {
