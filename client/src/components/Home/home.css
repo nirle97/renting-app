@@ -17,28 +17,16 @@
   display: flex;
   flex-direction: row;
   width: 90vh;
-  /*margin-right: 5vh;
-  margin-left: 5vh;*/
-  /* border-style: solid;  */
 }
-.Home-apartment-map{
+.Home-apartment-map {
   margin-top: 8vh;
   display: flex;
-  /* float: left; */
   margin-left: 2vw;
 }
 .Home-apartment-component {
   display: flex;
-  /* float: right; */
-  /* margin */
 }
-/* .Home-map-button-span {
-  margin-top: 15px;
-  height: 50px;
-  width: 500px;
-  cursor: pointer;
-  background-color: cyan;
-} */
+
 .Home-filter-btn {
   position: fixed;
   z-index: 1111;

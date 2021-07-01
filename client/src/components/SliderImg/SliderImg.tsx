@@ -12,14 +12,13 @@ function ImageSlider({ size }: IProps) {
     "/images/apts/house2.jpg",
     "/images/apts/house3.jpg",
   ]);
-  const length = images.length;
 
   const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    setCurrent(current === images.length - 1 ? 0 : current + 1);
   };
 
   const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    setCurrent(current === 0 ? images.length - 1 : current - 1);
   };
 
   if (!Array.isArray(images) || images.length <= 0) {

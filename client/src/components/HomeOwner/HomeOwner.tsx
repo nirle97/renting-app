@@ -5,14 +5,19 @@ import "./homeOwner.css";
 import ImageSlider from "../SliderImg/SliderImg";
 import LikedUser from "./LikedUser";
 import { useDispatch } from "react-redux";
+import { setIsDataLoading } from "../../store/spinnerSlice";
 export default function HomeOwner() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const [selectedAptId, setSelectedAptId] = useState("");
   const [likedUser, setLikedUser] = useState<IUser[]>();
+  const [user, setUser] = useState<IUser>();
   const [userIndexToDisplay, setUserIndexToDisplay] = useState({
     min: 0,
     max: 3,
   });
+  const [index, setIndex] = useState(0);
+  const focusedUserDiv = useRef<HTMLDivElement>(null);
+  const [currentId, setCurrentId] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     getOwnerApts();
@@ -38,28 +43,86 @@ export default function HomeOwner() {
       if (users.length) {
         setLikedUser([
           ...users,
-          ...users,
-          ...users,
-          ...users,
-          ...users,
-          ...users,
-          ...users,
-          ...users,
+          {
+            fullName: "ccc",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "dddddd",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "eeee",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "zzzz",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "wwww",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
+          {
+            fullName: "qqqqq",
+            phoneNumber: "453",
+            email: "asd@asd.com",
+            password: "asd",
+            age: "12",
+            imgUrl: "asdasd.asdads",
+          },
         ]);
       }
     }
   };
-
+  function addStyle(index: number) {
+    const applyedClasses = focusedUserDiv.current?.classList;
+    if (applyedClasses) {
+      applyedClasses.forEach(() => {
+        if (
+          focusedUserDiv.current?.classList.contains(`active-slide-${index}`)
+        ) {
+          setCurrentId(`user-${index}`);
+        }
+      });
+    }
+  }
   const nextUser = () => {
-    userIndexToDisplay.min++;
-    userIndexToDisplay.max++;
-    setUserIndexToDisplay({ ...userIndexToDisplay });
+    if (likedUser && focusedUserDiv.current) {
+      const newIndex = index + 1;
+      if (newIndex > likedUser.length) return;
+      setIndex(index + 1);
+      addStyle(index);
+    }
   };
 
   const prevUser = () => {
-    userIndexToDisplay.min--;
-    userIndexToDisplay.max--;
-    setUserIndexToDisplay({ ...userIndexToDisplay });
+    if (likedUser) {
+      const newIndex = index - 1;
+      if (newIndex < 0) return;
+      addStyle(index);
+      setIndex(index - 1);
+    }
   };
 
   return (
@@ -170,21 +233,40 @@ export default function HomeOwner() {
             </div>
           </div>
           {selectedAptId === apt._id && (
-            <div className="HomeOwner-likes-div">
+            // <div className="HomeOwner-likes-div">
+            <>
               <span className="HomeOwner-left-arrow" onClick={prevUser}>
                 <i id="HomeOwner-arrow-i1" className="fas fa-arrow-left"></i>
               </span>
-              {likedUser?.map(
-                (user, i) =>
-                  i >= userIndexToDisplay.min &&
-                  i <= userIndexToDisplay.max && (
-                    <LikedUser key={i} user={user} />
-                  )
-              )}
+              <div
+                ref={focusedUserDiv}
+                className={`HomeOwner-likes-slider active-slide-${index}`}
+              >
+                <div
+                  className="HomeOwner-likes-wrapper"
+                  style={{
+                    transform: `translateX(-${
+                      likedUser && index * (100 / likedUser.length)
+                    }%)`,
+                  }}
+                >
+                  {likedUser?.map((user, i) => (
+                    // i >= userIndexToDisplay.min &&
+                    // i <= userIndexToDisplay.max &&
+                    <LikedUser
+                      key={i}
+                      user={user}
+                      index={i}
+                      currentId={currentId}
+                    />
+                  ))}
+                </div>
+              </div>
               <span className="HomeOwner-right-arrow" onClick={nextUser}>
                 <i id="HomeOwner-arrow-i2" className="fas fa-arrow-right"></i>
               </span>
-            </div>
+            </>
+            // </div>
           )}
         </div>
       ))}
