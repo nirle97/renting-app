@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./sliderImg.css";
 interface IProps {
-  // sliderData: string[]
+  sliderData: string[];
   size: string;
 }
-function ImageSlider({ size }: IProps) {
+function ImageSlider({ size, sliderData }: IProps) {
   const [current, setCurrent] = useState(0);
   const [images, setImages] = useState([
     "/images/apts/house0.jpg",
@@ -35,7 +35,7 @@ function ImageSlider({ size }: IProps) {
         {" "}
         <i className="fas fa-arrow-left slider-i"></i>
       </span>
-      {images.map((slide, index) => {
+      {sliderData.map((slide, index) => {
         return (
           <div
             className={index === current ? "slide active" : "slide"}

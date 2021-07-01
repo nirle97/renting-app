@@ -3,15 +3,19 @@ import { IOwnerApt, IClientApt } from "../../interfaces/interface";
 
 interface IAptModel extends Model<IOwnerApt> {
   updateLikeStatus(
-    aptId: String,
-    userId: String,
-    status: String
+    aptId: string,
+    userId: string,
+    status: string
   ): Promise<void>;
-  findByUserFilters(aptData: IClientApt, userId: String): Promise<IOwnerApt[]>;
+  findByUserFilters(aptData: IClientApt, userId: string): Promise<IOwnerApt[]>;
 }
 
 const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
   ownerId: {
+    type: String,
+    require: true,
+  },
+  title: {
     type: String,
     require: true,
   },
@@ -144,7 +148,7 @@ aptSchema.static(
         address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
-        // rentalType: aptData.rentalType,
+        rentalType: aptData.rentalType,
         entryDate: { $lte: aptData.entryDate },
         checkOutDate: { $gte: aptData.checkOutDate },
         size:
@@ -170,7 +174,9 @@ aptSchema.static(
           delete filtersObj[key];
         }
       });
-      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy"]).limit(10);
+      return await AptModel.find(filtersObj, ["-disLikedBy", "-likedBy"]).limit(
+        10
+      );
     } catch (e) {
       console.error(e);
     }

@@ -1,19 +1,21 @@
 import { Document } from "mongoose";
 
 export interface IUser extends Document {
-  fullName: String;
-  email: String;
-  password?: String;
-  phoneNumber: String;
-  age: Number;
-  isOwner: Boolean;
+  fullName: string;
+  email: string;
+  password?: string;
+  phoneNumber: string;
+  age: number;
+  isOwner: boolean;
   likedApts: {}[];
-  refreshToken?: String | null;
-  imgUrl: String;
+  refreshToken?: string | null;
+  imgUrl: string;
 }
+
 export interface IOwnerApt extends Document {
-  ownerId: String;
-  likedBy: string[] ;
+  ownerId: string;
+  title: string;
+  likedBy: string[];
   likedByUser?: {}[];
   disLikedBy: string[];
   address: string;
@@ -60,49 +62,60 @@ export interface IClientApt extends Document {
   smokeAllowed: boolean;
 }
 export interface IClientPref extends Document {
-  userId: String;
+  userId: string;
   preferences: IClientApt;
 }
 
 export interface IResDetails {
   success: {
     general: {
-      success: Boolean;
-      status: Number;
+      success: boolean;
+      status: number;
     };
     created: {
-      success: Boolean;
-      status: Number;
+      success: boolean;
+      status: number;
     };
     noContent: {
-      success: Boolean;
-      status: Number;
-      message: String;
+      success: boolean;
+      status: number;
+      message: string;
     };
   };
   serverError: {
-    success: Boolean;
-    status: Number;
-    message: String;
+    success: boolean;
+    status: number;
+    message: string;
   };
   clientError: {
     badRequest: {
-      success: Boolean;
-      status: Number;
-      message: String;
+      success: boolean;
+      status: number;
+      message: string;
     };
     unAuthorized: {
-      success: Boolean;
-      status: Number;
-      message: String;
+      success: boolean;
+      status: number;
+      message: string;
     };
     forbidden: {
-      success: Boolean;
-      status: Number;
-      message: String;
+      success: boolean;
+      status: number;
+      message: string;
     };
   };
 }
 export interface Decoded extends Request {
   decoded: IUser;
+}
+export interface IChatRoom extends Document {
+  title: string;
+  aptId: string;
+  participants: { id: string; imgUrl: string; fullName: string }[];
+}
+export interface IMessage extends Document {
+  text: string;
+  chatRoomId: string;
+  senderId: string;
+  createdAt: Date;
 }

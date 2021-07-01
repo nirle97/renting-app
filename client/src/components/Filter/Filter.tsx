@@ -10,44 +10,46 @@ import UserPreferences from "../Preferences/UserPreferences";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 
 interface IProps {
-  toggleFilters: () => void
+  toggleFilters: () => void;
 }
-function Filter( { toggleFilters }: IProps) {
+function Filter({ toggleFilters }: IProps) {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
   const [searchValue, setSearchValue] = useState({
     cords: { lat: 0, lng: 0 },
     address: "",
   });
-  const devChangeHandler = (e: any) => {
-    ///delete me!!!!!!!!!!!!!!!!!!!!
-    dispatch(
-      setPreferences({
-        preferences: { ...preferences, [e.target.id]: e.target.value },
-      })
-    );
-  };
-
-  const savePreferences = async () => {    
-    dispatch(setIsDataLoading({isDataLoading: true}))
-    await network.put("/preference/user-preferences", preferences);
-    const {
-      data: { data },
-    } = await network.post("/apartment/filtered-apts", preferences);
-    dispatch(setIsDataLoading({isDataLoading: false}))
-    dispatch(setAptsArray({ userApts: data }));
-    // setOpenFiltersBar(false);
-    toggleFilters();    
-  };
-
-  
-  // useEffect(() => {
+  // const devChangeHandler = (e: any) => {
+  ///delete me!!!!!!!!!!!!!!!!!!!!
   //   dispatch(
   //     setPreferences({
-  //       preferences: { ...preferences, address: searchValue.address },
+  //       preferences: { ...preferences, [e.target.id]: e.target.value },
   //     })
   //   );
-  // }, [searchValue]);
+  // };
+
+  const savePreferences = async () => {
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      await network.put("/preference/user-preferences", preferences);
+      const {
+        data: { data },
+      } = await network.post("/apartment/filtered-apts", preferences);
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+      dispatch(setAptsArray({ userApts: data }));
+      toggleFilters();
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(
+      setPreferences({
+        preferences: { ...preferences, address: searchValue.address },
+      })
+    );
+  }, [searchValue]);
 
   useEffect(() => {
     setSearchValue({ ...searchValue, address: preferences.address });
@@ -62,17 +64,17 @@ function Filter( { toggleFilters }: IProps) {
       <div className="Filter-filters">
         <div className="Filter-address">
           Address:
-          <input
+          {/* <input
             type="text"
             id="address"
             value={preferences.address}
             onChange={devChangeHandler}
-          />
-          {/* <SearchBar
-          searchValue={{ ...searchValue, address: preferences.address }}
-          setSearchValue={setSearchValue}
-          searchBarClass="Filter-search"
-        />{" "} */}
+          /> */}
+          <SearchBar
+            searchValue={{ ...searchValue, address: preferences.address }}
+            setSearchValue={setSearchValue}
+            searchBarClass="Filter-search"
+          />{" "}
         </div>
         <div className="Filter-range-container">
           <span id="price-range-name" className="Filter-range-name">

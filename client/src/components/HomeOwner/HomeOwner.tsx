@@ -19,12 +19,16 @@ export default function HomeOwner() {
   }, []);
 
   const getOwnerApts = async () => {
-    dispatch(setIsDataLoading({ isDataLoading: true }));
-    const {
-      data: { data },
-    } = await network.get("/apartment/owner-apts");
-    setAptsArr(data);
-    dispatch(setIsDataLoading({ isDataLoading: false }));
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      const {
+        data: { data },
+      } = await network.get("/apartment/owner-apts");
+      setAptsArr(data);
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
   };
 
   const clickedHandler = (e: any) => {
@@ -37,127 +41,39 @@ export default function HomeOwner() {
       const users = currentApt.likedByUser as IUser[];
       if (users.length) {
         setLikedUser([
-          ...users,
-          {
-            fullName: "ccc",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "dddddd",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "eeee",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "zzzz",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "wwww",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
-          {
-            fullName: "qqqqq",
-            phoneNumber: "453",
-            email: "asd@asd.com",
-            password: "asd",
-            age: "12",
-            imgUrl: "asdasd.asdads",
-          },
+          // ...users,
+          // {
+          //   fullName: "ccc",
+          //   phoneNumber: "453",
+          //   email: "asd@asd.com",
+          //   password: "asd",
+          //   age: "12",
+          //   imgUrl: "asdasd.asdads",
+          // },
+          // {
+          //   fullName: "dddddd",
+          //   phoneNumber: "453",
+          //   email: "asd@asd.com",
+          //   password: "asd",
+          //   age: "12",
+          //   imgUrl: "asdasd.asdads",
+          // },
+          // {
+          //   fullName: "eeee",
+          //   phoneNumber: "453",
+          //   email: "asd@asd.com",
+          //   password: "asd",
+          //   age: "12",
+          //   imgUrl: "asdasd.asdads",
+          // },
+          // {
+          //   fullName: "zzzz",
+          //   phoneNumber: "453",
+          //   email: "asd@asd.com",
+          //   password: "asd",
+          //   age: "12",
+          //   imgUrl: "asdasd.asdads",
+          // },
         ]);
       }
     }
@@ -194,6 +110,7 @@ export default function HomeOwner() {
 
   return (
     <div className="HomeOwner-container">
+      {!likedUser && <h1>Upload new apartment to see all of your assets!</h1>}
       {aptsArr.map((apt, i) => (
         <div
           className="HomeOwner-apt"
@@ -203,8 +120,8 @@ export default function HomeOwner() {
         >
           <div className="HomeOwner-apt-div">
             <div className="HomeOwner-img-div">
-              {/* <ImageSlider sliderData={apt.imagesUrl}/> */}
-              <ImageSlider size="small" />
+              <ImageSlider size="small" sliderData={apt.imagesUrl} />
+              {/* <ImageSlider size="small" /> */}
             </div>
             <div className="HomeOwner-description-container">
               <div className="HomeOwner-description-main">
@@ -314,7 +231,7 @@ export default function HomeOwner() {
                 ref={focusedUserDiv}
                 className={`HomeOwner-likes-slider active-slide-${index}`}
               >
-                {/* <div
+                <div
                   className="HomeOwner-likes-wrapper"
                   style={
                     index > 1
@@ -326,6 +243,9 @@ export default function HomeOwner() {
                       : {}
                   }
                 >
+                  {!likedUser && (
+                    <h3 id="no-likes-h3">No One Liked This Apartment Yet :(</h3>
+                  )}
                   {likedUser?.map((user, i) => (
                     <LikedUser
                       key={i}
@@ -334,7 +254,7 @@ export default function HomeOwner() {
                       currentId={currentId}
                     />
                   ))}
-                </div> */}
+                </div>
               </div>
               <span className="HomeOwner-right-arrow" onClick={nextUser}>
                 <i id="HomeOwner-arrow-i2" className="fas fa-arrow-right"></i>

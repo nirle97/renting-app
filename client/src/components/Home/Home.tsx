@@ -14,8 +14,6 @@ import Map from "../Map/Map";
 
 function Home() {
   const { userApts }: AptState = useSelector(aptSelectors);
-  const [aptToDisplay, setAptToDisplay] = useState<number>(0);
-  // const [showMap, setShowMap] = useState<boolean>(false);
   const { isprofileClicked } = useSelector(profileSelectors);
   const { preferences } = useSelector(prefSelectors);
   const toggleFilterBtn = useRef<HTMLDivElement>(null);
@@ -28,41 +26,52 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if(userApts.length === 1) getMoreApts();
+    if (userApts.length === 2) getMoreApts();
   }, [userApts]);
 
   const getMoreApts = async () => {
-    dispatch(setIsDataLoading({isDataLoading: true}))
-    const {
-      data: { data },
-    } = await network.post("/apartment/filtered-apts", preferences);
-    if(data.length !== 0){
-      dispatch(setIsDataLoading({isDataLoading: false}))
-      dispatch(setAptsArray({ userApts: [ userApts[0], ...data ] }));
-    }else {
-      console.log("no more apts");
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      const {
+        data: { data },
+      } = await network.post("/apartment/filtered-apts", preferences);
+      if (data.length !== 0) {
+        dispatch(setIsDataLoading({ isDataLoading: false }));
+        dispatch(setAptsArray({ userApts: [userApts[0], ...data] }));
+      } else {
+        console.log("no more apts");
+      }
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
     }
-  } 
+  };
   const getUserPref = async () => {
-    dispatch(setIsDataLoading({isDataLoading: true}))
-    const {
-      data: { data },
-    } = await network.get("/preference/user-preferences");
-    if (data) {
-      dispatch(setPreferences({ preferences: data.preferences }));
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      const {
+        data: { data },
+      } = await network.get("/preference/user-preferences");
+      if (data) {
+        dispatch(setPreferences({ preferences: data.preferences }));
+      }
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
     }
-    dispatch(setIsDataLoading({isDataLoading: false}))
   };
 
   const aptPreference = async (preference: string) => {
-    dispatch(setIsDataLoading({isDataLoading: true}))
-    await network.put(
-      `apartment/like-status/${userApts[aptToDisplay]._id}?status=${preference}`
-    );
-    dispatch(setIsDataLoading({isDataLoading: false}))
-    const updatedUserApts = userApts.slice(1);
-    await dispatch(setAptsArray({ userApts: updatedUserApts }));
-    // setAptToDisplay(aptToDisplay + 1);    
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      await network.put(
+        `apartment/like-status/${userApts[0]._id}?status=${preference}`
+      );
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+      const updatedUserApts = userApts.slice(1);
+      await dispatch(setAptsArray({ userApts: updatedUserApts }));
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
   };
 
   const toggleFilters = () => {
@@ -84,22 +93,19 @@ function Home() {
           <i className="fas fa-bars"></i>
         </span>
         <div ref={toggleFilterBtn} className="Home-filter-toggle-div">
-          <Filter toggleFilters={toggleFilters}/>
+          <Filter toggleFilters={toggleFilters} />
         </div>
       </div>
-      {userApts && aptToDisplay < userApts.length ? (
+      {userApts && 0 < userApts.length ? (
         <div className="Home-main">
           <div className="Home-apartment-component">
-            <Apartment
-              aptPreference={aptPreference}
-              apt={userApts[aptToDisplay]}
-            />
+            <Apartment aptPreference={aptPreference} apt={userApts[0]} />
           </div>
           <div className="Home-apartment-map">
             <Map
               cords={
-                userApts[aptToDisplay].cords
-                  ? userApts[aptToDisplay].cords
+                userApts[0].cords
+                  ? userApts[0].cords
                   : {
                       lat: 32.1149489,
                       lng: 34.8271349,
@@ -107,13 +113,6 @@ function Home() {
               }
             />
           </div>
-          {/* <span className="Home-map-button-span" onClick={scrollToMap}>
-            <i className="fas fa-long-arrow-alt-down"></i>
-            Scroll down for GoogleMap
-            <i className="fas fa-long-arrow-alt-down"></i>
-          </span>
-          {showMap && ( */}
-          {/* // )} */}
         </div>
       ) : (
         <div className="Home-noNew-div">

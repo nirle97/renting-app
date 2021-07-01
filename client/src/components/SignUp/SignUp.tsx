@@ -39,29 +39,28 @@ function SignUp() {
     });
   };
 
-  // async function postImage(
-  //   image: string | Blob,
-  //   description: string
-  // ): Promise<void> {
-  //   const formData = new FormData();
-  //   formData.append("image", image);
-  //   formData.append("description", description);
+  async function postImage(
+    image: string | Blob,
+    description: string
+  ): Promise<void> {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("description", description);
 
-  //   const result = await axios.post("/login/profile-image", formData, {
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //   });
-  //   setImages(result.data.data);
-  //   return result.data.data;
-  // }
+    const result = await axios.post("/login/profile-image", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    setImages(result.data.data);
+    return result.data.data;
+  }
 
   const registerUser = async (e: any) => {
     try {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
-        // const url = await postImage(file, "profileImg");
-        setFormInput({ ...formInput, imgUrl: image });
-        // await network.post("/login/sign-up", { ...formInput, imgUrl: url });
-        await network.post("/login/sign-up", { ...formInput });
+        const url = await postImage(file, "profileImg");
+        await network.post("/login/sign-up", { ...formInput, imgUrl: url });
+        // await network.post("/login/sign-up", { ...formInput });
         history.push("/");
       } else {
         setEmptyFldMsg(true);

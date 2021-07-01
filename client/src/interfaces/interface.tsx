@@ -1,5 +1,5 @@
 export interface IAction {
-  type: String;
+  type: string;
   payload?: any;
 }
 
@@ -20,6 +20,7 @@ export interface IUser extends ISignIn {
 export interface IUploadNewApt {
   _id?: string;
   address: string;
+  title: string;
   cords: {
     lat: number;
     lng: number;

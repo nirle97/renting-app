@@ -7,10 +7,9 @@ import { uploadFile, getFileStream } from "../utils/s3";
 import fs from "fs";
 import util from "util";
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
 const unlinkFile = util.promisify(fs.unlink);
 interface Decoded extends Request {
-  decoded: { id: String };
+  decoded: { id: string };
 }
 
 const addNewApt = async (req: Decoded, res: Response): Promise<void> => {
@@ -64,6 +63,8 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
+    console.log(req.body);
+
     const data: IClientApt = {
       ...req.body,
       entryDate: dateToMilliSc(req.body.entryDate),

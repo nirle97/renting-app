@@ -1,9 +1,10 @@
 .Home-container {
   /* display: flex;
-  flex-direction: row-reverse; */
+  flex-direction: row-reverse; 
   /* position: relative; */
   width: 100vw;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 .z-index {
   z-index: -2;
@@ -47,8 +48,9 @@
 .Home-noNew-div {
   position: relative;
   right: 20%;
-  top: 30%;
+  top: -10%;
+  transform: scale(0.5);
 }
 .Home-noNew-img {
-  width: 50%;
+  max-width: 50%;
 }

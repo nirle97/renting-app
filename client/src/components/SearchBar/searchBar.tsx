@@ -46,8 +46,8 @@ export default function SearchBar({
   };
   const searchOptions = {
     location: new google.maps.LatLng(32.0853, 34.7818),
-    radius: 100000000
-  }
+    radius: 50000000,
+  };
   return (
     <div className="searchBar-container">
       <PlacesAutocomplete
@@ -55,7 +55,6 @@ export default function SearchBar({
         onChange={setAddress}
         onSelect={handleSelect}
         searchOptions={searchOptions}
-
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
@@ -63,22 +62,25 @@ export default function SearchBar({
               id="SearchBar-input"
               {...getInputProps({ placeholder: "Type address" })}
             />
-            <div>
+            <div className="SearchBar-div">
               {loading ? <div>...loading</div> : null}
               {suggestions.map((suggestion, i) => {
                 const style =
                   searchBarClass === "Filter-search"
                     ? {
                         backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                        width: "12vw",
                       }
                     : {
                         backgroundColor: suggestion.active
                           ? "#41b6e6"
                           : "#f5cabc",
+                        width: "12vw",
                       };
 
                 return (
                   <div
+                    className="SearchBar-suggestion"
                     {...getSuggestionItemProps(suggestion, { style })}
                     key={i}
                   >

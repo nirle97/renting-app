@@ -5,7 +5,11 @@ import { ownerFiltersObj } from "../../utils/utils";
 import SearchBar from "../SearchBar/searchBar";
 import OwnerPreferences from "../Preferences/OwnerPreferences";
 import network from "../../utils/network";
+import { setIsDataLoading } from "../../store/spinnerSlice";
+import { useDispatch } from "react-redux";
+
 export default function UploadApt() {
+  const dispatch = useDispatch();
   const [files, setFiles] = useState<any>();
   const [images, setImages] = useState([]);
   const [openForm, setOpenForm] = useState(false);
@@ -37,27 +41,37 @@ export default function UploadApt() {
       formData.append("apt-images", files[i]);
     }
     formData.append("description", aptId);
-    const result = await network.post(
-      "/apartment/owner-apts-images",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-    setImages(result.data.data);
-    return result.data.data;
+    try {
+      const result = await network.post(
+        "/apartment/owner-apts-images",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      setImages(result.data.data);
+      return result.data.data;
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
   }
 
   const submitHandler = async (e: any) => {
-    e.target.hidden = true;
-    setFormInput({ ...formInput, imagesUrl: images });
-    const { data: newApt } = await network.post("/apartment/create", formInput);
-    if (files) {
-      await postImage(files, "AptsImg", newApt.data.id);
+    try {
+      e.target.hidden = true;
+      setFormInput({ ...formInput, imagesUrl: images });
+      const { data: newApt } = await network.post(
+        "/apartment/create",
+        formInput
+      );
+      if (files) {
+        await postImage(files, "AptsImg", newApt.data.id);
+      }
+      e.target.hidden = false;
+      setOpenForm(false);
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
     }
-
-    e.target.hidden = false;
-    setOpenForm(false);
   };
 
   useEffect(() => {
@@ -79,8 +93,18 @@ export default function UploadApt() {
         <div className="UploadApt-form">
           <form>
             <div className="UploadApt-div-input">
+              <label>title: </label>
+              <input
+                type="text"
+                id="title"
+                value={formInput.address}
+                onChange={changeHandler}
+                // maxLength={}
+              />
+            </div>
+            <div className="UploadApt-div-input">
               <label>address: </label>
-
+              
               <input
                 type="text"
                 id="address"

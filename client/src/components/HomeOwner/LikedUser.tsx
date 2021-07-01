@@ -33,8 +33,8 @@ export default function LikedUser({ user, currentId, index }: IProps) {
         id={`user-${index}`}
         ref={focusedUser}
       >
-        <img className="LikedUser-img" alt="profile" src="./images/woman.jpg" />
-        {/* <img className="LikedUser-img" alt="profile" src={user.imgUrl} /> */}
+        {/* <img className="LikedUser-img" alt="profile" src="./images/woman.jpg" /> */}
+        <img className="LikedUser-img" alt="profile" src={user.imgUrl} />
         <span>Name: {user.fullName}</span>
         <span>Tel: {user.phoneNumber}</span>
         <span>Email: {user.email}</span>

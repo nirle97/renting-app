@@ -1,5 +1,12 @@
 #SearchBar-input {
   outline: none;
   border: none;
-  background-color: rgb(236, 236, 236);
+  background-color: transparent;
+}
+.SearchBar-div {
+  overflow-y: scroll;
+  min-height: 4vh;
+  max-height: 40vh;
+  line-height: 40px;
+  width: 16vw;
 }

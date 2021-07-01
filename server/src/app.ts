@@ -6,6 +6,7 @@ import { apartment } from "./routes/apartment";
 import { preference } from "./routes/preference";
 import { user } from "./routes/user";
 import { googleAuth } from "./routes/googleAuth";
+import { chat } from "./routes/chat";
 const cookieParser = require("cookie-parser");
 
 export const app = express();
@@ -19,3 +20,4 @@ app.use("/apartment", apartment);
 app.use("/preference", preference);
 app.use("/user", user);
 app.use("/googleAuth", googleAuth);
+app.use("/chat", chat);

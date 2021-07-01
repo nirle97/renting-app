@@ -24,6 +24,7 @@ export const clientFiltersObj = {
 };
 export const ownerFiltersObj = {
   address: "",
+  title: "",
   imagesUrl: [],
   cords: {
     lat: 0,

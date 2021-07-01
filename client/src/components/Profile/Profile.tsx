@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./profile.css";
-import { userSelectors } from "../../store/userSlice";
+import { userSelectors, setUser } from "../../store/userSlice";
 import { setIsLogged } from "../../store/authSlice";
 import {
   setIsprofileClicked,
@@ -9,6 +9,8 @@ import {
 } from "../../store/profileSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import network from "../../utils/network";
+import { setIsDataLoading } from "../../store/spinnerSlice";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -16,11 +18,23 @@ function Profile() {
   const { isprofileClicked } = useSelector(profileSelectors);
   const { user } = useSelector(userSelectors);
   const [showInfo, setShowInfo] = useState(false);
-  // const getUserImg = async () => {
-  //   const url = await netwrok.get(`/user/profile-image/${user.imgUrl}`);
-  //   return url;
-  // };
-  // useEffect(() => {});
+
+  const getUserImg = async () => {
+    try {
+      dispatch(setIsDataLoading({ isDataLoading: true }));
+      const url = await network.get(`/user/profile-image/${user.imgUrl}`);
+      dispatch(setUser({ ...user, imgUrl: url }));
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    } catch (e) {
+      dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
+  };
+
+  useEffect(() => {
+    if (user.imgUrl === "") {
+      getUserImg();
+    }
+  }, []);
 
   const logOutHandler = () => {
     dispatch(setIsLogged({ isLogged: false }));
