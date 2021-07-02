@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import "./likedUser.css";
-import network from "../../utils/network";
-import { IUser, IChatRoom } from "../../interfaces/interface";
-import { userSelectors } from "../../store/userSlice";
+import network from "../../../utils/network";
+import { IUser, IChatRoom } from "../../../interfaces/interface";
+import { userSelectors } from "../../../store/userSlice";
 import { useSelector } from "react-redux";
 
 interface IProps {

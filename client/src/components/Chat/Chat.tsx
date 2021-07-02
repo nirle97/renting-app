@@ -1,12 +1,12 @@
 import React from "react";
 import ChatRoom from "./ChatRoom";
-import Message from "./Message";
-import "./chat.css"
+import MsgScreen from "./MsgScreen";
+import "./chat.css";
 export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        <Message />
+        <MsgScreen />
       </div>
       <div className="Chat-rooms-container">
         <ChatRoom />

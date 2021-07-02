@@ -16,6 +16,12 @@
   margin-left: 30px;
   font-weight: bold;
 }
+.NavBar-Link-icon {
+  color: white;
+}
+.NavBar-Link-icon:hover {
+  color: black;
+}
 .NavBar-logo-name {
   font-size: 40px;
   font-family: Bangers;
@@ -38,9 +44,9 @@
   justify-content: flex-end;
 }
 
-.NavBar-spinner{
-width: 7.5vh;
-margin-left:5vh;
+.NavBar-spinner {
+  width: 7.5vh;
+  margin-left: 5vh;
 }
 
 #NavBar-logo {

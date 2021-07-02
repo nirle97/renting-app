@@ -11,7 +11,7 @@ import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import UploadApt from "../UploadApt/UploadApt";
 import UserLikes from "../Likes/UserLikes";
-import HomeOwner from "../HomeOwner/HomeOwner";
+import HomeOwner from "../HomeOwner/HomeOwner/HomeOwner";
 import Chat from "../Chat/Chat";
 
 function App() {

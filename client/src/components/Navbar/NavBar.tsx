@@ -26,7 +26,9 @@ function NavBar() {
           exact
           to="/chat"
         >
-          Chat
+          <span className="NavBar-Link-icon">
+            <i className="fas fa-comments"></i>
+          </span>
         </NavLink>
         {!user.isOwner && (
           <NavLink
@@ -35,7 +37,9 @@ function NavBar() {
             exact
             to="/likes"
           >
-            Likes
+            <span className="NavBar-Link-icon">
+              <i className="fas fa-heart"></i>
+            </span>
           </NavLink>
         )}
       </div>
@@ -43,9 +47,13 @@ function NavBar() {
         <span className="NavBar-Link">
           <Profile />
         </span>
-        {isDataLoading &&
-        <img className="NavBar-spinner" src="/images/spinner.gif" alt="spinner" />        
-        }
+        {isDataLoading && (
+          <img
+            className="NavBar-spinner"
+            src="/images/spinner.gif"
+            alt="spinner"
+          />
+        )}
       </div>
     </div>
   );
