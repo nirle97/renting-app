@@ -1,5 +1,9 @@
 import React from "react";
-
+import "./chatRoom.css"
 export default function ChatRoom() {
-  return <div>hi</div>;
+  return (
+  <div>
+    ChatRoom
+  </div>
+  )
 }

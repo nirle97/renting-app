@@ -1,14 +1,15 @@
 import React from "react";
 import ChatRoom from "./ChatRoom";
 import Message from "./Message";
+import "./chat.css"
 export default function Chat() {
   return (
-    <div>
+    <div className="Chat-container">
+      <div className="chat-messages-container">
+        <Message />
+      </div>
       <div className="Chat-rooms-container">
         <ChatRoom />
-      </div>
-      <div className="Chat-chat-messages">
-        <Message />
       </div>
     </div>
   );

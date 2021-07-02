@@ -1,0 +1,17 @@
+.Chat-container{
+    margin-top: 8vh;
+    display: flex;
+    width: 100vw;
+    height: 92vh;
+    flex-direction: row;
+}
+.chat-messages-container{
+    border-style: solid;
+    width: 70vw;
+    height: 92vh;
+}
+.Chat-rooms-container{
+    border-style: solid;
+    width: 30vw;
+    height: 92vh;
+}

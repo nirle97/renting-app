@@ -16,7 +16,7 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     const aptData: IChatRoom = req.body;
     const aptTitle = await AptModel.findOne({ _id: aptData.aptId }, ["title"]);
     const newRoom = await ChatRoomModel.create({
-      title: aptTitle.title,
+      title: aptTitle?.title,
       aptId: aptData.aptId,
       participants: aptData.participants,
     });
