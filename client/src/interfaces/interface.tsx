@@ -9,7 +9,7 @@ export interface ISignIn {
 }
 
 export interface IUser extends ISignIn {
-  id?: string;
+  _id?: string;
   fullName: string;
   phoneNumber: string;
   age: string;

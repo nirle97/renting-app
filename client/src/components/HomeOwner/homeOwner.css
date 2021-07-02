@@ -48,6 +48,9 @@
   margin-bottom: 1vh;
   font-weight: 700;
 }
+.description-text {
+  margin-right: 0.3vw;
+}
 .HomeOwner-description-secondary {
   display: flex;
   flex-direction: row;
@@ -124,13 +127,14 @@
   position: relative;
   display: flex;
   width: 75vw;
-  height: 35vh;
+  height: 38vh;
   border: 1px solid black;
   color: white;
   background-color: rgb(64, 66, 73);
   overflow-x: hidden;
   padding: 10px;
   cursor: auto;
+  overflow-y: hidden;
 }
 .HomeOwner-likes-wrapper {
   display: flex;

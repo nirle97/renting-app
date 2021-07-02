@@ -21,5 +21,5 @@ app.use("/apartment", apartment);
 app.use("/preference", preference);
 app.use("/user", user);
 app.use("/googleAuth", googleAuth);
-app.use("/chatRoom", chatRoom);
+app.use("/chat-room", chatRoom);
 app.use("/message", message);
