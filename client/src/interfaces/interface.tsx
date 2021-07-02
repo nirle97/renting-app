@@ -91,7 +91,7 @@ export interface IAdvancedPref {
   smokeAllowed: boolean;
 }
 
-export interface IChatRoom {
+export interface IChatRoomTemplate {
   aptId: string;
   participants: {
     ownerInfo: {
@@ -105,4 +105,8 @@ export interface IChatRoom {
       fullName: string;
     };
   };
+}
+export interface IChatRoom extends IChatRoomTemplate{
+  title: string;
+
 }
