@@ -1,7 +1,7 @@
 import mongoose, { Model } from "mongoose";
 import { IClientPref, IClientApt } from "../../interfaces/interface";
 interface IUserPrefModel extends Model<IClientPref> {
-  createIfNotExistsByUserId(doc: IClientApt, docId: String): Promise<void>;
+  createIfNotExistsByUserId(doc: IClientApt, docId: string): Promise<void>;
 }
 
 const userPrefSchema = new mongoose.Schema<IClientPref, IUserPrefModel>({
@@ -17,7 +17,7 @@ const userPrefSchema = new mongoose.Schema<IClientPref, IUserPrefModel>({
 
 userPrefSchema.static(
   "createIfNotExistsByUserId",
-  async function (doc: IClientApt, docId: String): Promise<void> {
+  async function (doc: IClientApt, docId: string): Promise<void> {
     const count = await UserPrefModel.countDocuments({ userId: docId });
     if (count === 0) {
       await UserPrefModel.create({ userId: docId, preferences: doc });

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UserPrefModel } from "../db/models/UserPrefModel";
 import { resTemplate } from "../utils/responses";
 interface Decoded extends Request {
-  decoded: { id: String };
+  decoded: { id: string };
 }
 const setUserPreferences = async (
   req: Decoded,

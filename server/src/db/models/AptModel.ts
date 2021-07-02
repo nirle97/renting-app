@@ -111,9 +111,9 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
 aptSchema.static(
   "updateLikeStatus",
   async function (
-    aptId: String,
-    userId: String,
-    status: String
+    aptId: string,
+    userId: string,
+    status: string
   ): Promise<void> {
     try {
       if (status === "likedBy") {
@@ -137,7 +137,7 @@ aptSchema.static(
   "findByUserFilters",
   async function (
     aptData: IClientApt,
-    userId: String
+    userId: string
   ): Promise<IOwnerApt[] | undefined> {
     try {
       let filtersObj: { [key: string]: {} } = {
