@@ -1,0 +1,16 @@
+.ChatRoom-room-div{
+    font-size: 3vh;
+    font-weight: 600;
+    text-align: start;
+    padding-left: 1vw;
+    border-bottom: 3px solid gray;
+    display: flex;
+    flex-direction: column;
+}
+.ChatRoom-room-div:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+.ChatRoom-room-name{
+
+}
