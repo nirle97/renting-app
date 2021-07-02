@@ -16,13 +16,11 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     const aptData: IChatRoom = req.body;
     const aptTitle = await AptModel.findOne({ _id: aptData.aptId }, ["title"]);
     const newRoom = await ChatRoomModel.create({
-      title: aptTitle.title,
+      title: aptTitle?.title,
       aptId: aptData.aptId,
       participants: aptData.participants,
     });
-    res
-      .status(200)
-      .send({ ...resTemplate.success.created, data: { id: newRoom._id } });
+    res.status(200).send({ ...resTemplate.success.created, data: newRoom._id });
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
@@ -46,16 +44,28 @@ const closeChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     res.status(500).send(resTemplate.serverError);
   }
 };
+const getChatRoom = async (req: Decoded, res: Response): Promise<void> => {
+  try {
+    console.log(req.decoded.id);
+
+    const chatRooms = await ChatRoomModel.find({
+      $or: [
+        { "participants.userInfo.id": req.decoded.id },
+        { "participants.ownerInfo.id": req.decoded.id },
+      ],
+    });
+    console.log(chatRooms);
+
+    res.status(200).send({ ...resTemplate.success.general, data: chatRooms });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(resTemplate.serverError);
+  }
+};
 
 const chatRoomController = {
   openChatRoom,
   closeChatRoom,
+  getChatRoom,
 };
 export default chatRoomController;
-function data(
-  created: { success: boolean; status: number },
-  data: any,
-  arg2: { id: any }
-) {
-  throw new Error("Function not implemented.");
-}

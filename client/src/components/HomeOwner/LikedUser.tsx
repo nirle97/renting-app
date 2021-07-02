@@ -48,14 +48,14 @@ export default function LikedUser({
           fullName: user.fullName,
         },
         userInfo: {
-          id: likedUser.id ? user.id : "",
+          id: likedUser._id ? likedUser._id : "",
           imgUrl: likedUser.imgUrl,
           fullName: likedUser.fullName,
         },
       },
     };
     try {
-      await network.post("/chatRoom/create-chat-room", chatRoomConfig);
+      await network.post("/chat-room/create-chat-room", chatRoomConfig);
     } catch (e) {
       console.error(e);
     }
@@ -74,7 +74,11 @@ export default function LikedUser({
         <span>Tel: {likedUser.phoneNumber}</span>
         <span>Email: {likedUser.email}</span>
         <span>Age: {likedUser.age}</span>
-        <button className="btn btn-outline-success" onClick={openChat}>
+        <button
+          id="start-chat-btn"
+          className="btn btn-outline-primary"
+          onClick={openChat}
+        >
           Open chat
         </button>
       </div>

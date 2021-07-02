@@ -134,19 +134,19 @@ export default function HomeOwner() {
                     <span className="description-text-span">{apt.address}</span>
                     <span className="HomeOwner-description-main-miniContainer">
                       <span className="description-text">
-                        Size: {`${apt.size}m²`}
+                        Size: {` ${apt.size}m² `}
                       </span>
                       <span className="description-text"> | </span>
                       <span className="description-text">
-                        Rooms: {apt.rooms}
+                        Rooms: {` ${apt.rooms} `}
                       </span>
                       <span className="description-text"> | </span>
                       <span className="description-text">
-                        Floor: {apt.floor}
+                        Floor: {` ${apt.floor} `}
                       </span>
                     </span>
                     <span className="description-text-span">
-                      {apt.pricePerMonth}₪/Per month
+                      {apt.pricePerMonth}₪/ month
                     </span>
                     <span className="description-text-span">
                       Rental Type: {apt.rentalType}
@@ -250,7 +250,7 @@ export default function HomeOwner() {
                         index > 1
                           ? {
                               transform: `translateX(-${
-                                likedUser && index * (90 / 5)
+                                likedUser && index * (70 / 5)
                               }%)`,
                             }
                           : {}
