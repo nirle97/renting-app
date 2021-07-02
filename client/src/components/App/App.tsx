@@ -12,11 +12,12 @@ import SignUp from "../SignUp/SignUp";
 import UploadApt from "../UploadApt/UploadApt";
 import UserLikes from "../Likes/UserLikes";
 import HomeOwner from "../HomeOwner/HomeOwner";
+import Chat from "../Chat/Chat";
 
 function App() {
   const { isLogged } = useSelector(authSelectors);
   const { user } = useSelector(userSelectors);
-  
+
   const dispatch = useDispatch();
 
   async function validateToken() {
@@ -38,20 +39,22 @@ function App() {
             <Route exact path="/sign-up" component={SignUp} />
           </Switch>
         </>
-      ) : user.isOwner? 
+      ) : user.isOwner ? (
         <>
-        <NavBar />
-        <UploadApt />
-        <Switch>
+          <NavBar />
+          <UploadApt />
+          <Switch>
             <Route exact path="/" component={HomeOwner} />
+            <Route exact path="/chat" component={Chat} />
           </Switch>
         </>
-      :(
+      ) : (
         <>
           <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/likes" component={UserLikes} />
+            <Route exact path="/chat" component={Chat} />
           </Switch>
         </>
       )}

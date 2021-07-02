@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { ChatRoomModel } from "../db/models/ChatRoomModel";
+import { MessageModel } from "../db/models/MessageModel";
 import { resTemplate } from "../utils/responses";
+import { IMessage } from "../interfaces/interface";
 interface Decoded extends Request {
   decoded: { id: String };
 }
-const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
+const setNewMessage = async (req: Decoded, res: Response): Promise<void> => {
   if (!req.body) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
   try {
-    await ChatRoomModel.create({})
+    await MessageModel.create(req.body as IMessage);
     res.status(200).send(resTemplate.success.created);
   } catch (e) {
     console.error(e);
@@ -18,7 +19,7 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
   }
 };
 
-const chatController = {
-  openChatRoom,
+const messageController = {
+  setNewMessage,
 };
-export default chatController;
+export default messageController;

@@ -44,7 +44,7 @@
 }
 .UploadApt-input {
   outline: none;
-  border: none;
+  border: none !important;
   padding-left: 15px;
   margin-bottom: 5px;
   background-color: rgb(245, 202, 188);

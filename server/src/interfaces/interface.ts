@@ -109,9 +109,20 @@ export interface Decoded extends Request {
   decoded: IUser;
 }
 export interface IChatRoom extends Document {
-  title: string;
+  title?: string;
   aptId: string;
-  participants: { id: string; imgUrl: string; fullName: string }[];
+  participants: {
+    ownerInfo: {
+      id: string;
+      imgUrl: string;
+      fullName: string;
+    };
+    userInfo: {
+      id: string;
+      imgUrl: string;
+      fullName: string;
+    };
+  };
 }
 export interface IMessage extends Document {
   text: string;

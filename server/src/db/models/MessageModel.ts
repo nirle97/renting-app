@@ -19,7 +19,7 @@ const messageSchema = new mongoose.Schema<IMessage>({
     default: new Date().getTime(),
   },
 });
-export const messageModels = mongoose.model<IMessage>(
-  "messageModels",
+export const MessageModel = mongoose.model<IMessage>(
+  "MessageModel",
   messageSchema
 );

@@ -39,7 +39,6 @@ function SignIn() {
         Cookies.set("token", data.accessToken, { expires: 1, secure: true });
         Cookies.set("id", data.id, { expires: 1, secure: true });
         delete data.accessToken;
-        console.log(data);
 
         dispatch(setUser({ user: data }));
         history.push("/");
@@ -56,7 +55,7 @@ function SignIn() {
     const tokenId = user.tokenId;
     const {
       data: { data },
-    } = await network.post("/googleAuth/login", { tokenId });    
+    } = await network.post("/googleAuth/login", { tokenId });
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
     Cookies.set("id", data.id, { secure: true });

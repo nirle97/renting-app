@@ -11,7 +11,7 @@ const chatRoomSchema = new mongoose.Schema<IChatRoom>({
     require: true,
   },
   participants: {
-    type: Array,
+    type: Object,
     require: true,
   },
 });

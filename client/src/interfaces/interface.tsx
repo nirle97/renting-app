@@ -90,3 +90,19 @@ export interface IAdvancedPref {
   petsAllowed: boolean;
   smokeAllowed: boolean;
 }
+
+export interface IChatRoom {
+  aptId: string;
+  participants: {
+    ownerInfo: {
+      id: string;
+      imgUrl: string;
+      fullName: string;
+    };
+    userInfo: {
+      id: string;
+      imgUrl: string;
+      fullName: string;
+    };
+  };
+}

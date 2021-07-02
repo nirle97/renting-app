@@ -63,8 +63,7 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    console.log(req.body);
-
+    console.log(req.body)
     const data: IClientApt = {
       ...req.body,
       entryDate: dateToMilliSc(req.body.entryDate),

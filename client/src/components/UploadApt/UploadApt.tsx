@@ -97,19 +97,20 @@ export default function UploadApt() {
               <input
                 type="text"
                 id="title"
-                value={formInput.address}
+                value={formInput.title}
                 onChange={changeHandler}
-                // maxLength={}
+                maxLength={30}
+                className="UploadApt-input"
               />
             </div>
             <div className="UploadApt-div-input">
               <label>address: </label>
-              
               <input
                 type="text"
                 id="address"
                 value={formInput.address}
                 onChange={changeHandler}
+                className="UploadApt-input"
               />
               {/* <SearchBar
                 searchValue={searchValue}

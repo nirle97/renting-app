@@ -19,14 +19,14 @@ function Filter({ toggleFilters }: IProps) {
     cords: { lat: 0, lng: 0 },
     address: "",
   });
-  // const devChangeHandler = (e: any) => {
-  ///delete me!!!!!!!!!!!!!!!!!!!!
-  //   dispatch(
-  //     setPreferences({
-  //       preferences: { ...preferences, [e.target.id]: e.target.value },
-  //     })
-  //   );
-  // };
+  //delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const devChangeHandler = (e: any) => {
+    dispatch(
+      setPreferences({
+        preferences: { ...preferences, [e.target.id]: e.target.value },
+      })
+    );
+  };
 
   const savePreferences = async () => {
     try {
@@ -64,17 +64,17 @@ function Filter({ toggleFilters }: IProps) {
       <div className="Filter-filters">
         <div className="Filter-address">
           Address:
-          {/* <input
+          <input
             type="text"
             id="address"
             value={preferences.address}
             onChange={devChangeHandler}
-          /> */}
-          <SearchBar
+          />
+          {/* <SearchBar
             searchValue={{ ...searchValue, address: preferences.address }}
             setSearchValue={setSearchValue}
             searchBarClass="Filter-search"
-          />{" "}
+          />{" "} */}
         </div>
         <div className="Filter-range-container">
           <span id="price-range-name" className="Filter-range-name">

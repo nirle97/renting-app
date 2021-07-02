@@ -38,6 +38,7 @@ export default function Likes() {
           </div>
           <div className="Likes-description-container">
             <div className="Likes-description-main">
+              <span className="description-text-span">{apt.title}</span>
               <span className="description-text-span">{apt.address}</span>
               <span className="Likes-description-main-miniContainer">
                 <span className="description-text">
