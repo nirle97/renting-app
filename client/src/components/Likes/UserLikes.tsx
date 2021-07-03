@@ -5,6 +5,7 @@ import { IUploadNewApt } from "../../interfaces/interface";
 import ImageSlider from "../SliderImg/SliderImg";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 import { useDispatch } from "react-redux";
+
 export default function Likes() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const dispatch = useDispatch();

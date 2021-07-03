@@ -26,8 +26,10 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (userApts.length === 2) getMoreApts();
-  }, [userApts]);
+    if (userApts.length === 2) {
+      getMoreApts()
+    }
+  }, [userApts])
 
   const getMoreApts = async () => {
     try {
@@ -37,8 +39,9 @@ function Home() {
       } = await network.post("/apartment/filtered-apts", preferences);
       if (data.length !== 0) {
         dispatch(setIsDataLoading({ isDataLoading: false }));
-        dispatch(setAptsArray({ userApts: [userApts[0], ...data] }));
+        dispatch(setAptsArray({ userApts: [...userApts, ...data] }));
       } else {
+        dispatch(setIsDataLoading({ isDataLoading: false }));
         console.log("no more apts");
       }
     } catch (e) {
@@ -102,7 +105,7 @@ function Home() {
             <Apartment aptPreference={aptPreference} apt={userApts[0]} />
           </div>
           <div className="Home-apartment-map">
-            <Map
+            {/* <Map
               cords={
                 userApts[0].cords
                   ? userApts[0].cords
@@ -111,7 +114,7 @@ function Home() {
                       lng: 34.8271349,
                     }
               }
-            />
+            /> */}
           </div>
         </div>
       ) : (

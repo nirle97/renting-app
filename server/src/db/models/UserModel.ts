@@ -39,5 +39,8 @@ const userSchema = new mongoose.Schema<IUser>({
   imgUrl: {
     type: String,
   },
+  openChats: {
+    type: Array,
+  },
 });
 export const UserModel = mongoose.model<IUser>("UserModel", userSchema);

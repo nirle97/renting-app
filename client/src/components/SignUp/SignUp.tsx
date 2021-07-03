@@ -59,8 +59,8 @@ function SignUp() {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
         const url = await postImage(file, "profileImg");
-        await network.post("/login/sign-up", { ...formInput, imgUrl: url });
-        // await network.post("/login/sign-up", { ...formInput });
+        await axios.post("/login/sign-up", { ...formInput, imgUrl: url });
+        // await axios.post("/login/sign-up", { ...formInput });
         history.push("/");
       } else {
         setEmptyFldMsg(true);

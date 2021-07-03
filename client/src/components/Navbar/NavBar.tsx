@@ -5,6 +5,7 @@ import Profile from "../Profile/Profile";
 import { useSelector } from "react-redux";
 import { userSelectors } from "../../store/userSlice";
 import { spinnerSelectors } from "../../store/spinnerSlice";
+
 function NavBar() {
   const { user } = useSelector(userSelectors);
   const { isDataLoading } = useSelector(spinnerSelectors);

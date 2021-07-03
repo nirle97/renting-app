@@ -8,7 +8,11 @@ interface IProps {
     lng: number;
   };
 }
+const libraries = ["places"];
+
 function Map({ cords }: IProps) {
+  let libRef: any = React.useRef(libraries);
+
   const [mapContainerStyle] = useState({
     height: "81vh",
     width: "55vw",
@@ -17,12 +21,11 @@ function Map({ cords }: IProps) {
     disableDefaultUI: false,
     zoomControl: true,
   });
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY
       ? process.env.REACT_APP_API_KEY
       : "",
-    libraries: ["places"],
+    libraries: libRef.current,
   });
 
   const mapRef: React.MutableRefObject<any> = React.useRef();

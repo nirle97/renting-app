@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./ownerApts.css";
 import { IUploadNewApt, IUser } from "../../../interfaces/interface";
 import ImageSlider from "../../SliderImg/SliderImg";
@@ -13,7 +13,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
   const [selectedAptId, setSelectedAptId] = useState("");
   const [currentId, setCurrentId] = useState("");
   const [likedUser, setLikedUser] = useState<IUser[]>();
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
 
   function addStyle(index: number) {
     const applyedClasses = focusedUserDiv.current?.classList;
@@ -36,7 +36,18 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
     if (currentApt) {
       const users = currentApt.likedByUser as IUser[];
       if (users.length) {
-        setLikedUser([...users]);
+        setLikedUser([
+          ...users,
+          {
+            fullName: "asd",
+            email: "sadas",
+            age: "32",
+            imgUrl: "",
+            phoneNumber: "352352525",
+            password: "",
+            openChats: [],
+          },
+        ]);
       }
     }
   };

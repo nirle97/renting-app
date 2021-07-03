@@ -15,6 +15,7 @@ export interface IUser extends ISignIn {
   age: string;
   imgUrl: string;
   isOwner?: boolean | null;
+  openChats?: string[];
 }
 
 export interface IUploadNewApt {
@@ -92,6 +93,7 @@ export interface IAdvancedPref {
 }
 
 export interface IChatRoomTemplate {
+  _id?: string;
   aptId: string;
   participants: {
     ownerInfo: {
@@ -106,7 +108,12 @@ export interface IChatRoomTemplate {
     };
   };
 }
-export interface IChatRoom extends IChatRoomTemplate{
+export interface IChatRoom extends IChatRoomTemplate {
   title: string;
-
+}
+export interface IMessage extends Document {
+  text: string;
+  chatRoomId: string;
+  senderId: string;
+  createdAt: Date;
 }

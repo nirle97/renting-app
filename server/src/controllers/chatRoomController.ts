@@ -4,6 +4,7 @@ import { MessageModel } from "../db/models/MessageModel";
 import { resTemplate } from "../utils/responses";
 import { IChatRoom } from "../interfaces/interface";
 import { AptModel } from "../db/models/AptModel";
+import { UserModel } from "../db/models/UserModel";
 interface Decoded extends Request {
   decoded: { id: String };
 }
@@ -20,6 +21,14 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
       aptId: aptData.aptId,
       participants: aptData.participants,
     });
+    await UserModel.updateOne(
+      { _id: req.decoded.id },
+      { $push: { openChats: aptData.participants.userInfo.id } }
+    );
+    await UserModel.updateOne(
+      { _id: aptData.participants.userInfo.id },
+      { $push: { openChats: req.decoded.id } }
+    );
     res.status(200).send({ ...resTemplate.success.created, data: newRoom._id });
   } catch (e) {
     console.error(e);
@@ -46,16 +55,12 @@ const closeChatRoom = async (req: Decoded, res: Response): Promise<void> => {
 };
 const getChatRoom = async (req: Decoded, res: Response): Promise<void> => {
   try {
-    console.log(req.decoded.id);
-
     const chatRooms = await ChatRoomModel.find({
       $or: [
         { "participants.userInfo.id": req.decoded.id },
         { "participants.ownerInfo.id": req.decoded.id },
       ],
     });
-    console.log(chatRooms);
-
     res.status(200).send({ ...resTemplate.success.general, data: chatRooms });
   } catch (e) {
     console.error(e);

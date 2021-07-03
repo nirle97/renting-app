@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./likedUser.css";
 
 import network from "../../../utils/network";
@@ -20,26 +20,34 @@ export default function LikedUser({
 }: IProps) {
   const { user } = useSelector(userSelectors);
   const focusedUser = useRef<HTMLDivElement>(null);
-  if (focusedUser.current && focusedUser.current.id === currentId) {
-    focusedUser.current.style.opacity = "1";
-  } else {
-    if (focusedUser.current) {
-      focusedUser.current.style.opacity = "0.5";
-    }
-  }
+  const startChatBtn = useRef<HTMLButtonElement>(null);
+  const [isAlreadyInChat, setIsAlreadyInChat] = useState(false);
+  const [isChatBtnClicked, setIsChatBtnClicked] = useState(false);
   useEffect(() => {
-    if (focusedUser.current) {
-      if (focusedUser.current.id === "user-0") {
-        focusedUser.current.style.opacity = "1";
-      } else {
-        if (focusedUser.current) {
-          focusedUser.current.style.opacity = "0.5";
+    if (focusedUser.current && focusedUser.current.id === currentId) {
+      focusedUser.current.style.opacity = "1";
+      if (startChatBtn.current) {
+        startChatBtn.current.disabled = false;
+      }
+    } else {
+      if (focusedUser.current) {
+        focusedUser.current.style.opacity = "0.5";
+        if (startChatBtn.current) {
+          startChatBtn.current.disabled = true;
         }
       }
     }
-  }, []);
+  }, [currentId]);
 
-  const openChat = async (e: any) => {
+  useEffect(() => {
+    if (likedUser.openChats) {
+      console.log(1);
+
+      setIsAlreadyInChat(likedUser.openChats.includes(user.id));
+    }
+  }, [isChatBtnClicked]);
+
+  const openChat = async () => {
     const chatRoomConfig: IChatRoomTemplate = {
       aptId,
       participants: {
@@ -57,6 +65,10 @@ export default function LikedUser({
     };
     try {
       await network.post("/chat-room/create-chat-room", chatRoomConfig);
+      setIsChatBtnClicked(true);
+      alert(
+        `Congratulations!🎉🎉 you and ${likedUser.fullName} can now talk in the chat room!`
+      );
     } catch (e) {
       console.error(e);
     }
@@ -75,13 +87,24 @@ export default function LikedUser({
         <span>Tel: {likedUser.phoneNumber}</span>
         <span>Email: {likedUser.email}</span>
         <span>Age: {likedUser.age}</span>
-        <button
-          id="start-chat-btn"
-          className="btn btn-outline-primary"
-          onClick={openChat}
-        >
-          Open chat
-        </button>
+        {isAlreadyInChat ? (
+          <button
+            id="start-chat-btn"
+            className="btn btn-outline-primary"
+            disabled
+          >
+            Already In Chat
+          </button>
+        ) : (
+          <button
+            id="start-chat-btn"
+            className="btn btn-outline-primary"
+            onClick={openChat}
+            ref={startChatBtn}
+          >
+            Open chat
+          </button>
+        )}
       </div>
     </>
   );

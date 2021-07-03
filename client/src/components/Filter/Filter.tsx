@@ -9,10 +9,7 @@ import network from "../../utils/network";
 import UserPreferences from "../Preferences/UserPreferences";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 
-interface IProps {
-  toggleFilters: () => void;
-}
-function Filter({ toggleFilters }: IProps) {
+function Filter({ toggleFilters }: { toggleFilters: () => void }) {
   const dispatch = useDispatch();
   const { preferences } = useSelector(prefSelectors);
   const [searchValue, setSearchValue] = useState({

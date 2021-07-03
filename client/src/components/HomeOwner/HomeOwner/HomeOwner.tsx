@@ -5,6 +5,7 @@ import "./homeOwner.css";
 import { useDispatch } from "react-redux";
 import { setIsDataLoading } from "../../../store/spinnerSlice";
 import OwnerApts from "../OwnerApts/OwnerApts";
+
 export default function HomeOwner() {
   const [aptsArr, setAptsArr] = useState<IUploadNewApt[]>([]);
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function HomeOwner() {
       ) : (
         <>
           {aptsArr.map((apt, i) => (
-            <OwnerApts apt={apt} aptsArr={aptsArr} />
+            <OwnerApts key={i} apt={apt} aptsArr={aptsArr} />
           ))}
         </>
       )}

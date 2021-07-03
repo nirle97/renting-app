@@ -63,7 +63,6 @@ const getAptsByFilters = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    console.log(req.body)
     const data: IClientApt = {
       ...req.body,
       entryDate: dateToMilliSc(req.body.entryDate),
@@ -82,10 +81,13 @@ const getAptsByOwner = async (req: Decoded, res: Response): Promise<void> => {
     const aptsArray = await AptModel.find({ ownerId: req.decoded.id });
     for (let i = 0; i < aptsArray.length; i++) {
       aptsArray[i].likedByUser = await UserModel.find(
-        { _id: { $in: aptsArray[i].likedBy } },
+        {
+          _id: { $in: aptsArray[i].likedBy },
+        },
         ["-password", "-isOwner", "-likedApts", "-refreshToken"]
       );
     }
+
     res.status(200).send({ ...resTemplate.success.general, data: aptsArray });
   } catch (e) {
     console.error(e);

@@ -10,6 +10,7 @@ export interface IUser extends Document {
   likedApts: {}[];
   refreshToken?: string | null;
   imgUrl: string;
+  openChats: string[];
 }
 
 export interface IOwnerApt extends Document {

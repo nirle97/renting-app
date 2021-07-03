@@ -1,24 +1,3 @@
-.Chat-container {
-  margin-top: 8vh;
-  display: flex;
-  width: 100vw;
-  height: 92vh;
-  flex-direction: row;
-}
-.chat-messages-container {
-  background-color: #ee8c68;
-  background-image: linear-gradient(315deg, #ee8c68 0%, #eb6b9d 74%);
-  border-style: solid;
-  width: 70vw;
-  height: 92vh;
-  padding: 15px;
-}
-.Chat-rooms-container {
-  border-style: solid;
-  width: 30vw;
-  height: 92vh;
-  overflow-y: scroll;
-}
 .MsgScreen-container {
 }
 .MsgScreen::-webkit-scrollbar {
