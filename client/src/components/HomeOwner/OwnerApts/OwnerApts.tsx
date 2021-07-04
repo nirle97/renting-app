@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./ownerApts.css";
 import { IUploadNewApt, IUser } from "../../../interfaces/interface";
 import ImageSlider from "../../SliderImg/SliderImg";
@@ -36,9 +36,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
     if (currentApt) {
       const users = currentApt.likedByUser as IUser[];
       if (users.length) {
-        setLikedUser([
-          ...users
-        ]);
+        setLikedUser([...users]);
       }
     }
   };
@@ -59,6 +57,10 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
       setIndex(index - 1);
     }
   };
+  useEffect(() => {
+    addStyle(index);
+  }, []);
+
   return (
     <div className="HomeOwner-apt" id={apt._id} onClick={openLikesList}>
       <div className="HomeOwner-apt-div">

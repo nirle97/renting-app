@@ -19,27 +19,21 @@ export default function Message({ message, currentRoom }: IProps) {
     }
     return `${hours}:${minutes}`;
   }
+
   useEffect(() => {
     if (message.senderId === user.id) {
       setIsMsgSent(true);
     } else {
       setIsMsgSent(false);
     }
-  }, []);
+  }, [message]);
   return (
     <>
-      {isMsgSent ? (
-        <div className="Message-right">
+      {currentRoom === message.chatRoomId && (
+        <div className={isMsgSent ? "Message-right" : "Message-left"}>
           <span className="Message-wrapper">
-            <span>{message.text}</span>
             <span>{msToHoursMintues(message.createdAt)}</span>
-          </span>
-        </div>
-      ) : (
-        <div className="Message-left">
-          <span className="Message-wrapper">
             <span>{message.text}</span>
-            <span>{msToHoursMintues(message.createdAt)}</span>
           </span>
         </div>
       )}

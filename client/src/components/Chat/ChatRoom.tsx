@@ -8,11 +8,17 @@ interface IProps {
 }
 export default function ChatRoom({ room, setCurrentRoom }: IProps) {
   const selectRoom = (e: any) => {
-    setCurrentRoom(room._id ? room._id : "")
-    e.target.classList.toggle("selected-room")
-  }
+    const clickedRoom = e.currentTarget;
+    if (!clickedRoom.classList.contains("selected-room")) {
+      setCurrentRoom(room._id ? room._id : "");
+      clickedRoom.classList.toggle("selected-room");
+    } else {
+      setCurrentRoom("");
+      clickedRoom.classList.toggle("selected-room");
+    }
+  };
   return (
-    <div onClick={(e)=>selectRoom(e)}>
+    <div onClick={(e) => selectRoom(e)}>
       <div className="ChatRoom-room-div">
         <span className="ChatRoom-room-title">{room.title}</span>
         <span className="ChatRoom-room-name">{`${room.participants.userInfo.fullName} - ${room.participants.ownerInfo.fullName}`}</span>

@@ -16,6 +16,7 @@ import { userReducer } from "./userSlice";
 import { prefReducer } from "./prefSlice";
 import { aptReducer } from "./aptSlice";
 import { profileReducer } from "./profileSlice";
+import { chatReducer } from "./chatSlice";
 import { combineReducers, Store } from "@reduxjs/toolkit";
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   profileReducer,
   aptReducer,
   spinnerReducer,
+  chatReducer,
 });
 const persistConfig = {
   key: "root",
@@ -37,6 +39,7 @@ const persistConfig = {
     "profileReducer",
     "aptReducer",
     "spinnerReducer",
+    "chatReducer",
   ],
 };
 

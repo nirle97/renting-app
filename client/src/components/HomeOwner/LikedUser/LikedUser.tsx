@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import "./likedUser.css";
-
+import { useHistory } from "react-router";
 import network from "../../../utils/network";
 import { IUser, IChatRoomTemplate } from "../../../interfaces/interface";
 import { userSelectors } from "../../../store/userSlice";
@@ -18,6 +18,7 @@ export default function LikedUser({
   index,
   aptId,
 }: IProps) {
+  const history = useHistory();
   const { user } = useSelector(userSelectors);
   const focusedUser = useRef<HTMLDivElement>(null);
   const startChatBtn = useRef<HTMLButtonElement>(null);
@@ -74,6 +75,8 @@ export default function LikedUser({
     }
   };
 
+  const moveToChatRoom = () => {};
+
   return (
     <>
       <div
@@ -91,7 +94,7 @@ export default function LikedUser({
           <button
             id="start-chat-btn"
             className="btn btn-outline-primary"
-            disabled
+            onClick={moveToChatRoom}
           >
             Already In Chat
           </button>

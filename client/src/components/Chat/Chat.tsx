@@ -40,9 +40,11 @@ export default function Chat() {
     socketRef.current?.emit("join-chat", roomsIdArray);
   }, [roomsIdArray]);
 
-  useEffect(() => {
+  useEffect((): any => {
     socketRef.current?.on("message", (message) => {
-      setMessages([...messages, message]);
+      let msgArr = messages;
+      msgArr.push(message);
+      setMessages(msgArr);
     });
   }, []);
 
@@ -55,7 +57,7 @@ export default function Chat() {
       createdAt: new Date().getTime(),
     };
     if (msg) {
-      socketRef.current?.emit("send-msg", msgObj, () => setMsg(""));
+      socketRef.current?.emit("send-msg", msgObj);
     }
     scrollDown.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -63,27 +65,33 @@ export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {messages.map((message, i) => (
-          <Message key={i} message={message} currentRoom={currentRoom} />
-        ))}
+        {currentRoom !== "" && (
+          <>
+            {messages.map((message, i) => (
+              <Message key={i} message={message} currentRoom={currentRoom} />
+            ))}
+          </>
+        )}
         <div className="msg-div">
           <div ref={scrollDown}></div>
-          <form className="msg-form">
-            <input
-              className="msg-input"
-              value={msg}
-              onChange={(e) => setMsg(e.target.value)}
-              onKeyPress={(e) => (e.key === "enter" ? sendMessage(e) : null)}
-              placeholder="Type a message..."
-            />
-            <button
-              type="submit"
-              className="send-btn"
-              onClick={(e) => sendMessage(e)}
-            >
-              Send
-            </button>
-          </form>
+          {currentRoom && (
+            <form className="msg-form">
+              <input
+                className="msg-input"
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
+                onKeyPress={(e) => (e.key === "enter" ? sendMessage(e) : null)}
+                placeholder="Type a message..."
+              />
+              <button
+                type="submit"
+                className="send-btn"
+                onClick={(e) => sendMessage(e)}
+              >
+                Send
+              </button>
+            </form>
+          )}
         </div>
       </div>
       <div className="Chat-rooms-container">
