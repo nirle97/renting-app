@@ -8,42 +8,22 @@ import { useSelector } from "react-redux";
 
 interface IProps {
   likedUser: IUser;
-  currentId: string;
   index: number;
   aptId: string;
 }
 export default function LikedUser({
   likedUser,
-  currentId,
   index,
   aptId,
 }: IProps) {
-  const history = useHistory();
   const { user } = useSelector(userSelectors);
-  const focusedUser = useRef<HTMLDivElement>(null);
   const startChatBtn = useRef<HTMLButtonElement>(null);
   const [isAlreadyInChat, setIsAlreadyInChat] = useState(false);
   const [isChatBtnClicked, setIsChatBtnClicked] = useState(false);
-  useEffect(() => {
-    if (focusedUser.current && focusedUser.current.id === currentId) {
-      focusedUser.current.style.opacity = "1";
-      if (startChatBtn.current) {
-        startChatBtn.current.disabled = false;
-      }
-    } else {
-      if (focusedUser.current) {
-        focusedUser.current.style.opacity = "0.5";
-        if (startChatBtn.current) {
-          startChatBtn.current.disabled = true;
-        }
-      }
-    }
-  }, [currentId]);
+ 
 
   useEffect(() => {
-    if (likedUser.openChats) {
-      console.log(1);
-
+    if (likedUser.openChats) {      
       setIsAlreadyInChat(likedUser.openChats.includes(user.id));
     }
   }, [isChatBtnClicked]);
@@ -82,7 +62,6 @@ export default function LikedUser({
       <div
         className="LikedUser-container"
         id={`user-${index}`}
-        ref={focusedUser}
       >
         {/* <img className="LikedUser-img" alt="profile" src="./images/woman.jpg" /> */}
         <img className="LikedUser-img" alt="profile" src={likedUser.imgUrl} />

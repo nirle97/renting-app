@@ -9,25 +9,15 @@ interface IProps {
   aptsArr: IUploadNewApt[];
 }
 export default function OwnerApts({ apt, aptsArr }: IProps) {
-  const focusedUserDiv = useRef<HTMLDivElement>(null);
   const [selectedAptId, setSelectedAptId] = useState("");
-  const [currentId, setCurrentId] = useState("");
   const [likedUser, setLikedUser] = useState<IUser[]>();
-  const [index, setIndex] = useState(0);
 
-  function addStyle(index: number) {
-    const applyedClasses = focusedUserDiv.current?.classList;
-    if (applyedClasses) {
-      applyedClasses.forEach(() => {
-        if (
-          focusedUserDiv.current?.classList.contains(`active-slide-${index}`)
-        ) {
-          setCurrentId(`user-${index}`);
-        }
-      });
-    }
-  }
+
   const openLikesList = (e: any) => {
+    if(e.currentTarget.id === selectedAptId){
+      setSelectedAptId("")
+      return;
+    }
     const currentAptId = e.currentTarget.id;
     setSelectedAptId(currentAptId);
     const currentApt: IUploadNewApt | undefined = aptsArr?.find(
@@ -40,26 +30,6 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
       }
     }
   };
-  const nextUser = () => {
-    if (likedUser && focusedUserDiv.current) {
-      const newIndex = index + 1;
-      if (newIndex > likedUser.length) return;
-      setIndex(index + 1);
-      addStyle(index);
-    }
-  };
-
-  const prevUser = () => {
-    if (likedUser) {
-      const newIndex = index - 1;
-      if (newIndex < -1) return;
-      addStyle(index);
-      setIndex(index - 1);
-    }
-  };
-  useEffect(() => {
-    addStyle(index);
-  }, []);
 
   return (
     <div className="HomeOwner-apt" id={apt._id} onClick={openLikesList}>
@@ -174,26 +144,6 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
       </div>
       {selectedAptId === apt._id && (
         <div className="HomeOwner-apt-container">
-          <span className="HomeOwner-left-arrow" onClick={prevUser}>
-            <i id="HomeOwner-arrow-i1" className="fas fa-arrow-left"></i>
-          </span>
-
-          <div
-            ref={focusedUserDiv}
-            className={`HomeOwner-likes-slider active-slide-${index}`}
-          >
-            <div
-              className="HomeOwner-likes-wrapper"
-              style={
-                index > 1
-                  ? {
-                      transform: `translateX(-${
-                        likedUser && index * (70 / 5)
-                      }%)`,
-                    }
-                  : {}
-              }
-            >
               {!likedUser?.length && (
                 <h3 id="no-likes-h3">No One Liked This Apartment Yet :(</h3>
               )}
@@ -202,16 +152,10 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
                   key={i}
                   likedUser={user}
                   index={i}
-                  currentId={currentId}
                   aptId={apt._id ? apt._id : ""}
                 />
               ))}
             </div>
-          </div>
-          <span className="HomeOwner-right-arrow" onClick={nextUser}>
-            <i id="HomeOwner-arrow-i2" className="fas fa-arrow-right"></i>
-          </span>
-        </div>
       )}
     </div>
   );

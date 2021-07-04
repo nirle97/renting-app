@@ -14,6 +14,10 @@
   transition: opacity 300ms linear;
   cursor: pointer;
 }
+.LikedUser-container:hover{
+  opacity: 1;
+
+}
 .LikedUser-img {
   position: relative;
   max-width: 80%;
