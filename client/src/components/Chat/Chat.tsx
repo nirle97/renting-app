@@ -81,7 +81,7 @@ export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {currentChatRoom !== "" && (
+        {(currentChatRoom !== ""  ) && (
           <>
             {messages.map((message, i) => (
               <Message key={i} message={message} />

@@ -22,7 +22,7 @@
   width: 25vw;
   height: 30vh;
   margin-top: 3.7vh;
-  margin-left: 8vh;
+  margin-left: 7.3vh;
 }
 .HomeOwner-description-container {
   display: flex;
@@ -96,6 +96,7 @@
 .HomeOwner-apt-container {
   display: flex;
   position: relative;
+  margin-top: 2px;
   width: 70vw;
   height: 38vh;
   border: 1px solid black;
@@ -106,6 +107,7 @@
   cursor: auto;
   overflow-y: hidden;
   overflow-x: auto;
+  border-radius: 10px;
 }
 .HomeOwner-left-arrow,
 .HomeOwner-right-arrow {
