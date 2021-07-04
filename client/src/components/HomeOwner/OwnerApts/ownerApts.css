@@ -105,6 +105,7 @@
   padding: 10px;
   cursor: auto;
   overflow-y: hidden;
+  overflow-x: auto;
 }
 .HomeOwner-left-arrow,
 .HomeOwner-right-arrow {

@@ -11,27 +11,12 @@ interface IProps {
   index: number;
   aptId: string;
 }
-export default function LikedUser({
-  likedUser,
-  index,
-  aptId,
-}: IProps) {
+export default function LikedUser({ likedUser, index, aptId }: IProps) {
   const history = useHistory();
   const { user } = useSelector(userSelectors);
   const startChatBtn = useRef<HTMLButtonElement>(null);
   const [isAlreadyInChat, setIsAlreadyInChat] = useState(false);
   const [isChatBtnClicked, setIsChatBtnClicked] = useState(false);
-
-
-  useEffect(() => {
-
-      if (startChatBtn.current) {
-        startChatBtn.current.disabled = false;
-      }
-      if (startChatBtn.current) {
-        startChatBtn.current.disabled = true;
-      }
-  }, []);
 
   useEffect(() => {
     if (likedUser.openChats) {
@@ -72,10 +57,7 @@ export default function LikedUser({
 
   return (
     <>
-      <div
-        className="LikedUser-container"
-        id={`user-${index}`}
-      >
+      <div className="LikedUser-container" id={`user-${index}`}>
         {/* <img className="LikedUser-img" alt="profile" src="./images/woman.jpg" /> */}
         <img className="LikedUser-img" alt="profile" src={likedUser.imgUrl} />
         <span>Name: {likedUser.fullName}</span>
