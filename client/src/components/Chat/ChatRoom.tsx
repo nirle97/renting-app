@@ -8,6 +8,7 @@ export default function ChatRoom({ room }: { room: IChatRoom }) {
   const dispatch = useDispatch();
   const { currentChatRoom } = useSelector(chatSelectors);
   const roomDiv = useRef<HTMLDivElement>(null);
+  let prevRoomDiv = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (currentChatRoom === room._id) {
       roomDiv.current?.classList.toggle("selected-room");
@@ -18,6 +19,8 @@ export default function ChatRoom({ room }: { room: IChatRoom }) {
     if (!e.currentTarget.classList.contains("selected-room")) {
       dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
       e.currentTarget.classList.toggle("selected-room");
+      prevRoomDiv.current?.classList.toggle("selected-room");
+      prevRoomDiv = roomDiv
     } else {
       dispatch(setChatRoom({ currentChatRoom: "" }));
       e.currentTarget.classList.toggle("selected-room");
