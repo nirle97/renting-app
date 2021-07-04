@@ -2,25 +2,32 @@ import "./chat.css";
 import { useEffect, useRef, useState } from "react";
 import ChatRoom from "./ChatRoom";
 import { userSelectors } from "../../store/userSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import network from "../../utils/network";
 import { IChatRoom, IMessage } from "../../interfaces/interface";
 import io, { Socket } from "socket.io-client";
 import Message from "./Message";
+import { useLocation } from "react-router";
+import { chatSelectors, setChatRoom } from "../../store/chatSlice";
+
 const ENDPOINT = "localhost:5000";
 
 export default function Chat() {
+  const search = useLocation().search;
+  const userId = new URLSearchParams(search).get("user");
+  const { currentChatRoom } = useSelector(chatSelectors);
+  const dispatch = useDispatch();
   const [roomsArray, setRoomsArray] = useState<IChatRoom[]>([]);
   const [roomsIdArray, setRoomsIdArray] = useState<string[]>([]);
   const [msg, setMsg] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [currentRoom, setCurrentRoom] = useState<string>("");
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
   const socketRef = useRef<Socket>();
 
   useEffect(() => {
     getRooms();
+    selectUserRoomFromChat();
   }, []);
 
   const getRooms = async () => {
@@ -33,6 +40,15 @@ export default function Chat() {
     });
     setRoomsIdArray(roomsId);
     setRoomsArray(rooms.data);
+  };
+
+  const selectUserRoomFromChat = () => {
+    roomsArray.forEach((room) => {
+      const userIdInRoom = room.participants.userInfo.id;
+      if (userIdInRoom === userId && room._id) {
+        dispatch(setChatRoom({ currentChatRoom: room._id }));
+      }
+    });
   };
 
   useEffect(() => {
@@ -52,7 +68,7 @@ export default function Chat() {
     e.preventDefault();
     const msgObj = {
       text: msg,
-      chatRoomId: currentRoom,
+      chatRoomId: currentChatRoom,
       senderId: user.id,
       createdAt: new Date().getTime(),
     };
@@ -65,16 +81,16 @@ export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {currentRoom !== "" && (
+        {currentChatRoom !== "" && (
           <>
             {messages.map((message, i) => (
-              <Message key={i} message={message} currentRoom={currentRoom} />
+              <Message key={i} message={message} />
             ))}
           </>
         )}
         <div className="msg-div">
           <div ref={scrollDown}></div>
-          {currentRoom && (
+          {currentChatRoom && (
             <form className="msg-form">
               <input
                 className="msg-input"
@@ -96,9 +112,7 @@ export default function Chat() {
       </div>
       <div className="Chat-rooms-container">
         {roomsArray.map((room: IChatRoom, i) => {
-          return (
-            <ChatRoom key={i} room={room} setCurrentRoom={setCurrentRoom} />
-          );
+          return <ChatRoom key={i} room={room} />;
         })}
       </div>
     </div>

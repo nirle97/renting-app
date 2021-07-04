@@ -3,14 +3,12 @@ import "./message.css";
 import { IMessage } from "../../interfaces/interface";
 import { userSelectors } from "../../store/userSlice";
 import { useSelector } from "react-redux";
-interface IProps {
-  currentRoom: string;
-  message: IMessage;
-}
-export default function Message({ message, currentRoom }: IProps) {
+import { chatSelectors } from "../../store/chatSlice";
+
+export default function Message({ message }: { message: IMessage }) {
   const { user } = useSelector(userSelectors);
   const [isMsgSent, setIsMsgSent] = useState(true);
-
+  const { currentChatRoom } = useSelector(chatSelectors);
   function msToHoursMintues(ms: Date) {
     let hours: number = new Date(ms).getHours();
     let minutes: string | number = new Date(ms).getMinutes();
@@ -29,7 +27,7 @@ export default function Message({ message, currentRoom }: IProps) {
   }, [message]);
   return (
     <>
-      {currentRoom === message.chatRoomId && (
+      {currentChatRoom === message.chatRoomId && (
         <div className={isMsgSent ? "Message-right" : "Message-left"}>
           <span className="Message-wrapper">
             <span>{msToHoursMintues(message.createdAt)}</span>

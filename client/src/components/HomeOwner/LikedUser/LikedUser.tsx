@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import network from "../../../utils/network";
 import { IUser, IChatRoomTemplate } from "../../../interfaces/interface";
 import { userSelectors } from "../../../store/userSlice";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 interface IProps {
   likedUser: IUser;
@@ -16,14 +16,25 @@ export default function LikedUser({
   index,
   aptId,
 }: IProps) {
+  const history = useHistory();
   const { user } = useSelector(userSelectors);
   const startChatBtn = useRef<HTMLButtonElement>(null);
   const [isAlreadyInChat, setIsAlreadyInChat] = useState(false);
   const [isChatBtnClicked, setIsChatBtnClicked] = useState(false);
- 
+
 
   useEffect(() => {
-    if (likedUser.openChats) {      
+
+      if (startChatBtn.current) {
+        startChatBtn.current.disabled = false;
+      }
+      if (startChatBtn.current) {
+        startChatBtn.current.disabled = true;
+      }
+  }, []);
+
+  useEffect(() => {
+    if (likedUser.openChats) {
       setIsAlreadyInChat(likedUser.openChats.includes(user.id));
     }
   }, [isChatBtnClicked]);
@@ -55,7 +66,9 @@ export default function LikedUser({
     }
   };
 
-  const moveToChatRoom = () => {};
+  const moveToChatRoom = () => {
+    history.push(`/chat?user=${likedUser._id}`);
+  };
 
   return (
     <>
@@ -74,8 +87,9 @@ export default function LikedUser({
             id="start-chat-btn"
             className="btn btn-outline-primary"
             onClick={moveToChatRoom}
+            ref={startChatBtn}
           >
-            Already In Chat
+            Continue chatting
           </button>
         ) : (
           <button
@@ -84,7 +98,7 @@ export default function LikedUser({
             onClick={openChat}
             ref={startChatBtn}
           >
-            Open chat
+            Start new chat
           </button>
         )}
       </div>

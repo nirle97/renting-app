@@ -2,21 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 export interface ChatSlice {
-  chatRoom: {
-    id: string;
-  };
+  currentChatRoom: string;
 }
 export const initialState: ChatSlice = {
-  chatRoom: {
-    id: "string",
-  },
+  currentChatRoom: "",
 };
 export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
     setChatRoom: (state, { payload }: PayloadAction<ChatSlice>) => {
-      state.chatRoom = payload.chatRoom;
+      state.currentChatRoom = payload.currentChatRoom;
     },
   },
 });
