@@ -30,6 +30,7 @@ io.on("connection", (socket: any) => {
 
   socket.on("disconnect", () => {
     console.log("disconnected");
+    socket.removeAllListeners();
   });
 
   socket.on("send-msg", (message: IMessage) => {

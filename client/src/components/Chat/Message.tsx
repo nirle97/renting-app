@@ -9,7 +9,8 @@ export default function Message({ message }: { message: IMessage }) {
   const { user } = useSelector(userSelectors);
   const [isMsgSent, setIsMsgSent] = useState(true);
   const { currentChatRoom } = useSelector(chatSelectors);
-  function msToHoursMintues(ms: Date) {
+
+  function msToHoursMintues(ms: number) {
     let hours: number = new Date(ms).getHours();
     let minutes: string | number = new Date(ms).getMinutes();
     if (minutes < 10) {
@@ -24,7 +25,7 @@ export default function Message({ message }: { message: IMessage }) {
     } else {
       setIsMsgSent(false);
     }
-  }, [message]);
+  }, []);
   return (
     <>
       {currentChatRoom === message.chatRoomId && (
