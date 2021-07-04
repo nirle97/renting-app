@@ -37,16 +37,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
       const users = currentApt.likedByUser as IUser[];
       if (users.length) {
         setLikedUser([
-          ...users,
-          {
-            fullName: "asd",
-            email: "sadas",
-            age: "32",
-            imgUrl: "",
-            phoneNumber: "352352525",
-            password: "",
-            openChats: [],
-          },
+          ...users
         ]);
       }
     }

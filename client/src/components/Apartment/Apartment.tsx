@@ -17,6 +17,7 @@ function Apartment({ apt, aptPreference }: IProps) {
       </div>
       <div className="Apartment-description-container">
         <div className="Apartment-description-main">
+          <span className="description-text-span">{apt.title}</span>
           <span className="description-text-span">{apt.address}</span>
           <span className="Apartment-description-main-miniContainer">
             <span className="description-text">Size: {`${apt.size}m²`}</span>

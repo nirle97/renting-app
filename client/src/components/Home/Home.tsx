@@ -105,7 +105,7 @@ function Home() {
             <Apartment aptPreference={aptPreference} apt={userApts[0]} />
           </div>
           <div className="Home-apartment-map">
-            {/* <Map
+            <Map
               cords={
                 userApts[0].cords
                   ? userApts[0].cords
@@ -114,7 +114,7 @@ function Home() {
                       lng: 34.8271349,
                     }
               }
-            /> */}
+            />
           </div>
         </div>
       ) : (

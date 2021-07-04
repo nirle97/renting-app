@@ -8,13 +8,6 @@
 .Message-right {
   justify-content: flex-end;
 }
-.Message-img {
-  margin: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: blue;
-}
 .Message-wrapper {
   display: flex;
   align-items: center;
