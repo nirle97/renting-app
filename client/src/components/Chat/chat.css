@@ -10,7 +10,7 @@
   background-image: linear-gradient(315deg, #ee8c68 0%, #eb6b9d 74%);
   border-style: solid;
   width: 70vw;
-  height: 92vh;
+  height: 82vh;
   padding: 15px;
 }
 .Chat-rooms-container {
@@ -42,8 +42,9 @@
   position: fixed;
   bottom: 0;
   background-color: rgb(24, 23, 23);
-  width: 100%;
-  max-width: 728px;
+  width: 70vw;
+  /* max-width: 728px; */
+  left: 0;
   display: flex;
   font-size: 1.5rem;
 }

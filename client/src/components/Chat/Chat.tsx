@@ -9,7 +9,7 @@ import io, { Socket } from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
 import { chatSelectors, setChatRoom } from "../../store/chatSlice";
-const ENDPOINT = "localhost:5000";
+const ENDPOINT = "localhost:5001";
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
 });
@@ -120,7 +120,7 @@ export default function Chat() {
         )}
         <div className="msg-div">
           <div ref={scrollDown}></div>
-          {currentChatRoom && (
+          {/* {currentChatRoom && ( */}
             <form className="msg-form">
               <input
                 className="msg-input"
@@ -138,7 +138,7 @@ export default function Chat() {
                 Send
               </button>
             </form>
-          )}
+          {/* )} */}
         </div>
       </div>
       <div className="Chat-rooms-container">
