@@ -9,13 +9,18 @@ import io, { Socket } from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
 import { chatSelectors, setChatRoom } from "../../store/chatSlice";
-
 const ENDPOINT = "localhost:5000";
-
+const socket = io(ENDPOINT, {
+  transports: ["websocket"],
+});
 export default function Chat() {
   const search = useLocation().search;
   const userId = new URLSearchParams(search).get("user");
   const { currentChatRoom } = useSelector(chatSelectors);
+  const [selectedRoom, setSelectedRoom] = useState<
+    EventTarget & HTMLDivElement
+  >();
+  const [roomId, setRoomId] = useState("");
   const dispatch = useDispatch();
   const [roomsArray, setRoomsArray] = useState<IChatRoom[]>([]);
   const [roomsIdArray, setRoomsIdArray] = useState<string[]>([]);
@@ -29,6 +34,12 @@ export default function Chat() {
     getRooms();
     selectUserRoomFromChat();
   }, []);
+
+  useEffect(() => {
+    if (selectedRoom) {
+      // dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
+    }
+  }, [selectedRoom]);
 
   const getRooms = async () => {
     const { data: rooms } = await network.get("/chat-room/get-rooms");
@@ -52,36 +63,55 @@ export default function Chat() {
   };
 
   useEffect(() => {
-    socketRef.current = io(ENDPOINT);
-    socketRef.current?.emit("join-chat", roomsIdArray);
+    // socketRef.current = io(ENDPOINT, {
+    //   transports: ["websocket"],
+    // });
+    socket.emit("join-chat", roomsIdArray);
+    // socketRef.current?.emit("join-chat", roomsIdArray);
   }, [roomsIdArray]);
 
   useEffect((): any => {
-    socketRef.current?.on("message", (message) => {
+    socket.on("message", (message) => {
+      // console.log(message);
+
       let msgArr = messages;
       msgArr.push(message);
-      setMessages(msgArr);
+      setMessages([...msgArr]);
     });
+    // socketRef.current?.on("message", (message) => {
+    //   let msgArr = messages;
+    //   msgArr.push(message);
+    //   setMessages([...msgArr]);
+    // });
+    // return (): any => socket.emit("disconnect");
   }, []);
 
   const sendMessage = (e: any) => {
+    // console.log(messages);
+
     e.preventDefault();
-    const msgObj = {
+    const msgObj: IMessage = {
       text: msg,
       chatRoomId: currentChatRoom,
       senderId: user.id,
       createdAt: new Date().getTime(),
     };
     if (msg) {
-      socketRef.current?.emit("send-msg", msgObj);
+      socket.emit("send-msg", msgObj);
+      let msgArr = messages;
+      msgArr.push(msgObj);
+      setMessages([...msgArr]);
     }
+    // socketRef.current?.emit("send-msg", msgObj);
+
     scrollDown.current?.scrollIntoView({ behavior: "smooth" });
+    setMsg("");
   };
 
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {(currentChatRoom !== ""  ) && (
+        {currentChatRoom !== "" && (
           <>
             {messages.map((message, i) => (
               <Message key={i} message={message} />
@@ -103,6 +133,7 @@ export default function Chat() {
                 type="submit"
                 className="send-btn"
                 onClick={(e) => sendMessage(e)}
+                disabled={msg === "" ? true : false}
               >
                 Send
               </button>
@@ -112,7 +143,14 @@ export default function Chat() {
       </div>
       <div className="Chat-rooms-container">
         {roomsArray.map((room: IChatRoom, i) => {
-          return <ChatRoom key={i} room={room} />;
+          return (
+            <ChatRoom
+              setRoomId={setRoomId}
+              setSelectedRoom={setSelectedRoom}
+              key={i}
+              room={room}
+            />
+          );
         })}
       </div>
     </div>

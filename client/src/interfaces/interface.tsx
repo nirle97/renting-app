@@ -111,9 +111,9 @@ export interface IChatRoomTemplate {
 export interface IChatRoom extends IChatRoomTemplate {
   title: string;
 }
-export interface IMessage extends Document {
+export interface IMessage {
   text: string;
   chatRoomId: string;
   senderId: string;
-  createdAt: Date;
+  createdAt: number;
 }
