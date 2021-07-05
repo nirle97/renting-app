@@ -1,6 +1,6 @@
 import { app } from "./app";
 import axios  from "axios"
-interface IMessage extends Document {
+interface IMessage {
   text: string;
   chatRoomId: string;
   senderId: string;
