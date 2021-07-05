@@ -4,27 +4,64 @@ import { IChatRoom } from "../../interfaces/interface";
 import { chatSelectors, setChatRoom } from "../../store/chatSlice";
 import { useEffect, useRef, useState } from "react";
 
-export default function ChatRoom({ room }: { room: IChatRoom }) {
+export default function ChatRoom({
+  room,
+  setSelectedRoom,
+  setRoomId,
+}: {
+  room: IChatRoom;
+  setSelectedRoom: React.Dispatch<
+    React.SetStateAction<(EventTarget & HTMLDivElement) | undefined>
+  >;
+  setRoomId: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const dispatch = useDispatch();
   const { currentChatRoom } = useSelector(chatSelectors);
   const roomDiv = useRef<HTMLDivElement>(null);
-  let prevRoomDiv = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (currentChatRoom === room._id) {
-      roomDiv.current?.classList.toggle("selected-room");
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (currentChatRoom === room._id) {
+  //     roomDiv.current?.classList.toggle("selected-room");
+  //   }
+  // }, []);
 
   const selectRoom = (e: any) => {
-    if (!e.currentTarget.classList.contains("selected-room")) {
-      dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
-      e.currentTarget.classList.toggle("selected-room");
-      prevRoomDiv.current?.classList.toggle("selected-room");
-      prevRoomDiv = roomDiv
-    } else {
-      dispatch(setChatRoom({ currentChatRoom: "" }));
-      e.currentTarget.classList.toggle("selected-room");
-    }
+    const clickedDiv = e.currentTarget;
+    setSelectedRoom((prev): any => {
+      if (prev) {
+        if (prev.isSameNode(clickedDiv)) {
+          clickedDiv?.classList.toggle("selected-room");
+          setSelectedRoom(clickedDiv);
+          setRoomId("");
+        } else {
+          prev?.classList.toggle("selected-room");
+          clickedDiv?.classList.toggle("selected-room");
+          setSelectedRoom(clickedDiv);
+          setRoomId(room._id ? room._id : "");
+        }
+      } else {
+        clickedDiv?.classList.toggle("selected-room");
+        setSelectedRoom(clickedDiv);
+        setRoomId(room._id ? room._id : "");
+      }
+      // setClickedRoom((prev): any => {
+      //   if (prev) {
+      //     if (prev.isSameNode(clickedDiv)) {
+      //       clickedDiv?.classList.toggle("selected-room");
+      //       setClickedRoom(clickedDiv);
+      //       dispatch(setChatRoom({ currentChatRoom: "" }));
+      //     } else {
+      //       prev?.classList.toggle("selected-room");
+      //       clickedDiv?.classList.toggle("selected-room");
+      //       setClickedRoom(clickedDiv);
+      //       dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
+      //     }
+      //   } else {
+      //     dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
+      //     clickedDiv?.classList.toggle("selected-room");
+      //     setClickedRoom(clickedDiv);
+      //   }
+    });
   };
   return (
     <div onClick={(e) => selectRoom(e)} ref={roomDiv}>

@@ -17,6 +17,10 @@ export default function Chat() {
   const search = useLocation().search;
   const userId = new URLSearchParams(search).get("user");
   const { currentChatRoom } = useSelector(chatSelectors);
+  const [selectedRoom, setSelectedRoom] = useState<
+    EventTarget & HTMLDivElement
+  >();
+  const [roomId, setRoomId] = useState("");
   const dispatch = useDispatch();
   const [roomsArray, setRoomsArray] = useState<IChatRoom[]>([]);
   const [roomsIdArray, setRoomsIdArray] = useState<string[]>([]);
@@ -30,6 +34,12 @@ export default function Chat() {
     getRooms();
     selectUserRoomFromChat();
   }, []);
+
+  useEffect(() => {
+    if (selectedRoom) {
+      // dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
+    }
+  }, [selectedRoom]);
 
   const getRooms = async () => {
     const { data: rooms } = await network.get("/chat-room/get-rooms");
@@ -73,7 +83,7 @@ export default function Chat() {
     //   msgArr.push(message);
     //   setMessages([...msgArr]);
     // });
-    return (): any => socket.emit("disconnect");
+    // return (): any => socket.emit("disconnect");
   }, []);
 
   const sendMessage = (e: any) => {
@@ -101,7 +111,7 @@ export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {(currentChatRoom !== ""  ) && (
+        {currentChatRoom !== "" && (
           <>
             {messages.map((message, i) => (
               <Message key={i} message={message} />
@@ -123,6 +133,7 @@ export default function Chat() {
                 type="submit"
                 className="send-btn"
                 onClick={(e) => sendMessage(e)}
+                disabled={msg === "" ? true : false}
               >
                 Send
               </button>
@@ -132,7 +143,14 @@ export default function Chat() {
       </div>
       <div className="Chat-rooms-container">
         {roomsArray.map((room: IChatRoom, i) => {
-          return <ChatRoom key={i} room={room} />;
+          return (
+            <ChatRoom
+              setRoomId={setRoomId}
+              setSelectedRoom={setSelectedRoom}
+              key={i}
+              room={room}
+            />
+          );
         })}
       </div>
     </div>
