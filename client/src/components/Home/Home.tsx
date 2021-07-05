@@ -106,20 +106,15 @@ function Home() {
           </div>
           <div className="Home-apartment-map">
             <Map
-              cords={
-                userApts[0].cords
-                  ? userApts[0].cords
-                  : {
-                      lat: 32.1149489,
-                      lng: 34.8271349,
-                    }
-              }
+              cords={userApts[0].cords}
+              isUpload={false}
             />
           </div>
         </div>
       ) : (
         <div className="Home-noNew-div">
-          <h2>Can't Find New Apartaments For You</h2>
+          {/* <h2>Can't Find New Apartaments For You</h2> */}
+          <h2>Please expand the filter search range </h2>
           <img
             className="Home-noNew-img"
             alt="no new houses to display"

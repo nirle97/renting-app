@@ -1,24 +1,13 @@
-  .OwnerPreferences-address {
+  .OwnerPreferences-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
-  .OwnerPreferences-range-name {
-    float: left;
+  .OwnerPreference-row{
+    display: flex ;
+    flex-direction: row ;
+    justify-content:space-between;
   }
-  .OwnerPreferences-range-min-span {
-    float: left;
-  }
-  .OwnerPreferences-range-max-span {
-    float: right;
-  }
-  .Range-slider {
-    padding: 10px;
-  }
-  .OwnerPreferences-more-opt {
-    display: flex;
-    justify-content: space-around;
-  }
-  .OwnerPreferences-more-opt-span {
+  .OwnerPreferences-more-opt-div {
     display: flex;
     flex-direction: column;
     color: white;
@@ -29,24 +18,15 @@
     margin: 10px;
     cursor: pointer;
   }
+  .OwnerPreferences-more-opt-div:hover {
+    background-color: rgba(242, 85, 90, 1);
+  }
   .selected {
     color: black;
     background-color: rgba(242, 85, 90, 1);
   }
-  .OwnerPreferences-input{
-    outline: none;
-    border: none;
-    width:auto;
-    margin-bottom: 5px;
-    background-color: rgb(245, 202, 188);
-  }
- 
-  .OwnerPreferences-div-input{
-    display: flex;
-    justify-content: flex-start;
-    border-bottom: 1px solid grey;
-    width: 35vw;
-    margin-bottom: 5vh;
+  .selected:hover {
+    background-color: rgba(242, 85, 90, 0.3);
   }
   .OwnerPreferences-i{
     padding-top: 15%;

@@ -32,13 +32,13 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
   };
 
   return (
-    <div className="HomeOwner-apt" id={apt._id} onClick={openLikesList}>
+    <div className="HomeOwner-apt" >
       <div className="HomeOwner-apt-div">
         <div className="HomeOwner-img-div">
           <ImageSlider size="small" sliderData={apt.imagesUrl} />
           {/* <ImageSlider size="small" /> */}
         </div>
-        <div className="HomeOwner-description-container">
+        <div className="HomeOwner-description-container" id={apt._id} onClick={openLikesList}>
           <div className="HomeOwner-description-main">
             <span id="title" className="description-text-span">
               {apt.title}
@@ -59,9 +59,6 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
             </span>
             <span className="description-text-span">
               {apt.pricePerMonth}₪/ month
-            </span>
-            <span className="description-text-span">
-              Rental Type: {apt.rentalType}
             </span>
             <span className="description-text-span">
               Entry Date: {new Date(apt.entryDate).toLocaleDateString()}

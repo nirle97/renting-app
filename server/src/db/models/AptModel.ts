@@ -50,10 +50,6 @@ const aptSchema = new mongoose.Schema<IOwnerApt, IAptModel>({
     default: [],
     sparse: true,
   },
-  rentalType: {
-    type: String,
-    require: true,
-  },
   entryDate: {
     type: Number,
     require: true,
@@ -148,7 +144,6 @@ aptSchema.static(
         // address: { $in: [aptData.address] },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
-        // rentalType: aptData.rentalType,
         entryDate: { $lte: aptData.entryDate },
         checkOutDate: { $gte: aptData.checkOutDate },
         size:

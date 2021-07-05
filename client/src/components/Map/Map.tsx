@@ -7,13 +7,19 @@ interface IProps {
     lat: number;
     lng: number;
   };
+  isUpload: boolean
 }
 const libraries = ["places"];
 
-function Map({ cords }: IProps) {
+function Map({ cords, isUpload }: IProps) {
   let libRef: any = React.useRef(libraries);
 
-  const [mapContainerStyle] = useState({
+  const [mapContainerStyle, setMapContainerStyle] = useState(isUpload
+  ?{
+    height: "41vh",
+    width: "40vw",
+  }
+  :{
     height: "81vh",
     width: "55vw",
   });

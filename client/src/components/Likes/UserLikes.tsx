@@ -54,9 +54,6 @@ export default function Likes() {
                 {apt.pricePerMonth}₪/Per month
               </span>
               <span className="description-text-span">
-                Rental Type: {apt.rentalType}
-              </span>
-              <span className="description-text-span">
                 Entry Date: {new Date(apt.entryDate).toLocaleDateString()}
               </span>
               <span className="description-text-span">

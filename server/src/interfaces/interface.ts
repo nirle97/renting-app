@@ -26,7 +26,6 @@ export interface IOwnerApt extends Document {
   };
   pricePerMonth: number;
   imagesUrl: string[];
-  rentalType: string;
   entryDate: number;
   checkOutDate: number;
   size: number;
@@ -46,7 +45,6 @@ export interface IClientApt extends Document {
   address: string;
   priceMin: number;
   priceMax: number;
-  rentalType: string;
   entryDate: number;
   checkOutDate: number;
   sizeMin: number;

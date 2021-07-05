@@ -28,7 +28,6 @@ export interface IUploadNewApt {
   };
   pricePerMonth: number;
   imagesUrl: string[];
-  rentalType: string;
   entryDate: string;
   checkOutDate: string;
   size: number;
@@ -49,7 +48,6 @@ export interface IFilter {
   address: string;
   priceMin: number;
   priceMax: number;
-  rentalType: string;
   entryDate: Date;
   checkOutDate: Date;
   sizeMin: number;
@@ -79,7 +77,6 @@ export interface IApt {
 }
 
 export interface IAdvancedPref {
-  rentalType: string;
   entryDate: Date;
   checkOutDate: Date;
   parking: boolean;
