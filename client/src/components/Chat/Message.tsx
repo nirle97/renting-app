@@ -35,10 +35,16 @@ export default function Message({
   return (
     <>
       {roomId === message.chatRoomId && (
-        <div className={isMsgSent ? "Message-right" : "Message-left"}>
-          <span className="Message-wrapper">
-            <span>{msToHoursMintues(message.createdAt)}</span>
-            <span>{message.text}</span>
+        <div
+          className={`Message-container ${
+            isMsgSent ? "Message-right" : "Message-left"
+          }`}
+        >
+          <span className={`Message-wrapper ${isMsgSent ? "right" : "left"}`}>
+            <div className="Message-text">{message.text}</div>
+            <span className="Message-time">
+              <i>{msToHoursMintues(message.createdAt)}</i>
+            </span>
           </span>
         </div>
       )}

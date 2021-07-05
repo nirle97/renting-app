@@ -31,17 +31,17 @@ export default function ChatRoom({
     setSelectedRoom((prev): any => {
       if (prev) {
         if (prev?.isSameNode(clickedDiv)) {
+          prev?.classList.remove("selected-room");
           setSelectedStyle(false);
           setRoomId("");
           return;
         } else {
           prev?.classList.remove("selected-room");
-          setSelectedStyle(true);
+          clickedDiv.classList.add("selected-room");
           setRoomId(room._id ? room._id : "");
           if (clickedDiv) return clickedDiv;
         }
       } else {
-        // setSelectedStyle(true);
         setRoomId(room._id ? room._id : "");
         if (clickedDiv) return clickedDiv;
       }

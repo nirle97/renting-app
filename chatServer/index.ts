@@ -1,12 +1,11 @@
 import { app } from "./app";
-import axios  from "axios"
+import axios from "axios";
 interface IMessage {
   text: string;
   chatRoomId: string;
   senderId: string;
   createdAt: Date;
 }
-
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
@@ -26,11 +25,8 @@ io.on("connection", (socket: any) => {
     socket.removeAllListeners();
   });
   socket.on("send-msg", (message: IMessage) => {
-    axios.post("http://localhost:5000/message/create-message", message)
+    axios.post("http://localhost:5000/message/create-message", message);
     socket.broadcast.to(message.chatRoomId).emit("message", message);
-    console.log(message);
-    
   });
 });
 server.listen(PORT, () => console.log(`app is listening on port ${PORT}`));
-

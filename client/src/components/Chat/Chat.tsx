@@ -97,33 +97,40 @@ export default function Chat() {
 
   return (
     <div className="Chat-container">
-      <div className="chat-messages-container">
+      <div
+        className="chat-messages-container"
+        style={{ backgroundImage: "url(/images/chat-background.jpeg)" }}
+      >
         {selectedRoom !== "" && (
-          <>
+          <div className="Chat-msg-div">
             {messages.map((message, i) => (
               <Message key={i} message={message} roomId={roomId} />
             ))}
-          </>
+            <div ref={scrollDown}></div>
+          </div>
         )}
-        <div className="msg-div">
-          <div ref={scrollDown}></div>
+        <div>
           {selectedRoom && (
-            <form className="msg-form">
-              <input
-                className="msg-input"
-                value={msg}
-                onChange={(e) => setMsg(e.target.value)}
-                onKeyPress={(e) => (e.key === "enter" ? sendMessage(e) : null)}
-                placeholder="Type a message..."
-              />
-              <button
-                type="submit"
-                className="send-btn"
-                onClick={(e) => sendMessage(e)}
-                disabled={msg === "" ? true : false}
-              >
-                Send
-              </button>
+            <form className="Chat-form">
+              <span className="Chat-input-wrapper">
+                <input
+                  className="Chat-input"
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  onKeyPress={(e) =>
+                    e.key === "enter" ? sendMessage(e) : null
+                  }
+                  placeholder="Type a message..."
+                />
+                <button
+                  type="submit"
+                  className="send-btn"
+                  onClick={(e) => sendMessage(e)}
+                  disabled={msg === "" ? true : false}
+                >
+                  Send
+                </button>
+              </span>
             </form>
           )}
         </div>
