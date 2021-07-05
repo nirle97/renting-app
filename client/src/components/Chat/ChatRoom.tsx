@@ -41,7 +41,7 @@ export default function ChatRoom({
           if (clickedDiv) return clickedDiv;
         }
       } else {
-        setSelectedStyle(true);
+        // setSelectedStyle(true);
         setRoomId(room._id ? room._id : "");
         if (clickedDiv) return clickedDiv;
       }

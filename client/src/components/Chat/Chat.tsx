@@ -8,16 +8,13 @@ import { IChatRoom, IMessage } from "../../interfaces/interface";
 import io from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
-import { chatSelectors, setChatRoom } from "../../store/chatSlice";
 const ENDPOINT = "localhost:5001";
-
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
 });
 export default function Chat() {
   const search = useLocation().search;
   const userId = new URLSearchParams(search).get("user");
-  const { currentChatRoom } = useSelector(chatSelectors);
   const [selectedRoom, setSelectedRoom] = useState<
     (EventTarget & HTMLDivElement) | null
   >();
@@ -66,14 +63,12 @@ export default function Chat() {
 
   useEffect((): any => {
     socket.on("message", (message) => {
-      console.log(message);
-
-      let msgArr = messages;
+      let msgArr = messages.slice();
       msgArr.push(message);
       setMessages([...msgArr]);
     });
-    return (): any => socket.emit("disconnect");
-  }, []);
+    // return (): any => socket.emit("disconnect");
+  }, [messages]);
 
   const sendMessage = (e: any) => {
     e.preventDefault();
