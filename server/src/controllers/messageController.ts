@@ -17,13 +17,13 @@ const setNewMessage = async (req: Request, res: Response): Promise<void> => {
   }
 };
 const getMessagesByRoomId = async (req: Request, res: Response): Promise<void> => {
-  if (!req.body) {
+  if (!req.body || !req.params) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
   try {
-    await MessageModel.find({senderId: {$in : req.body.roomsIdArray} } );
-    res.status(200).send(resTemplate.success.general);
+    const messages = await MessageModel.find({ chatRoomId: req.params.roomId } );
+    res.status(200).send({ ...resTemplate.success.general, data: messages });
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
