@@ -28,6 +28,8 @@ io.on("connection", (socket: any) => {
   socket.on("send-msg", (message: IMessage) => {
     axios.post("http://localhost:5000/message/create-message", message)
     socket.broadcast.to(message.chatRoomId).emit("message", message);
+    console.log(message);
+    
   });
 });
 server.listen(PORT, () => console.log(`app is listening on port ${PORT}`));
