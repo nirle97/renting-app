@@ -25,7 +25,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
-
+  const [newMessage, setNewMessage] = useState<IMessage>();
   useEffect(() => {
     getRooms();
   }, []);
@@ -61,14 +61,21 @@ export default function Chat() {
     socket.emit("join-chat", roomsIdArray);
   }, [roomsIdArray]);
 
+  useEffect(() => {
+    if (newMessage) {
+      let msgArr = messages;
+      msgArr.push(newMessage);
+      setMessages([...msgArr]);
+    }
+  }, [newMessage]);
+
+  let msgArr = [...messages];
   useEffect((): any => {
     socket.on("message", (message) => {
-      let msgArr = messages.slice();
-      msgArr.push(message);
-      setMessages([...msgArr]);
+      setNewMessage(message);
     });
-    // return (): any => socket.emit("disconnect");
-  }, [messages]);
+    return (): any => socket.emit("disconnect");
+  }, []);
 
   const sendMessage = (e: any) => {
     e.preventDefault();
