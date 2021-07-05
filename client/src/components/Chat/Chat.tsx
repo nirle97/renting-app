@@ -33,7 +33,19 @@ export default function Chat() {
   useEffect(() => {
     if (userId) updateRoomByUrlParam(userId);
   }, [roomsArray]);
+  
+  useEffect(() => {
+    getOldRoomMessages(roomId)
+  }, [roomId]);
 
+  const getOldRoomMessages = async (roomId:( string | null)) => {
+    if(roomId){
+      const {data: { data: roomMessages }}  = await network.get(
+        `message/messages/${roomId}`
+      );
+      setMessages(roomMessages)      
+    }
+  }
   const getRooms = async () => {
     const { data: rooms } = await network.get("/chat-room/get-rooms");
     const roomsId: string[] = [];
@@ -69,7 +81,6 @@ export default function Chat() {
     }
   }, [newMessage]);
 
-  let msgArr = [...messages];
   useEffect((): any => {
     socket.on("message", (message) => {
       setNewMessage(message);
