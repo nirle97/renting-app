@@ -2,14 +2,15 @@ import "./chat.css";
 import { useEffect, useRef, useState } from "react";
 import ChatRoom from "./ChatRoom";
 import { userSelectors } from "../../store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import network from "../../utils/network";
 import { IChatRoom, IMessage } from "../../interfaces/interface";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
 import { chatSelectors, setChatRoom } from "../../store/chatSlice";
 const ENDPOINT = "localhost:5001";
+
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
 });
@@ -18,28 +19,23 @@ export default function Chat() {
   const userId = new URLSearchParams(search).get("user");
   const { currentChatRoom } = useSelector(chatSelectors);
   const [selectedRoom, setSelectedRoom] = useState<
-    EventTarget & HTMLDivElement
+    (EventTarget & HTMLDivElement) | null
   >();
-  const [roomId, setRoomId] = useState("");
-  const dispatch = useDispatch();
+  const [roomId, setRoomId] = useState<string | null>(null);
   const [roomsArray, setRoomsArray] = useState<IChatRoom[]>([]);
   const [roomsIdArray, setRoomsIdArray] = useState<string[]>([]);
   const [msg, setMsg] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
-  const socketRef = useRef<Socket>();
 
   useEffect(() => {
     getRooms();
-    selectUserRoomFromChat();
   }, []);
 
   useEffect(() => {
-    if (selectedRoom) {
-      // dispatch(setChatRoom({ currentChatRoom: room._id ? room._id : "" }));
-    }
-  }, [selectedRoom]);
+    if (userId) updateRoomByUrlParam(userId);
+  }, [roomsArray]);
 
   const getRooms = async () => {
     const { data: rooms } = await network.get("/chat-room/get-rooms");
@@ -53,46 +49,37 @@ export default function Chat() {
     setRoomsArray(rooms.data);
   };
 
-  const selectUserRoomFromChat = () => {
+  const updateRoomByUrlParam = (userId: string) => {
     roomsArray.forEach((room) => {
-      const userIdInRoom = room.participants.userInfo.id;
-      if (userIdInRoom === userId && room._id) {
-        dispatch(setChatRoom({ currentChatRoom: room._id }));
+      if (room._id) {
+        const userIdInRoom = room.participants.userInfo.id;
+        if (userIdInRoom === userId) {
+          setRoomId(room._id);
+        }
       }
     });
   };
 
   useEffect(() => {
-    // socketRef.current = io(ENDPOINT, {
-    //   transports: ["websocket"],
-    // });
     socket.emit("join-chat", roomsIdArray);
-    // socketRef.current?.emit("join-chat", roomsIdArray);
   }, [roomsIdArray]);
 
   useEffect((): any => {
     socket.on("message", (message) => {
-      // console.log(message);
+      console.log(message);
 
       let msgArr = messages;
       msgArr.push(message);
       setMessages([...msgArr]);
     });
-    // socketRef.current?.on("message", (message) => {
-    //   let msgArr = messages;
-    //   msgArr.push(message);
-    //   setMessages([...msgArr]);
-    // });
-    // return (): any => socket.emit("disconnect");
+    return (): any => socket.emit("disconnect");
   }, []);
 
   const sendMessage = (e: any) => {
-    // console.log(messages);
-
     e.preventDefault();
     const msgObj: IMessage = {
       text: msg,
-      chatRoomId: currentChatRoom,
+      chatRoomId: roomId ? roomId : "",
       senderId: user.id,
       createdAt: new Date().getTime(),
     };
@@ -102,8 +89,6 @@ export default function Chat() {
       msgArr.push(msgObj);
       setMessages([...msgArr]);
     }
-    // socketRef.current?.emit("send-msg", msgObj);
-
     scrollDown.current?.scrollIntoView({ behavior: "smooth" });
     setMsg("");
   };
@@ -111,16 +96,16 @@ export default function Chat() {
   return (
     <div className="Chat-container">
       <div className="chat-messages-container">
-        {currentChatRoom !== "" && (
+        {selectedRoom !== "" && (
           <>
             {messages.map((message, i) => (
-              <Message key={i} message={message} />
+              <Message key={i} message={message} roomId={roomId} />
             ))}
           </>
         )}
         <div className="msg-div">
           <div ref={scrollDown}></div>
-          {/* {currentChatRoom && ( */}
+          {selectedRoom && (
             <form className="msg-form">
               <input
                 className="msg-input"
@@ -138,7 +123,7 @@ export default function Chat() {
                 Send
               </button>
             </form>
-          {/* )} */}
+          )}
         </div>
       </div>
       <div className="Chat-rooms-container">
@@ -149,6 +134,7 @@ export default function Chat() {
               setSelectedRoom={setSelectedRoom}
               key={i}
               room={room}
+              roomId={roomId}
             />
           );
         })}

@@ -5,7 +5,13 @@ import { userSelectors } from "../../store/userSlice";
 import { useSelector } from "react-redux";
 import { chatSelectors } from "../../store/chatSlice";
 
-export default function Message({ message }: { message: IMessage }) {
+export default function Message({
+  message,
+  roomId,
+}: {
+  message: IMessage;
+  roomId: string | null;
+}) {
   const { user } = useSelector(userSelectors);
   const [isMsgSent, setIsMsgSent] = useState(true);
   const { currentChatRoom } = useSelector(chatSelectors);
@@ -28,7 +34,7 @@ export default function Message({ message }: { message: IMessage }) {
   }, []);
   return (
     <>
-      {currentChatRoom === message.chatRoomId && (
+      {roomId === message.chatRoomId && (
         <div className={isMsgSent ? "Message-right" : "Message-left"}>
           <span className="Message-wrapper">
             <span>{msToHoursMintues(message.createdAt)}</span>
