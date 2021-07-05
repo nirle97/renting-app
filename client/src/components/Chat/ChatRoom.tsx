@@ -1,6 +1,8 @@
 import "./chatRoom.css";
 import { IChatRoom } from "../../interfaces/interface";
 import { useEffect, useRef, useState } from "react";
+import { userSelectors } from "../../store/userSlice";
+import { useSelector } from "react-redux";
 interface IProps {
   room: IChatRoom;
   setSelectedRoom: React.Dispatch<
@@ -18,6 +20,7 @@ export default function ChatRoom({
 }: IProps) {
   const roomDiv = useRef<EventTarget & HTMLDivElement>(null);
   const [selectedStyle, setSelectedStyle] = useState(false);
+  const { user } = useSelector(userSelectors);
 
   useEffect(() => {
     if (roomId === room._id) {
@@ -54,8 +57,8 @@ export default function ChatRoom({
       className={selectedStyle ? "selected-room" : ""}
     >
       <div className="ChatRoom-room-div">
-        <span className="ChatRoom-room-title">{room.title}</span>
-        <span className="ChatRoom-room-name">{`${room.participants.userInfo.fullName} - ${room.participants.ownerInfo.fullName}`}</span>
+        <img className="ChatRoom-room-img" src={`${user.isOwner? room.participants.userInfo.imgUrl : room.participants.ownerInfo.imgUrl}`} alt="sender profile image" />
+        <span className="ChatRoom-room-name">{`${user.isOwner? room.participants.userInfo.fullName : room.participants.ownerInfo.fullName}`}</span>
       </div>
     </div>
   );

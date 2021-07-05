@@ -5,7 +5,8 @@
   padding-left: 1vw;
   border-bottom: 3px solid gray;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 9vh
 }
 .ChatRoom-room-div:hover {
   background-color: #ee8c68;
@@ -18,4 +19,14 @@
 .selected-room {
   background-color: #ee8c68;
   background-image: linear-gradient(315deg, #ee8c68 0%, #eb6b9d 74%);
+}
+.ChatRoom-room-name{
+  margin-top: 2vh;
+  margin-left: 2vh;
+}
+.ChatRoom-room-img{
+  border-radius: 50%;
+  max-width: 6vw;
+  max-height: 8vh;
+  margin-top: auto;
 }
