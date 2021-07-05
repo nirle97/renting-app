@@ -33,19 +33,19 @@ export default function Chat() {
   useEffect(() => {
     if (userId) updateRoomByUrlParam(userId);
   }, [roomsArray]);
-  
+
   useEffect(() => {
-    getOldRoomMessages(roomId)
+    getOldRoomMessages(roomId).then(() => scrollDown.current?.scrollIntoView());
   }, [roomId]);
 
-  const getOldRoomMessages = async (roomId:( string | null)) => {
-    if(roomId){
-      const {data: { data: roomMessages }}  = await network.get(
-        `message/messages/${roomId}`
-      );
-      setMessages(roomMessages)      
+  const getOldRoomMessages = async (roomId: string | null) => {
+    if (roomId) {
+      const {
+        data: { data: roomMessages },
+      } = await network.get(`message/messages/${roomId}`);
+      setMessages(roomMessages);
     }
-  }
+  };
   const getRooms = async () => {
     const { data: rooms } = await network.get("/chat-room/get-rooms");
     const roomsId: string[] = [];
@@ -85,7 +85,7 @@ export default function Chat() {
     socket.on("message", (message) => {
       setNewMessage(message);
     });
-    return (): any => socket.emit("disconnect");
+    return (): any => socket.emit("disconnection");
   }, []);
 
   const sendMessage = (e: any) => {
@@ -115,9 +115,11 @@ export default function Chat() {
         {selectedRoom !== "" && (
           <div className="Chat-msg-div">
             {messages.map((message, i) => (
-              <Message key={i} message={message} roomId={roomId} />
+              <>
+                <Message key={i} message={message} roomId={roomId} />
+                {i === messages.length - 1 && <div ref={scrollDown}></div>}
+              </>
             ))}
-            <div ref={scrollDown}></div>
           </div>
         )}
         <div>

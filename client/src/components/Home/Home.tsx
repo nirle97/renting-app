@@ -27,9 +27,9 @@ function Home() {
 
   useEffect(() => {
     if (userApts.length === 2) {
-      getMoreApts()
+      getMoreApts();
     }
-  }, [userApts])
+  }, [userApts]);
 
   const getMoreApts = async () => {
     try {
@@ -42,7 +42,6 @@ function Home() {
         dispatch(setAptsArray({ userApts: [...userApts, ...data] }));
       } else {
         dispatch(setIsDataLoading({ isDataLoading: false }));
-        console.log("no more apts");
       }
     } catch (e) {
       dispatch(setIsDataLoading({ isDataLoading: false }));

@@ -109,7 +109,7 @@ export interface IChatRoomTemplate {
   };
 }
 export interface IChatRoom extends IChatRoomTemplate {
-  title: string;
+  addresses: { address: string }[];
 }
 export interface IMessage {
   text: string;

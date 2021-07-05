@@ -4,3 +4,8 @@ import chatRoomController from "../controllers/chatRoomController";
 
 chatRoom.post("/create-chat-room", validToken, chatRoomController.openChatRoom);
 chatRoom.get("/get-rooms", validToken, chatRoomController.getChatRoom);
+chatRoom.delete(
+  "/delete-room/:roomId",
+  validToken,
+  chatRoomController.getChatRoom
+);

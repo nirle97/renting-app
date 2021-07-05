@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ChatRoomModel } from "../db/models/ChatRoomModel";
 import { MessageModel } from "../db/models/MessageModel";
 import { resTemplate } from "../utils/responses";
-import { IChatRoom } from "../interfaces/interface";
+import { IChatRoom, IOwnerApt } from "../interfaces/interface";
 import { AptModel } from "../db/models/AptModel";
 import { UserModel } from "../db/models/UserModel";
 interface Decoded extends Request {
@@ -15,9 +15,25 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
   }
   try {
     const aptData: IChatRoom = req.body;
-    const aptTitle = await AptModel.findOne({ _id: aptData.aptId }, ["title"]);
+    const ownerId: string = aptData.participants.ownerInfo.id;
+    const userId: string = aptData.participants.userInfo.id;
+    const ownerAptsAddress: IOwnerApt[] = await AptModel.find({ ownerId }, [
+      "address",
+      "likedBy",
+      "-_id",
+    ]);
+    const relevantAddresses = ownerAptsAddress.map((apt) => {
+      const likedUserId = apt.likedBy.map((aptUserId) => {
+        if (aptUserId === userId) {
+          return aptUserId;
+        } else {
+          return false;
+        }
+      });
+      if (likedUserId) return apt.address;
+    });
     const newRoom = await ChatRoomModel.create({
-      title: aptTitle?.title,
+      addresses: relevantAddresses,
       aptId: aptData.aptId,
       participants: aptData.participants,
     });
@@ -35,17 +51,23 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     res.status(500).send(resTemplate.serverError);
   }
 };
-const closeChatRoom = async (req: Decoded, res: Response): Promise<void> => {
-  if (!req.body) {
+
+const deleteChatRoom = async (req: Decoded, res: Response): Promise<void> => {
+  console.log(1);
+
+  if (!req.params) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
   try {
+    const roomId = req.params.roomId;
+    console.log(roomId);
+
     await ChatRoomModel.deleteOne({
-      title: req.body.title,
+      _id: roomId,
     });
     await MessageModel.deleteMany({
-      chatRoomId: req.body.chatRoomId,
+      chatRoomId: roomId,
     });
     res.status(200).send(resTemplate.success.created);
   } catch (e) {
@@ -53,6 +75,7 @@ const closeChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     res.status(500).send(resTemplate.serverError);
   }
 };
+
 const getChatRoom = async (req: Decoded, res: Response): Promise<void> => {
   try {
     const chatRooms = await ChatRoomModel.find({
@@ -70,7 +93,7 @@ const getChatRoom = async (req: Decoded, res: Response): Promise<void> => {
 
 const chatRoomController = {
   openChatRoom,
-  closeChatRoom,
+  deleteChatRoom,
   getChatRoom,
 };
 export default chatRoomController;

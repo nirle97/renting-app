@@ -20,7 +20,7 @@ io.on("connection", (socket: any) => {
     socket.join(roomsIdArray);
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnection", () => {
     console.log("disconnected");
     socket.removeAllListeners();
   });

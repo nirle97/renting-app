@@ -3,6 +3,7 @@ import { IChatRoom } from "../../interfaces/interface";
 import { useEffect, useRef, useState } from "react";
 import { userSelectors } from "../../store/userSlice";
 import { useSelector } from "react-redux";
+import network from "../../utils/network";
 interface IProps {
   room: IChatRoom;
   setSelectedRoom: React.Dispatch<
@@ -50,6 +51,18 @@ export default function ChatRoom({
       }
     });
   };
+
+  const deleteChat = async () => {
+    const userAnswer = window.confirm(
+      "Are you sure you want to delete all the chat history? This action has no undo option"
+    );
+    if (userAnswer) {
+      console.log(room._id);
+
+      await network.delete(`/chat-room/delete-room/${room._id}`);
+    }
+  };
+
   return (
     <div
       onClick={(e) => selectRoom(e)}
@@ -57,8 +70,34 @@ export default function ChatRoom({
       className={selectedStyle ? "selected-room" : ""}
     >
       <div className="ChatRoom-room-div">
-        <img className="ChatRoom-room-img" src={`${user.isOwner? room.participants.userInfo.imgUrl : room.participants.ownerInfo.imgUrl}`} alt="sender profile image" />
-        <span className="ChatRoom-room-name">{`${user.isOwner? room.participants.userInfo.fullName : room.participants.ownerInfo.fullName}`}</span>
+        <img
+          className="ChatRoom-room-img"
+          src={`${
+            user.isOwner
+              ? room.participants.userInfo.imgUrl
+              : room.participants.ownerInfo.imgUrl
+          }`}
+          alt="sender profile"
+        />
+        <span className="ChatRoom-room-name">
+          {`${
+            user.isOwner
+              ? room.participants.userInfo.fullName
+              : room.participants.ownerInfo.fullName
+          } - `}
+        </span>
+        <span className="ChatRoom-room-addresses">
+          {room.addresses.map((address, i) => {
+            if (i === room.addresses.length - 1) {
+              return <span key={i}>{` ${address} `}</span>;
+            } else {
+              return <span key={i}>{` ${address} |`}</span>;
+            }
+          })}
+        </span>
+        <span className="ChatRoom-room-delete" onClick={deleteChat}>
+          <i className="fas fa-trash"></i>
+        </span>
       </div>
     </div>
   );

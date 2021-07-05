@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import { IChatRoom } from "../../interfaces/interface";
 
 const chatRoomSchema = new mongoose.Schema<IChatRoom>({
-  title: {
-    type: String,
+  addresses: {
+    type: Array,
     require: true,
   },
   aptId: {

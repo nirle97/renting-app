@@ -46,6 +46,7 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
       alert(
         `Congratulations!🎉🎉 you and ${likedUser.fullName} can now talk in the chat room!`
       );
+      moveToChatRoom();
     } catch (e) {
       console.error(e);
     }
@@ -58,7 +59,6 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
   return (
     <>
       <div className="LikedUser-container" id={`user-${index}`}>
-        {/* <img className="LikedUser-img" alt="profile" src="./images/woman.jpg" /> */}
         <img className="LikedUser-img" alt="profile" src={likedUser.imgUrl} />
         <span>Name: {likedUser.fullName}</span>
         <span>Tel: {likedUser.phoneNumber}</span>

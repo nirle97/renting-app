@@ -110,7 +110,7 @@ export interface Decoded extends Request {
   decoded: IUser;
 }
 export interface IChatRoom extends Document {
-  title?: string;
+  addresses?: { address: string }[];
   aptId: string;
   participants: {
     ownerInfo: {
