@@ -8,7 +8,6 @@ export interface PrefState {
     address: string;
     priceMin: Number;
     priceMax: Number;
-    rentalType: string;
     entryDate: string;
     checkOutDate: string;
     sizeMin: number;
@@ -31,7 +30,6 @@ export const initialState: PrefState = {
     address: "",
     priceMin: 0,
     priceMax: 0,
-    rentalType: "",
     entryDate: new Date().toLocaleDateString(),
     checkOutDate: new Date().toLocaleDateString(),
     sizeMin: 0,
@@ -56,7 +54,6 @@ export const prefSlice = createSlice({
       state.preferences.address = payload.preferences.address;
       state.preferences.priceMin = payload.preferences.priceMin;
       state.preferences.priceMax = payload.preferences.priceMax;
-      state.preferences.rentalType = payload.preferences.rentalType;
       state.preferences.entryDate = payload.preferences.entryDate;
       state.preferences.checkOutDate = payload.preferences.checkOutDate;
       state.preferences.sizeMin = payload.preferences.sizeMin;

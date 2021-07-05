@@ -53,3 +53,15 @@
   color: black;
   text-decoration: none;
 }
+.UploadApt-plus .fa-plus-circle {
+  position: fixed;
+  bottom: 5vh;
+  color: rgb(242, 85, 90);
+  transform: scale(4);
+  cursor: pointer;
+}
+.UploadApt-plus {
+  position: absolute;
+  right: 3vw;
+  bottom: 5vh;
+}

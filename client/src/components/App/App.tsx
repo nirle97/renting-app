@@ -42,10 +42,11 @@ function App() {
       ) : user.isOwner ? (
         <>
           <NavBar />
-          <UploadApt />
+          {/* <UploadApt /> */}
           <Switch>
             <Route exact path="/" component={HomeOwner} />
             <Route exact path="/chat" component={Chat} />
+            <Route exact path="/upload-apt" component={UploadApt} />
           </Switch>
         </>
       ) : (

@@ -6,9 +6,6 @@ interface IProps {
   setFormInput: React.Dispatch<React.SetStateAction<IUploadNewApt>>;
 }
 function OwnerPreferences({ formInput, setFormInput }: IProps) {
-  const changeHandler = (e: any) => {
-    setFormInput({ ...formInput, [e.target.id]: e.target.value });
-  };
 
   const booleanChangeHandler = async (e: any) => {
     if (e.target.id) {
@@ -22,108 +19,68 @@ function OwnerPreferences({ formInput, setFormInput }: IProps) {
 
   return (
     <div className="OwnerPreferences-container">
-      <div className="OwnerPreferences-div-input">
-        <label>Rental type:</label>
-        <select
-          className="OwnerPreferences-input"
-          id="rentalType"
-          onChange={changeHandler}
-          value={formInput.rentalType}
-          defaultValue="monthly"
-        >
-          <option value="monthly">0 - 1 month</option>
-          <option value="short-term">1 - 3 months</option>
-          <option value="mid-term">3 - 6 months</option>
-          <option value="up-to-a-year">6 - 12 months</option>
-          <option value="long-term">long term</option>
-        </select>
-      </div>
-      <div className="OwnerPreferences-div-input">
-        <label>Entry date:</label>
-        <input
-          className="OwnerPreferences-input"
-          id="entryDate"
-          type="date"
-          onChange={changeHandler}
-          value={formInput.entryDate}
-        />
-      </div>
-      <div className="OwnerPreferences-div-input">
-        <label>Check out date:</label>
-        <input
-          className="OwnerPreferences-input"
-          id="checkOutDate"
-          type="date"
-          onChange={changeHandler}
-          value={formInput.checkOutDate}
-        />
-      </div>
-      <div className="OwnerPreferences-more-opt">
-        <span>
-          <span
+        <div className="OwnerPreference-row">
+          <div
             id="parking"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-parking OwnerPreferences-i"></i>Parking
-          </span>
-          <span
+          </div>
+          <div
             id="porch"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-store OwnerPreferences-i"></i>Porch
-          </span>
-          <span
+          </div>
+          <div
             id="garden"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-seedling OwnerPreferences-i"></i>Garden
-          </span>
-        </span>
-        <span>
-          <span
+          </div>
+          <div
             id="furnished"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-couch OwnerPreferences-i"></i>Furnished
-          </span>
-          <span
+          </div>
+        </div>
+        <div className="OwnerPreference-row">
+          <div
             id="elevator"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="far fa-caret-square-up OwnerPreferences-i"></i>{" "}
             Elevator
-          </span>
-          <span
+          </div>
+          <div
             id="handicapAccessible"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-wheelchair OwnerPreferences-i"></i> Accessible
-          </span>
-        </span>
-        <span>
-          <span
+          </div>
+          <div
             id="petsAllowed"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-paw OwnerPreferences-i"></i> Pets
-          </span>
-          <span
+          </div>
+          <div
             id="smokeAllowed"
-            className="OwnerPreferences-more-opt-span"
+            className="OwnerPreferences-more-opt-div"
             onClick={booleanChangeHandler}
           >
             <i className="fas fa-smoking OwnerPreferences-i"></i>smoke
-          </span>
-        </span>
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 export default OwnerPreferences;
