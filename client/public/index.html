@@ -9,10 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <meta
-      name="google-signin-client_id"
-      content="267865272692-6ldesrm625v8k8pk9duiteh95op8tso3.apps.googleusercontent.com"
-    />
+    <meta name="google-signin-client_id" content="%REACT_APP_CLIENT_ID%" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link
@@ -32,14 +29,17 @@
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
       crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cantata+One&family=Otomanopee+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cantata+One&family=Otomanopee+One&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Hommies</title>
   </head>
   <body>
-    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&language=en"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_API_KEY%&libraries=places&language=en"></script>
     <div id="root"></div>
   </body>
 </html>

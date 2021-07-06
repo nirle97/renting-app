@@ -10,6 +10,43 @@ services:
       - data:/data/db
     networks:
       - rent-network
+  react-app:
+    container_name: react-rent-app
+    image: react-image
+    build:
+      context: ./client
+      dockerfile: client.Dockerfile
+    stdin_open: true
+    ports:
+      - 3000:3000
+    networks:
+      - rent-network
+  server-node:
+    container_name: server-rent-container
+    build:
+      context: ./server
+      dockerfile: server.Dockerfile
+    command: "npm run dev"
+    ports:
+      - "5000:5000"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - rent-network
+
+  chat-server-node:
+    container_name: chat-server-rent-container
+    build:
+      context: ./chatServer
+      dockerfile: chatServer.Dockerfile
+    command: "npm run dev"
+    ports:
+      - "5001:5001"
+    networks:
+      - rent-network
+
 volumes:
   data:
 networks:

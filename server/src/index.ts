@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 const PORT = 5000;
 mongoose
   .connect("mongodb://localhost:27017/rent", {
+    // .connect("mongodb://mongodb-rent:27017/rent", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
