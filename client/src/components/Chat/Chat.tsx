@@ -42,12 +42,16 @@ export default function Chat() {
     if (roomId) {
       const {
         data: { data: roomMessages },
-      } = await network.get(`message/messages/${roomId}`);
+      } = await network.get(
+        `${process.env.BASE_URL}/message/messages/${roomId}`
+      );
       setMessages(roomMessages);
     }
   };
   const getRooms = async () => {
-    const { data: rooms } = await network.get("/chat-room/get-rooms");
+    const { data: rooms } = await network.get(
+      `${process.env.BASE_URL}/chat-room/get-rooms`
+    );
     const roomsId: string[] = [];
     rooms.data.forEach((room: IChatRoom) => {
       if (room._id) {

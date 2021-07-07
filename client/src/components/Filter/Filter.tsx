@@ -32,7 +32,10 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
       await network.put("/preference/user-preferences", preferences);
       const {
         data: { data },
-      } = await network.post("/apartment/filtered-apts", preferences);
+      } = await network.post(
+        `${process.env.BASE_URL}/apartment/filtered-apts`,
+        preferences
+      );
       dispatch(setIsDataLoading({ isDataLoading: false }));
       dispatch(setAptsArray({ userApts: data }));
       toggleFilters();

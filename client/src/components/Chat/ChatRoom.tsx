@@ -59,7 +59,9 @@ export default function ChatRoom({
     if (userAnswer) {
       console.log(room._id);
 
-      await network.delete(`/chat-room/delete-room/${room._id}`);
+      await network.delete(
+        `${process.env.BASE_URL}/chat-room/delete-room/${room._id}`
+      );
     }
   };
 

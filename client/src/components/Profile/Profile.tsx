@@ -22,7 +22,9 @@ function Profile() {
   const getUserImg = async () => {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
-      const url = await network.get(`/user/profile-image/${user.imgUrl}`);
+      const url = await network.get(
+        `${process.env.BASE_URL}/user/profile-image/${user.imgUrl}`
+      );
       dispatch(setUser({ ...user, imgUrl: url }));
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {

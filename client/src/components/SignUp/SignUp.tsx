@@ -76,9 +76,9 @@ function SignUp() {
       const tokenId = user.tokenId;
       const {
         data: { data },
-      } = await network.post("/googleAuth/login", { tokenId });
-      console.log(data);
-
+      } = await network.post(`${process.env.BASE_URL}/googleAuth/login`, {
+        tokenId,
+      });
       dispatch(setIsLogged({ isLogged: true }));
       Cookies.set("token", data.accessToken, { secure: true });
       Cookies.set("id", data.id, { secure: true });

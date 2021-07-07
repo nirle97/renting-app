@@ -18,7 +18,7 @@ export default function HomeOwner() {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const {
         data: { data },
-      } = await network.get("/apartment/owner-apts");
+      } = await network.get(`${process.env.BASE_URL}/apartment/owner-apts`);
       setAptsArr(data);
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {

@@ -22,7 +22,9 @@ function App() {
 
   async function validateToken() {
     try {
-      const { status } = await network.post("/auth/tokenValidate");
+      const { status } = await network.post(
+        `${process.env.BASE_URL}/auth/tokenValidate`
+      );
       if (status === 200) {
         dispatch(setIsLogged({ isLogged: true }));
       }

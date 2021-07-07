@@ -41,7 +41,10 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
       },
     };
     try {
-      await network.post("/chat-room/create-chat-room", chatRoomConfig);
+      await network.post(
+        `${process.env.BASE_URL}/chat-room/create-chat-room`,
+        chatRoomConfig
+      );
       setIsChatBtnClicked(true);
       alert(
         `Congratulations!🎉🎉 you and ${likedUser.fullName} can now talk in the chat room!`

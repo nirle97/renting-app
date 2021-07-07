@@ -36,7 +36,10 @@ function Home() {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const {
         data: { data },
-      } = await network.post("/apartment/filtered-apts", preferences);
+      } = await network.post(
+        `${process.env.BASE_URL}/apartment/filtered-apts`,
+        preferences
+      );
       if (data.length !== 0) {
         dispatch(setIsDataLoading({ isDataLoading: false }));
         dispatch(setAptsArray({ userApts: [...userApts, ...data] }));
@@ -52,7 +55,9 @@ function Home() {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const {
         data: { data },
-      } = await network.get("/preference/user-preferences");
+      } = await network.get(
+        `${process.env.BASE_URL}/preference/user-preferences`
+      );
       if (data) {
         dispatch(setPreferences({ preferences: data.preferences }));
       }
@@ -66,7 +71,7 @@ function Home() {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       await network.put(
-        `apartment/like-status/${userApts[0]._id}?status=${preference}`
+        `${process.env.BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
       );
       dispatch(setIsDataLoading({ isDataLoading: false }));
       const updatedUserApts = userApts.slice(1);
@@ -104,10 +109,7 @@ function Home() {
             <Apartment aptPreference={aptPreference} apt={userApts[0]} />
           </div>
           <div className="Home-apartment-map">
-            <Map
-              cords={userApts[0].cords}
-              isUpload={false}
-            />
+            <Map cords={userApts[0].cords} isUpload={false} />
           </div>
         </div>
       ) : (
