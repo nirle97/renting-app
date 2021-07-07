@@ -6,8 +6,12 @@
   justify-content: center;
   margin-top: 10vh;
 }
-.HomeOwner-arrow-gif{
- height: 20vh;
- margin-top:60vh;
- margin-left: 75vw;
+.HomeOwner-arrow-img {
+  height: 20vh;
+  margin-top: 20vh;
+  margin-left: 70vw;
+}
+.HomeOwner-apt-img {
+  margin-top: 5vh;
+  transform: scale(1.3);
 }

@@ -33,7 +33,12 @@ export default function HomeOwner() {
         <div>
           <h1>Click the button below to upload a new apartment</h1>
           <img
-            className="HomeOwner-arrow-gif"
+            className="HomeOwner-apt-img"
+            src="./images/house-draw.jpg"
+            alt="apartment"
+          />
+          <img
+            className="HomeOwner-arrow-img"
             src="./images/arrow-shape-right-down.png"
             alt="arrow-gif"
           />
