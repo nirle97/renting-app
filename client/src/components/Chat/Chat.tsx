@@ -27,6 +27,8 @@ export default function Chat() {
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState<IMessage>();
+  const [files, setFiles] = useState<any>();
+  const [images, setImages] = useState([]);
   useEffect(() => {
     getRooms();
   }, []);

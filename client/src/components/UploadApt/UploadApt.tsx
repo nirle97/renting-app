@@ -71,7 +71,7 @@ export default function UploadApt() {
       history.push("/");
       setFormInput(ownerFiltersObj);
     } catch (e) {
-      dispatch(setIsDataLoading({ isDataLoading: false }));
+      // dispatch(setIsDataLoading({ isDataLoading: false }));
     }
   };
 

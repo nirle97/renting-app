@@ -4,3 +4,19 @@
 .SignIn-no-account-span {
   margin-bottom: 5vh;
 }
+.SignIn-logo-span{
+  font-family: bangers;
+  font-size: 10vh;
+}
+.SignIn-logo-div{
+  display: flex;
+  flex-direction: row;
+}
+.SignIn-logo-img{
+  height: 10vh;
+  margin-top: 1.5vh;
+}
+.signIn-form{
+  margin-top:20vh;
+  margin-left:-18vw
+}
