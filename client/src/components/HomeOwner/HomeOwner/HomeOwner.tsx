@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import network from "../../../utils/network";
 import { IUploadNewApt } from "../../../interfaces/interface";
 import "./homeOwner.css";
@@ -18,7 +18,9 @@ export default function HomeOwner() {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const {
         data: { data },
-      } = await network.get(`${process.env.BASE_URL}/apartment/owner-apts`);
+      } = await network.get(
+        `${process.env.REACT_APP_BASE_URL}/apartment/owner-apts`
+      );
       setAptsArr(data);
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {
@@ -31,7 +33,11 @@ export default function HomeOwner() {
         <div>
           <h1>Click the button below to upload a new apartment</h1>
           {/* <img className="HomeOwner-arrow-gif" src="./images/transparent-arrow-clipart.png" alt="arrow-gif" /> */}
-          <img className="HomeOwner-arrow-gif" src="./images/arrow-shape-right-down.png" alt="arrow-gif" />
+          <img
+            className="HomeOwner-arrow-gif"
+            src="./images/arrow-shape-right-down.png"
+            alt="arrow-gif"
+          />
         </div>
       ) : (
         <>

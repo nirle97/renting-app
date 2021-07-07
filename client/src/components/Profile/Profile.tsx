@@ -23,7 +23,7 @@ function Profile() {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const url = await network.get(
-        `${process.env.BASE_URL}/user/profile-image/${user.imgUrl}`
+        `${process.env.REACT_APP_BASE_URL}/user/profile-image/${user.imgUrl}`
       );
       dispatch(setUser({ ...user, imgUrl: url }));
       dispatch(setIsDataLoading({ isDataLoading: false }));

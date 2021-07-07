@@ -22,7 +22,7 @@ function Home() {
 
   useEffect(() => {
     getUserPref();
-    if(userApts.length > 0){
+    if (userApts.length > 0) {
       toggleFilters();
     }
   }, []);
@@ -39,7 +39,7 @@ function Home() {
       const {
         data: { data },
       } = await network.post(
-        `${process.env.BASE_URL}/apartment/filtered-apts`,
+        `${process.env.REACT_APP_BASE_URL}/apartment/filtered-apts`,
         preferences
       );
       if (data.length !== 0) {
@@ -58,7 +58,7 @@ function Home() {
       const {
         data: { data },
       } = await network.get(
-        `${process.env.BASE_URL}/preference/user-preferences`
+        `${process.env.REACT_APP_BASE_URL}/preference/user-preferences`
       );
       if (data) {
         dispatch(setPreferences({ preferences: data.preferences }));
@@ -73,7 +73,7 @@ function Home() {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       await network.put(
-        `${process.env.BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
+        `${process.env.REACT_APP_BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
       );
       dispatch(setIsDataLoading({ isDataLoading: false }));
       const updatedUserApts = userApts.slice(1);

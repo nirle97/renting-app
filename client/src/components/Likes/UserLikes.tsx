@@ -20,7 +20,7 @@ export default function Likes() {
       const {
         data: { data },
       } = await network.get(
-        `${process.env.BASE_URL}/apartment/user-liked-apts`
+        `${process.env.REACT_APP_BASE_URL}/apartment/user-liked-apts`
       );
       setAptsArr(data);
       dispatch(setIsDataLoading({ isDataLoading: false }));

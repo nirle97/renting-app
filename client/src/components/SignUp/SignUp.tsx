@@ -10,7 +10,7 @@ import { setIsLogged } from "../../store/authSlice";
 import { setUser } from "../../store/userSlice";
 import Cookies from "js-cookie";
 import axios from "axios";
-require("dotenv").config();
+// require("dotenv").config();
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function SignUp() {
     formData.append("description", description);
 
     const result = await axios.post(
-      `${process.env.BASE_URL}/login/profile-image`,
+      `${process.env.REACT_APP_BASE_URL}/login/profile-image`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -64,7 +64,7 @@ function SignUp() {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
         const url = await postImage(file, "profileImg");
-        await axios.post(`${process.env.BASE_URL}/login/sign-up`, {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/login/sign-up`, {
           ...formInput,
           imgUrl: url,
         });
@@ -83,9 +83,12 @@ function SignUp() {
       const tokenId = user.tokenId;
       const {
         data: { data },
-      } = await network.post(`${process.env.BASE_URL}/googleAuth/login`, {
-        tokenId,
-      });
+      } = await network.post(
+        `${process.env.REACT_APP_BASE_URL}/googleAuth/login`,
+        {
+          tokenId,
+        }
+      );
       dispatch(setIsLogged({ isLogged: true }));
       Cookies.set("token", data.accessToken, { secure: true });
       Cookies.set("id", data.id, { secure: true });

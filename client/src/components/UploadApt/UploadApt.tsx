@@ -43,7 +43,7 @@ export default function UploadApt() {
     formData.append("description", aptId);
     try {
       const result = await network.post(
-        `${process.env.BASE_URL}/apartment/owner-apts-images`,
+        `${process.env.REACT_APP_BASE_URL}/apartment/owner-apts-images`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -61,7 +61,7 @@ export default function UploadApt() {
       e.target.hidden = true;
       setFormInput({ ...formInput, imagesUrl: images });
       const { data: newApt } = await network.post(
-        `${process.env.BASE_URL}/apartment/create`,
+        `${process.env.REACT_APP_BASE_URL}/apartment/create`,
         formInput
       );
       if (files) {

@@ -43,14 +43,14 @@ export default function Chat() {
       const {
         data: { data: roomMessages },
       } = await network.get(
-        `${process.env.BASE_URL}/message/messages/${roomId}`
+        `${process.env.REACT_APP_BASE_URL}/message/messages/${roomId}`
       );
       setMessages(roomMessages);
     }
   };
   const getRooms = async () => {
     const { data: rooms } = await network.get(
-      `${process.env.BASE_URL}/chat-room/get-rooms`
+      `${process.env.REACT_APP_BASE_URL}/chat-room/get-rooms`
     );
     const roomsId: string[] = [];
     rooms.data.forEach((room: IChatRoom) => {

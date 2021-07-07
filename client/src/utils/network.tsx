@@ -19,7 +19,7 @@ network.interceptors.response.use(
         const {
           data: { data: accessToken },
         } = await axios.post(
-          `${process.env.BASE_URL}/auth/generate-new-token`,
+          `${process.env.REACT_APP_BASE_URL}/auth/generate-new-token`,
           {
             id: Cookies.get("id"),
           }

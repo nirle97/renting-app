@@ -35,7 +35,7 @@ function SignIn() {
         const {
           data: { data },
         } = await network.post(
-          `${process.env.BASE_URL}/login/sign-in`,
+          `${process.env.REACT_APP_BASE_URL}/login/sign-in`,
           formInput
         );
         dispatch(setIsLogged({ isLogged: true }));
@@ -58,9 +58,12 @@ function SignIn() {
     const tokenId = user.tokenId;
     const {
       data: { data },
-    } = await network.post(`${process.env.BASE_URL}/googleAuth/login`, {
-      tokenId,
-    });
+    } = await network.post(
+      `${process.env.REACT_APP_BASE_URL}/googleAuth/login`,
+      {
+        tokenId,
+      }
+    );
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
     Cookies.set("id", data.id, { secure: true });

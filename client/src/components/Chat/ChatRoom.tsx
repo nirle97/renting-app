@@ -60,7 +60,7 @@ export default function ChatRoom({
       console.log(room._id);
 
       await network.delete(
-        `${process.env.BASE_URL}/chat-room/delete-room/${room._id}`
+        `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}`
       );
     }
   };

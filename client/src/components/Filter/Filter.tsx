@@ -29,11 +29,14 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
   const savePreferences = async () => {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
-      await network.put("/preference/user-preferences", preferences);
+      await network.put(
+        `${process.env.REACT_APP_BASE_URL}/preference/user-preferences`,
+        preferences
+      );
       const {
         data: { data },
       } = await network.post(
-        `${process.env.BASE_URL}/apartment/filtered-apts`,
+        `${process.env.REACT_APP_BASE_URL}/apartment/filtered-apts`,
         preferences
       );
       dispatch(setIsDataLoading({ isDataLoading: false }));

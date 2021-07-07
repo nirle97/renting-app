@@ -42,7 +42,7 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
     };
     try {
       await network.post(
-        `${process.env.BASE_URL}/chat-room/create-chat-room`,
+        `${process.env.REACT_APP_BASE_URL}/chat-room/create-chat-room`,
         chatRoomConfig
       );
       setIsChatBtnClicked(true);

@@ -25,7 +25,10 @@ io.on("connection", (socket: any) => {
     socket.removeAllListeners();
   });
   socket.on("send-msg", (message: IMessage) => {
-    axios.post("http://localhost:5000/message/create-message", message);
+    axios.post(
+      `${process.env.REACT_APP_BASE_URL}/message/create-message`,
+      message
+    );
     socket.broadcast.to(message.chatRoomId).emit("message", message);
   });
 });
