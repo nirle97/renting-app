@@ -13,7 +13,6 @@ function NavBar() {
     <>
       <div className="NavBar-container">
         <div className="NavBar-span-start">
-          {/* <Link to="https://bidudi.co.il/wp-content/uploads/2020/03/unnamed-1.png" download="pic">please clicked me</Link> */}
           <Link id="NavBar-logo" className="NavBar-Link" to="/">
             <span className="NavBar-span-start">
               <img
