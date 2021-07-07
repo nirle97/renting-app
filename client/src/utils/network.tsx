@@ -18,9 +18,12 @@ network.interceptors.response.use(
       try {
         const {
           data: { data: accessToken },
-        } = await axios.post("/auth/generate-new-token", {
-          id: Cookies.get("id"),
-        });
+        } = await axios.post(
+          `${process.env.BASE_URL}/auth/generate-new-token`,
+          {
+            id: Cookies.get("id"),
+          }
+        );
         Cookies.set("token", accessToken);
         originalRequest.headers.authorization = `bearer ${accessToken}`;
         const data = await axios(originalRequest);

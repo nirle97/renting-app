@@ -48,9 +48,13 @@ function SignUp() {
     formData.append("image", image);
     formData.append("description", description);
 
-    const result = await axios.post("/login/profile-image", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const result = await axios.post(
+      `${process.env.BASE_URL}/login/profile-image`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
     setImages(result.data.data);
     return result.data.data;
   }
@@ -60,7 +64,10 @@ function SignUp() {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
         const url = await postImage(file, "profileImg");
-        await axios.post("/login/sign-up", { ...formInput, imgUrl: url });
+        await axios.post(`${process.env.BASE_URL}/login/sign-up`, {
+          ...formInput,
+          imgUrl: url,
+        });
         history.push("/");
       } else {
         setEmptyFldMsg(true);
