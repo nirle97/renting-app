@@ -86,6 +86,11 @@ export interface IResDetails {
     status: number;
     message: string;
   };
+  alreadyExists: {
+    success: boolean;
+    status: number;
+    message: string;
+  };
   clientError: {
     badRequest: {
       success: boolean;

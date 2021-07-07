@@ -21,6 +21,11 @@ export const resTemplate: IResDetails = {
     status: 500,
     message: "Server Error",
   },
+  alreadyExists: {
+    success: false,
+    status: 409,
+    message: "Resource already exists",
+  },
   clientError: {
     badRequest: {
       success: false,

@@ -15,6 +15,7 @@ require("dotenv").config();
 function SignUp() {
   const dispatch = useDispatch();
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
+  const [alreadyExistsMsg, setAlreadyExistsMsg] = useState(false);
   const [file, setFile] = useState<string | Blob>("");
   const [image, setImages] = useState("");
   const [formInput, setFormInput] = useState<IUser>({
@@ -60,7 +61,6 @@ function SignUp() {
       if (FormValidation.isFormValid(formInput)) {
         const url = await postImage(file, "profileImg");
         await axios.post("/login/sign-up", { ...formInput, imgUrl: url });
-        // await axios.post("/login/sign-up", { ...formInput });
         history.push("/");
       } else {
         setEmptyFldMsg(true);
@@ -72,16 +72,24 @@ function SignUp() {
   };
 
   const handleGoogle = async (user: any) => {
-    const tokenId = user.tokenId;
-    const {
-      data: { data },
-    } = await network.post("/googleAuth/login", { tokenId });
-    dispatch(setIsLogged({ isLogged: true }));
-    Cookies.set("token", data.accessToken, { secure: true });
-    Cookies.set("id", data.id, { secure: true });
-    delete data.accessToken;
-    dispatch(setUser({ user: data }));
-    history.push("/");
+    try {
+      const tokenId = user.tokenId;
+      const {
+        data: { data },
+      } = await network.post(`${process.env.BASE_URL}/googleAuth/login`, {
+        tokenId,
+      });
+      dispatch(setIsLogged({ isLogged: true }));
+      Cookies.set("token", data.accessToken, { secure: true });
+      Cookies.set("id", data.id, { secure: true });
+      delete data.accessToken;
+      dispatch(setUser({ user: data }));
+      history.push("/");
+    } catch (e) {
+      if (e.message.includes(409)) {
+        setAlreadyExistsMsg(true);
+      }
+    }
   };
   return (
     <div className="SignUp-container">
@@ -189,6 +197,9 @@ function SignUp() {
           <span className="SignUp-msg">
             Please fill all the fields correctly :)
           </span>
+        )}
+        {alreadyExistsMsg && (
+          <span className="SignUp-msg">User Already Exists :)</span>
         )}
         <div>
           <button

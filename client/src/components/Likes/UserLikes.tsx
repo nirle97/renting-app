@@ -19,7 +19,9 @@ export default function Likes() {
       dispatch(setIsDataLoading({ isDataLoading: true }));
       const {
         data: { data },
-      } = await network.get("/apartment/user-liked-apts");
+      } = await network.get(
+        `${process.env.BASE_URL}/apartment/user-liked-apts`
+      );
       setAptsArr(data);
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {

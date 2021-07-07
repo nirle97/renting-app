@@ -21,14 +21,20 @@ function App() {
   const dispatch = useDispatch();
 
   async function validateToken() {
-    const { status } = await network.post("/auth/tokenValidate");
-    if (status === 200) {
-      dispatch(setIsLogged({ isLogged: true }));
+    try {
+      const { status } = await network.post(
+        `${process.env.BASE_URL}/auth/tokenValidate`
+      );
+      if (status === 200) {
+        dispatch(setIsLogged({ isLogged: true }));
+      }
+    } catch (e) {
+      dispatch(setIsLogged({ isLogged: false }));
     }
   }
-  useEffect(() => {
-    validateToken();
-  }, []);
+  // useEffect(() => {
+  //   validateToken();
+  // }, []);
 
   return (
     <div className="App">

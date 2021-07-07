@@ -47,7 +47,7 @@ const signIn = async (
     return;
   }
   const credentials = req.body;
-  
+
   try {
     const result: IUser | null = await UserModel.findOne({
       email: credentials.email,
@@ -68,12 +68,11 @@ const signIn = async (
         age: result.age,
         isOwner: result.isOwner,
         imgUrl: result.imgUrl,
-      };      
+      };
       next();
-    }else{
+    } else {
       res.status(401).send(resTemplate.clientError.unAuthorized);
     }
-
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
@@ -86,6 +85,8 @@ const uploadProfileImg = async (req: Request, res: Response): Promise<void> => {
     return;
   }
   try {
+    console.log(req.file);
+
     const result = await uploadFile(req.file.path, req.file.filename);
     await unlinkFile(req.file.path);
     res.status(201).send({

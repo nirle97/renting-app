@@ -34,7 +34,10 @@ function SignIn() {
       ) {
         const {
           data: { data },
-        } = await network.post("/login/sign-in", formInput);
+        } = await network.post(
+          `${process.env.BASE_URL}/login/sign-in`,
+          formInput
+        );
         dispatch(setIsLogged({ isLogged: true }));
         Cookies.set("token", data.accessToken, { expires: 1, secure: true });
         Cookies.set("id", data.id, { expires: 1, secure: true });
@@ -55,7 +58,9 @@ function SignIn() {
     const tokenId = user.tokenId;
     const {
       data: { data },
-    } = await network.post("/googleAuth/login", { tokenId });
+    } = await network.post(`${process.env.BASE_URL}/googleAuth/login`, {
+      tokenId,
+    });
     dispatch(setIsLogged({ isLogged: true }));
     Cookies.set("token", data.accessToken, { secure: true });
     Cookies.set("id", data.id, { secure: true });
@@ -112,7 +117,7 @@ function SignIn() {
             }
             buttonText="Sign In With Google"
             onSuccess={handleGoogle}
-            onFailure={handleGoogle}
+            // onFailure={handleGoogle}
             cookiePolicy={"single_host_origin"}
           />
         </div>

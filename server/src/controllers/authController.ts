@@ -5,7 +5,7 @@ import { resTemplate } from "../utils/responses";
 require("dotenv").config();
 
 interface Decoded extends Request {
-  decoded: { id: String };
+  decoded: { id: string };
 }
 interface ISignInUser extends Request {
   decoded: {
@@ -14,7 +14,7 @@ interface ISignInUser extends Request {
     email: string;
     phoneNumber?: string;
     age?: number;
-    isOwner: boolean
+    isOwner: boolean;
     imgUrl?: string;
     imgFile?: {};
   };
@@ -64,7 +64,7 @@ const terminateToken = async (req: Decoded, res: Response): Promise<void> => {
 const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
   try {
     const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
-      expiresIn: "10h",
+      expiresIn: "10m",
     });
     const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
       expiresIn: "24h",
@@ -88,6 +88,8 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
       },
     });
   } catch (e) {
+    console.log(2);
+
     console.error(e);
     res.status(500).send(resTemplate.serverError);
   }

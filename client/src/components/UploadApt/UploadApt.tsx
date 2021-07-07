@@ -7,7 +7,7 @@ import OwnerPreferences from "../Preferences/OwnerPreferences";
 import network from "../../utils/network";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 import { useDispatch } from "react-redux";
-import Map from "../Map/Map"
+import Map from "../Map/Map";
 export default function UploadApt() {
   const dispatch = useDispatch();
   const [files, setFiles] = useState<any>();
@@ -43,7 +43,7 @@ export default function UploadApt() {
     formData.append("description", aptId);
     try {
       const result = await network.post(
-        "/apartment/owner-apts-images",
+        `${process.env.BASE_URL}/apartment/owner-apts-images`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -61,7 +61,7 @@ export default function UploadApt() {
       e.target.hidden = true;
       setFormInput({ ...formInput, imagesUrl: images });
       const { data: newApt } = await network.post(
-        "/apartment/create",
+        `${process.env.BASE_URL}/apartment/create`,
         formInput
       );
       if (files) {
@@ -83,128 +83,130 @@ export default function UploadApt() {
   }, [searchValue]);
   return (
     <div className="UploadApt-container">
-        <div className="UploadApt-form">
-          <form>
-            <div className="UploadApt-left-side">
-              <div className="UploadApt-div-input">
-                <label>Title: </label>
-                <input
-                  type="text"
-                  id="title"
-                  value={formInput.title}
-                  onChange={changeHandler}
-                  maxLength={30}
-                  className="UploadApt-input"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Address: </label>
-                <input
-                  type="text"
-                  id="address"
-                  value={formInput.address}
-                  onChange={changeHandler}
-                  className="UploadApt-input"
-                />
-                {/* <SearchBar
+      <div className="UploadApt-form">
+        <form>
+          <div className="UploadApt-left-side">
+            <div className="UploadApt-div-input">
+              <label>Title: </label>
+              <input
+                type="text"
+                id="title"
+                value={formInput.title}
+                onChange={changeHandler}
+                maxLength={30}
+                className="UploadApt-input"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>Address: </label>
+              <input
+                type="text"
+                id="address"
+                value={formInput.address}
+                onChange={changeHandler}
+                className="UploadApt-input"
+              />
+              {/* <SearchBar
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   searchBarClass="UploadApts-search"
                 /> */}
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Price / Month (₪):</label>
-                <input
-                  className="UploadApt-input"
-                  type="text"
-                  value={formInput.pricePerMonth}
-                  onChange={changeHandler}
-                  id="pricePerMonth"
-                  name="number"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Size(m²):</label>
-                <input
-                  className="UploadApt-input"
-                  type="text"
-                  value={formInput.size}
-                  onChange={changeHandler}
-                  id="size"
-                  name="number"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Floor:</label>
-                <input
-                  className="UploadApt-input"
-                  type="text"
-                  value={formInput.floor}
-                  onChange={changeHandler}
-                  id="floor"
-                  name="number"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Rooms:</label>
-                <input
-                  className="UploadApt-input"
-                  type="text"
-                  value={formInput.rooms}
-                  onChange={changeHandler}
-                  id="rooms"
-                  name="number"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label>Images:</label>
-                <input
-                  className="UploadApt-input"
-                  type="file"
-                  accept=".jpg,.jpeg,.png,.PNG"
-                  multiple
-                  onChange={setImgsToUpload}
-                  id="images"
-                  name="apt-images"
-                />
-              </div>
-              <div className="UploadApt-div-input">
-                <label> From:</label>
-                <input
-                  className="UploadApt-input date-input"
-                  id="entryDate"
-                  type="date"
-                  onChange={changeHandler}
-                  value={formInput.entryDate}
-                />
-                <label>To:</label>
-                <input
-                  className="UploadApt-input date-input"
-                  id="checkOutDate"
-                  type="date"
-                  onChange={changeHandler}
-                  value={formInput.checkOutDate}
-                />
-              </div>
             </div>
-            <div className="UploadApt-right-side">
-              <div className="UploadApt-right-side-title"> Please select apartment attribute</div>
-              <div className="UploadApt-OwnerPreferences-component">
-                <OwnerPreferences
-                  formInput={formInput}
-                  setFormInput={setFormInput}
-                />
-              </div>
-              <div className="UploadApt-map">
-                <Map
-                  cords={formInput.cords}
-                  isUpload={true}
-                />
-              </div>
+            <div className="UploadApt-div-input">
+              <label>Price / Month (₪):</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.pricePerMonth}
+                onChange={changeHandler}
+                id="pricePerMonth"
+                name="number"
+              />
             </div>
-          </form>
-          <button className="UploadApt-submit-button" onClick={submitHandler}>submit</button>
-        </div>
+            <div className="UploadApt-div-input">
+              <label>Size(m²):</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.size}
+                onChange={changeHandler}
+                id="size"
+                name="number"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>Floor:</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.floor}
+                onChange={changeHandler}
+                id="floor"
+                name="number"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>Rooms:</label>
+              <input
+                className="UploadApt-input"
+                type="text"
+                value={formInput.rooms}
+                onChange={changeHandler}
+                id="rooms"
+                name="number"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label>Images:</label>
+              <input
+                className="UploadApt-input"
+                type="file"
+                accept=".jpg,.jpeg,.png,.PNG"
+                multiple
+                onChange={setImgsToUpload}
+                id="images"
+                name="apt-images"
+              />
+            </div>
+            <div className="UploadApt-div-input">
+              <label> From:</label>
+              <input
+                className="UploadApt-input date-input"
+                id="entryDate"
+                type="date"
+                onChange={changeHandler}
+                value={formInput.entryDate}
+              />
+              <label>To:</label>
+              <input
+                className="UploadApt-input date-input"
+                id="checkOutDate"
+                type="date"
+                onChange={changeHandler}
+                value={formInput.checkOutDate}
+              />
+            </div>
+          </div>
+          <div className="UploadApt-right-side">
+            <div className="UploadApt-right-side-title">
+              {" "}
+              Please select apartment attribute
+            </div>
+            <div className="UploadApt-OwnerPreferences-component">
+              <OwnerPreferences
+                formInput={formInput}
+                setFormInput={setFormInput}
+              />
+            </div>
+            <div className="UploadApt-map">
+              <Map cords={formInput.cords} isUpload={true} />
+            </div>
+          </div>
+        </form>
+        <button className="UploadApt-submit-button" onClick={submitHandler}>
+          submit
+        </button>
+      </div>
     </div>
   );
 }
