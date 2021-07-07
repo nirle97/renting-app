@@ -27,14 +27,14 @@ function App() {
       );
       if (status === 200) {
         dispatch(setIsLogged({ isLogged: true }));
+      } else {
+        dispatch(setIsLogged({ isLogged: false }));
       }
-    } catch (e) {
-      dispatch(setIsLogged({ isLogged: false }));
-    }
+    } catch (e) {}
   }
-  // useEffect(() => {
-  //   validateToken();
-  // }, []);
+  useEffect(() => {
+    validateToken();
+  }, []);
 
   return (
     <div className="App">

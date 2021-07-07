@@ -62,7 +62,11 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
   return (
     <>
       <div className="LikedUser-container" id={`user-${index}`}>
-        <img className="LikedUser-img" alt="profile" src={likedUser.imgUrl} />
+        <img
+          className="LikedUser-img"
+          alt="profile"
+          src={`${process.env.REACT_APP_BASE_URL}${likedUser.imgUrl}`}
+        />
         <span>Name: {likedUser.fullName}</span>
         <span>Tel: {likedUser.phoneNumber}</span>
         <span>Email: {likedUser.email}</span>

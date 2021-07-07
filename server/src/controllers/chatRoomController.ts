@@ -53,16 +53,12 @@ const openChatRoom = async (req: Decoded, res: Response): Promise<void> => {
 };
 
 const deleteChatRoom = async (req: Decoded, res: Response): Promise<void> => {
-  console.log(1);
-
   if (!req.params) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
   try {
     const roomId = req.params.roomId;
-    console.log(roomId);
-
     await ChatRoomModel.deleteOne({
       _id: roomId,
     });

@@ -43,7 +43,7 @@ function ImageSlider({ size, sliderData }: IProps) {
           >
             {index === current && (
               <img
-                src={slide}
+                src={`${process.env.REACT_APP_BASE_URL}${slide}`}
                 alt="Apartment img"
                 className={size === "small" ? "image-small" : "image-big"}
               />

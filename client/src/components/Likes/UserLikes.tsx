@@ -37,7 +37,6 @@ export default function Likes() {
         <div key={`likedApt-${i}`} className="Likes-apt-div">
           <div className="Likes-img-div">
             <ImageSlider size="small" sliderData={apt.imagesUrl} />
-            {/* <ImageSlider size="small" /> */}
           </div>
           <div className="Likes-description-container">
             <div className="Likes-description-main">

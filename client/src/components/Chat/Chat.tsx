@@ -8,6 +8,7 @@ import { IChatRoom, IMessage } from "../../interfaces/interface";
 import io from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
+import FileChat from "./FileChat";
 const ENDPOINT = "localhost:5001";
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
@@ -139,6 +140,7 @@ export default function Chat() {
                   }
                   placeholder="Type a message..."
                 />
+                <FileChat />
                 <button
                   type="submit"
                   className="send-btn"

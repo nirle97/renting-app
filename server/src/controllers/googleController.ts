@@ -50,8 +50,6 @@ const setToken = async (
       }
     }
   } catch (e) {
-    console.log(1);
-
     console.error(e);
     if (e.message.includes("duplicate key error")) {
       res.status(409).send(resTemplate.alreadyExists);

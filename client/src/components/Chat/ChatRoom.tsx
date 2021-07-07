@@ -57,8 +57,6 @@ export default function ChatRoom({
       "Are you sure you want to delete all the chat history? This action has no undo option"
     );
     if (userAnswer) {
-      console.log(room._id);
-
       await network.delete(
         `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}`
       );
@@ -74,7 +72,7 @@ export default function ChatRoom({
       <div className="ChatRoom-room-div">
         <img
           className="ChatRoom-room-img"
-          src={`${
+          src={`${process.env.REACT_APP_BASE_URL}${
             user.isOwner
               ? room.participants.userInfo.imgUrl
               : room.participants.ownerInfo.imgUrl

@@ -88,8 +88,6 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
       },
     });
   } catch (e) {
-    console.log(2);
-
     console.error(e);
     res.status(500).send(resTemplate.serverError);
   }

@@ -29,7 +29,7 @@ network.interceptors.response.use(
         const data = await axios(originalRequest);
         return data;
       } catch (err) {
-        console.log(err);
+        console.error(err);
         throw err;
       }
     } else {

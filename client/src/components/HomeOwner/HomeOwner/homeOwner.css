@@ -7,9 +7,10 @@
   margin-top: 10vh;
 }
 .HomeOwner-arrow-img {
+  position: fixed;
+  bottom: 0;
+  right: 10%;
   height: 20vh;
-  margin-top: 20vh;
-  margin-left: 70vw;
 }
 .HomeOwner-apt-img {
   margin-top: 5vh;

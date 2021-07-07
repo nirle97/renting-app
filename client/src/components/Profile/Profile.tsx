@@ -22,6 +22,7 @@ function Profile() {
   const getUserImg = async () => {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));
+
       const url = await network.get(
         `${process.env.REACT_APP_BASE_URL}/user/profile-image/${user.imgUrl}`
       );
@@ -51,7 +52,14 @@ function Profile() {
   return (
     <div className="Profile-container">
       <span className="Profile-navbar" onClick={clickHandler}>
-        {user.imgUrl ? <img src={user.imgUrl} alt="profile" /> : "Profile"}
+        {user.imgUrl ? (
+          <img
+            src={`${process.env.REACT_APP_BASE_URL}${user.imgUrl}`}
+            alt="profile"
+          />
+        ) : (
+          "Profile"
+        )}
       </span>
       {showInfo && (
         <div className="Profile-info-div">

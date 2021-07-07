@@ -85,8 +85,6 @@ const uploadProfileImg = async (req: Request, res: Response): Promise<void> => {
     return;
   }
   try {
-    console.log(req.file);
-
     const result = await uploadFile(req.file.path, req.file.filename);
     await unlinkFile(req.file.path);
     res.status(201).send({

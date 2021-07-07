@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./uploadApt.css";
 import { IUploadNewApt } from "../../interfaces/interface";
 import { ownerFiltersObj } from "../../utils/utils";
-import SearchBar from "../SearchBar/searchBar";
 import OwnerPreferences from "../Preferences/OwnerPreferences";
 import network from "../../utils/network";
 import { setIsDataLoading } from "../../store/spinnerSlice";
 import { useDispatch } from "react-redux";
 import Map from "../Map/Map";
+import { useHistory } from "react-router-dom";
 export default function UploadApt() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [files, setFiles] = useState<any>();
   const [images, setImages] = useState([]);
-  const [openForm, setOpenForm] = useState(false);
   const [formInput, setFormInput] = useState<IUploadNewApt>(ownerFiltersObj);
   const [searchValue, setSearchValue] = useState({
     cords: { lat: 0, lng: 0 },
@@ -68,7 +68,8 @@ export default function UploadApt() {
         await postImage(files, "AptsImg", newApt.data.id);
       }
       e.target.hidden = false;
-      setOpenForm(false);
+      history.push("/");
+      setFormInput(ownerFiltersObj);
     } catch (e) {
       dispatch(setIsDataLoading({ isDataLoading: false }));
     }
