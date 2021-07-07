@@ -133,4 +133,5 @@ export interface IMessage extends Document {
   chatRoomId: string;
   senderId: string;
   createdAt: Date;
+  path?: string;
 }

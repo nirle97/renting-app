@@ -46,7 +46,6 @@ const getLikedApts = async (req: Decoded, res: Response): Promise<void> => {
 const getProfileImg = async (req: Decoded, res: Response) => {
   const key = req.params.key;
   const readStream = getFileStream(key);
-
   readStream.pipe(res);
 };
 
