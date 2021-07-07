@@ -35,6 +35,8 @@ services:
       - mongodb
     networks:
       - rent-network
+    environment:
+      - LOCAL_DB_NAME=mongodb-rent
 
   chat-server-node:
     container_name: chat-server-rent-container

@@ -9,7 +9,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 interface Decoded extends Request {
   decoded: {
-    id: String;
+    id?: String;
     imgUrl: String;
     fullName: String;
     email: String;
@@ -20,7 +20,7 @@ const setToken = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  if (!req.body) {
+  if (!req.body || Object.keys(req.body).length === 0) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
@@ -36,12 +36,28 @@ const setToken = async (
       email: payload.email,
       imgUrl: payload.picture,
     };
-    const newUser = await UserModel.create(credentials);
-    req.decoded = { ...credentials, id: newUser._id };
-    next();
+    const count = await UserModel.countDocuments({ email: credentials.email });
+    let user;
+    if (count === 0) {
+      user = await UserModel.create(credentials);
+      req.decoded = { ...credentials, id: user?._id };
+      next();
+    } else {
+      user = await UserModel.findOne({ email: credentials.email });
+      if (user) {
+        req.decoded = user.toJSON();
+        next();
+      }
+    }
   } catch (e) {
+    console.log(1);
+
     console.error(e);
-    res.status(500).send(resTemplate.serverError);
+    if (e.message.includes("duplicate key error")) {
+      res.status(409).send(resTemplate.alreadyExists);
+    } else {
+      res.status(500).send(resTemplate.serverError);
+    }
   }
 };
 

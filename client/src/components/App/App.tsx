@@ -21,14 +21,18 @@ function App() {
   const dispatch = useDispatch();
 
   async function validateToken() {
-    const { status } = await network.post("/auth/tokenValidate");
-    if (status === 200) {
-      dispatch(setIsLogged({ isLogged: true }));
+    try {
+      const { status } = await network.post("/auth/tokenValidate");
+      if (status === 200) {
+        dispatch(setIsLogged({ isLogged: true }));
+      }
+    } catch (e) {
+      dispatch(setIsLogged({ isLogged: false }));
     }
   }
-  useEffect(() => {
-    validateToken();
-  }, []);
+  // useEffect(() => {
+  //   validateToken();
+  // }, []);
 
   return (
     <div className="App">
@@ -42,7 +46,6 @@ function App() {
       ) : user.isOwner ? (
         <>
           <NavBar />
-          {/* <UploadApt /> */}
           <Switch>
             <Route exact path="/" component={HomeOwner} />
             <Route exact path="/chat" component={Chat} />

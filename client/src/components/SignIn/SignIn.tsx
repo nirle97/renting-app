@@ -112,7 +112,7 @@ function SignIn() {
             }
             buttonText="Sign In With Google"
             onSuccess={handleGoogle}
-            onFailure={handleGoogle}
+            // onFailure={handleGoogle}
             cookiePolicy={"single_host_origin"}
           />
         </div>
