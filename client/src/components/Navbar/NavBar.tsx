@@ -58,14 +58,16 @@ function NavBar() {
           )}
         </div>
       </div>
-      {search === "/" && 
-      <Link className="UploadApt-Link" to="/upload-apt">
-      <span
-        className="UploadApt-plus"
-      >
-        <i className="fas fa-plus-circle"></i>
-      </span>
-      </Link>
+      {
+        user.isOwner &&
+        search === "/" && 
+        <Link className="UploadApt-Link" to="/upload-apt">
+        <span
+          className="UploadApt-plus"
+        >
+          <i className="fas fa-plus-circle"></i>
+        </span>
+        </Link>
       }
     </>
   );
