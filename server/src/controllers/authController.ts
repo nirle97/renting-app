@@ -8,6 +8,8 @@ interface Decoded extends Request {
   decoded: { id: string };
 }
 interface ISignInUser extends Request {
+  exp?: number;
+  iat?: number;
   decoded: {
     id?: string;
     fullName: string;
@@ -16,7 +18,6 @@ interface ISignInUser extends Request {
     age?: number;
     isOwner: boolean;
     imgUrl?: string;
-    imgFile?: {};
   };
 }
 const vlidateToken = (req: Request, res: Response): void => {
@@ -25,20 +26,23 @@ const vlidateToken = (req: Request, res: Response): void => {
 
 const generateNewToken = async (req: Request, res: Response): Promise<void> => {
   try {
-    let refreshToken = await UserModel.findOne(
-      { _id: req.body.id },
-      "refreshToken"
-    );
+    let refreshToken = await UserModel.findOne({ _id: req.body.id }, [
+      "refreshToken",
+    ]);
     verify(
-      refreshToken,
+      refreshToken?.refreshToken,
       process.env.JWT_SECRET,
-      (err: Error, decoded: Decoded["decoded"]) => {
+      (err: Error, decoded: ISignInUser) => {
         if (err) {
+          console.error(err);
           res.status(403).send(resTemplate.clientError.forbidden);
           return;
         }
+        delete decoded.exp;
+        delete decoded?.iat;
+
         const accessToken = sign(decoded, process.env.JWT_SECRET, {
-          expiresIn: "10h",
+          expiresIn: "10m",
         });
         res.status(200).send({
           ...resTemplate.success.general,
@@ -81,7 +85,6 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
         email: req.decoded.email,
         fullName: req.decoded.fullName,
         imgUrl: req.decoded.imgUrl,
-        imgFile: req.decoded.imgFile,
         age: req.decoded.age,
         isOwner: req.decoded.isOwner,
         phoneNumber: req.decoded.phoneNumber,
