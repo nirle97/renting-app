@@ -23,9 +23,8 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon index.ts",
     "start": "node ./index.ts"
-    
   },
   "keywords": [],
   "author": "",

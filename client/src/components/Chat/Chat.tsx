@@ -27,8 +27,8 @@ export default function Chat() {
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState<IMessage>();
-  const [files, setFiles] = useState<any>();
-  const [images, setImages] = useState([]);
+  const [selectedfile, setSelectedfile] = useState<File | null>(null);
+
   useEffect(() => {
     getRooms();
   }, []);
@@ -140,14 +140,19 @@ export default function Chat() {
                   onKeyPress={(e) =>
                     e.key === "enter" ? sendMessage(e) : null
                   }
-                  placeholder="Type a message..."
+                  placeholder={
+                    selectedfile ? selectedfile?.name : "Type a message..."
+                  }
                 />
-                <FileChat />
+                <FileChat
+                  selectedfile={selectedfile}
+                  setSelectedfile={setSelectedfile}
+                />
                 <button
                   type="submit"
                   className="send-btn"
                   onClick={(e) => sendMessage(e)}
-                  disabled={msg === "" ? true : false}
+                  disabled={msg === "" && !selectedfile ? true : false}
                 >
                   Send
                 </button>

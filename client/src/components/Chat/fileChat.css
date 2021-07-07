@@ -1,0 +1,17 @@
+.FileChat-upload-span {
+  display: flex;
+  margin-top: 1.8vh;
+  margin-right: 1vw;
+  width: 1vw;
+  height: 1vh;
+}
+.FileChat-input:hover {
+  cursor: pointer;
+}
+.FileChat-input {
+  width: 1vw;
+  height: 3vh;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
