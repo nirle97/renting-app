@@ -39,7 +39,7 @@
 }
 .NavBar-div-end {
   position: absolute;
-  right: 3vw;
+  right: 6vw;
   display: flex;
   justify-content: flex-end;
 }
