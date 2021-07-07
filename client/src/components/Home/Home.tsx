@@ -22,7 +22,9 @@ function Home() {
 
   useEffect(() => {
     getUserPref();
-    toggleFilters();
+    if(userApts.length > 0){
+      toggleFilters();
+    }
   }, []);
 
   useEffect(() => {
@@ -113,7 +115,7 @@ function Home() {
       ) : (
         <div className="Home-noNew-div">
           {/* <h2>Can't Find New Apartaments For You</h2> */}
-          <h2>Please expand the filter search range </h2>
+          <h1>Please expand the filter search range </h1>
           <img
             className="Home-noNew-img"
             alt="no new houses to display"

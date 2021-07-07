@@ -45,10 +45,13 @@
 }
 .Home-noNew-div {
   position: relative;
-  right: 20%;
+  right: 10%;
   top: -10%;
   transform: scale(0.5);
 }
 .Home-noNew-img {
   max-width: 50%;
+}
+.Home-noNew-div-arrow{
+  font-size: 13vh;
 }

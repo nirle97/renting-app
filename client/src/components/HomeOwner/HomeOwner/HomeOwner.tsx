@@ -28,7 +28,11 @@ export default function HomeOwner() {
   return (
     <div className="HomeOwner-container">
       {!aptsArr?.length ? (
-        <h1>Upload new apartment to see all of your assets!</h1>
+        <div>
+          <h1>Click the button below to upload a new apartment</h1>
+          {/* <img className="HomeOwner-arrow-gif" src="./images/transparent-arrow-clipart.png" alt="arrow-gif" /> */}
+          <img className="HomeOwner-arrow-gif" src="./images/arrow-shape-right-down.png" alt="arrow-gif" />
+        </div>
       ) : (
         <>
           {aptsArr.map((apt, i) => (

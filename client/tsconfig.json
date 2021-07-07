@@ -18,5 +18,5 @@
     "removeComments": true
   },
   "exclude": ["node_modules", "build"],
-  "include": ["src"]
+  "include": ["src", "Apartment.tsx"]
 }
