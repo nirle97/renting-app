@@ -74,7 +74,15 @@ function SignIn() {
 
   return (
     <div className="SignUp-container">
-      <form className="SignUp-form" onSubmit={signInUser}>
+      <div className="SignIn-logo-div">
+        <img
+          className="SignIn-logo-img"
+          src="/images/logo-icon.png"
+          alt="logo"
+        />
+        <span className="SignIn-logo-span">Hommies</span>
+      </div>
+      <form className="SignUp-form signIn-form" onSubmit={signInUser}>
         <h3>Sign In</h3>
         <div className="SignUp-div-input">
           <label>

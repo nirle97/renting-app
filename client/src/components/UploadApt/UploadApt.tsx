@@ -70,7 +70,7 @@ export default function UploadApt() {
       e.target.hidden = false;
       setOpenForm(false);
     } catch (e) {
-      dispatch(setIsDataLoading({ isDataLoading: false }));
+      // dispatch(setIsDataLoading({ isDataLoading: false }));
     }
   };
 

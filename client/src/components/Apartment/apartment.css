@@ -89,12 +89,30 @@
   border-radius: 10px;
 }
 .Apartment-thumbs-up-button {
+  position: fixed;
   background-color: green;
-  margin-left: 15px;
+  margin-left: 60vw;
+  margin-top: 2.5vh;
 }
 .Apartment-thumbs-down-button {
+  position: fixed;
+
   background-color: red;
-  margin-right: 15px;
+  margin-left: 45vw;
+  margin-top: 2.5vh;
+
+}
+.Apartment-thumbs-up-button:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;  
+  height: 9vh;
+  width: 4vw;
+  margin-top: 2vh;
+}
+.Apartment-thumbs-down-button:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;  
+  height: 9vh;
+  width: 4vw;
+  margin-top: 2vh;
 }
 .Apartment-btn {
   display: flex;

@@ -1,7 +1,9 @@
 .Home-container {
   width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
+  padding: 10px;
 }
 .z-index {
   z-index: -2;
@@ -19,8 +21,7 @@
 }
 .Home-apartment-map {
   margin-top: 8vh;
-  display: flex;
-  margin-left: 2vw;
+  margin-left: 0.8vw;
 }
 .Home-apartment-component {
   display: flex;

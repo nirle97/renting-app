@@ -26,6 +26,8 @@ export default function Chat() {
   const { user } = useSelector(userSelectors);
   const scrollDown = useRef<HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState<IMessage>();
+  const [files, setFiles] = useState<any>();
+  const [images, setImages] = useState([]);
   useEffect(() => {
     getRooms();
   }, []);
@@ -110,6 +112,34 @@ export default function Chat() {
     setMsg("");
   };
 
+  const setImgsToUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "apt-images" && e.target.files) {
+      setFiles(e.target.files);
+    }
+  };
+  async function postImage(
+    files: any,
+    aptId: string
+  ): Promise<void> {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("apt-images", files[i]);
+    }
+    formData.append("description", aptId);
+    try {
+      const result = await network.post(
+        `${process.env.REACT_APP_BASE_URL}/apartment/owner-apts-images`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      setImages(result.data.data);
+      return result.data.data;
+    } catch (e) {
+      // dispatch(setIsDataLoading({ isDataLoading: false }));
+    }
+  }
   return (
     <div className="Chat-container">
       <div
@@ -139,6 +169,16 @@ export default function Chat() {
                   }
                   placeholder="Type a message..."
                 />
+                 {/* <div className="UploadApt-div-input"> */}
+              <input
+                className="UploadApt-input"
+                type="file"
+                multiple
+                onChange={setImgsToUpload}
+                id="images"
+                name="apt-images"
+              />
+            {/* </div> */}
                 <button
                   type="submit"
                   className="send-btn"
