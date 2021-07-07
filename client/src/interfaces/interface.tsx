@@ -113,4 +113,5 @@ export interface IMessage {
   chatRoomId: string;
   senderId: string;
   createdAt: number;
+  path?: string;
 }
