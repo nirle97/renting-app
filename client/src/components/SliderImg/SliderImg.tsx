@@ -6,22 +6,16 @@ interface IProps {
 }
 function ImageSlider({ size, sliderData }: IProps) {
   const [current, setCurrent] = useState(0);
-  const [images, setImages] = useState([
-    "/images/apts/house0.jpg",
-    "/images/apts/house1.jpg",
-    "/images/apts/house2.jpg",
-    "/images/apts/house3.jpg",
-  ]);
 
   const nextSlide = () => {
-    setCurrent(current === images.length - 1 ? 0 : current + 1);
+    setCurrent(current === sliderData.length - 1 ? 0 : current + 1);
   };
 
   const prevSlide = () => {
-    setCurrent(current === 0 ? images.length - 1 : current - 1);
+    setCurrent(current === 0 ? sliderData.length - 1 : current - 1);
   };
 
-  if (!Array.isArray(images) || images.length <= 0) {
+  if (!Array.isArray(sliderData) || sliderData.length <= 0) {
     return null;
   }
 
