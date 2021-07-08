@@ -4,6 +4,7 @@ import { IMessage } from "../../interfaces/interface";
 import { userSelectors } from "../../store/userSlice";
 import { useSelector } from "react-redux";
 import { chatSelectors } from "../../store/chatSlice";
+import { Link } from "react-router-dom";
 
 export default function Message({
   message,
@@ -14,7 +15,6 @@ export default function Message({
 }) {
   const { user } = useSelector(userSelectors);
   const [isMsgSent, setIsMsgSent] = useState(true);
-  const { currentChatRoom } = useSelector(chatSelectors);
 
   function msToHoursMintues(ms: number) {
     let hours: number = new Date(ms).getHours();
@@ -32,6 +32,7 @@ export default function Message({
       setIsMsgSent(false);
     }
   }, []);
+
   return (
     <>
       {roomId === message.chatRoomId && (
@@ -41,7 +42,19 @@ export default function Message({
           }`}
         >
           <span className={`Message-wrapper ${isMsgSent ? "right" : "left"}`}>
-            <div className="Message-text">{message.text}</div>
+            {message.path !== "" ? (
+              <a
+                href={`${process.env.REACT_APP_BASE_URL}${message.path}`}
+                download={`${message.path}`}
+              >
+                <div className="Message-text">
+                  {`${message.text}  `}
+                  <i className="fas fa-download"></i>
+                </div>
+              </a>
+            ) : (
+              <div className="Message-text">{message.text}</div>
+            )}
             <span className="Message-time">
               <i>{msToHoursMintues(message.createdAt)}</i>
             </span>

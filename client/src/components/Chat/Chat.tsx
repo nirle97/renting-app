@@ -9,6 +9,7 @@ import io from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
 import FileChat from "./FileChat";
+import axios from "axios";
 const ENDPOINT = "localhost:5001";
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
@@ -28,7 +29,7 @@ export default function Chat() {
   const scrollDown = useRef<HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState<IMessage>();
   const [selectedfile, setSelectedfile] = useState<File | null>(null);
-
+  const msgPath = useRef<any>();
   useEffect(() => {
     getRooms();
   }, []);
@@ -113,6 +114,41 @@ export default function Chat() {
     setMsg("");
   };
 
+  async function sendFile(
+    file: string | Blob,
+    description: string,
+    e: any
+  ): Promise<void> {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("description", description);
+    formData.append("text", selectedfile ? selectedfile.name : "");
+    formData.append("chatRoomId", roomId ? roomId : "");
+    formData.append("senderId", user.id);
+    formData.append("createdAt", new Date().getTime().toString());
+    const result = await network.post(
+      `${process.env.REACT_APP_BASE_URL}/message/send-file`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    const msgObj: IMessage = {
+      text: selectedfile ? selectedfile.name : "",
+      chatRoomId: roomId ? roomId : "",
+      senderId: user.id,
+      createdAt: new Date().getTime(),
+      path: result.data.data.path,
+    };
+    console.log(`${process.env.REACT_APP_BASE_URL}${msgObj.path}`);
+
+    let msgArr = messages;
+    msgArr.push(msgObj);
+    setMessages([...msgArr]);
+    scrollDown.current?.scrollIntoView({ behavior: "smooth" });
+    setSelectedfile(null);
+  }
   return (
     <div className="Chat-container">
       <div
@@ -123,7 +159,11 @@ export default function Chat() {
           <div className="Chat-msg-div">
             {messages.map((message, i) => (
               <>
-                <Message key={i} message={message} roomId={roomId} />
+                <Message
+                  key={`message-${i}`}
+                  message={message}
+                  roomId={roomId}
+                />
                 {i === messages.length - 1 && <div ref={scrollDown}></div>}
               </>
             ))}
@@ -151,7 +191,11 @@ export default function Chat() {
                 <button
                   type="submit"
                   className="send-btn"
-                  onClick={(e) => sendMessage(e)}
+                  onClick={(e) =>
+                    selectedfile
+                      ? sendFile(selectedfile, selectedfile.name, e)
+                      : sendMessage(e)
+                  }
                   disabled={msg === "" && !selectedfile ? true : false}
                 >
                   Send
@@ -165,9 +209,9 @@ export default function Chat() {
         {roomsArray.map((room: IChatRoom, i) => {
           return (
             <ChatRoom
+              key={`chatRoom-${i}`}
               setRoomId={setRoomId}
               setSelectedRoom={setSelectedRoom}
-              key={i}
               room={room}
               setRoomsArray={setRoomsArray}
               roomId={roomId}

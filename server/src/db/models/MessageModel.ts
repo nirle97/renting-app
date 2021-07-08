@@ -18,6 +18,9 @@ const messageSchema = new mongoose.Schema<IMessage>({
     type: Date,
     default: new Date().getTime(),
   },
+  path: {
+    type: String,
+  },
 });
 export const MessageModel = mongoose.model<IMessage>(
   "MessageModel",

@@ -49,14 +49,17 @@ const setNewFileMessage = async (
     return;
   }
   try {
+    const body = req.body;
     await uploadFile(req.file.path, req.file.filename);
     await unlinkFile(req.file.path);
     await MessageModel.create({
       ...req.body,
+      createdAt: Number(body.createdAt),
       path: `/messsage/get-file/${req.file.filename}`,
-    } as IMessage);
+    });
     res.status(201).send({
       ...resTemplate.success.created,
+      data: { path: `/message/get-file/${req.file.filename}` },
     });
   } catch (e) {
     console.error(e);
