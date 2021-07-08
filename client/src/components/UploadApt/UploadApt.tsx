@@ -107,13 +107,6 @@ export default function UploadApt() {
             </div>
             <div className="UploadApt-div-input">
               <label>Address: </label>
-              {/* <input
-                type="text"
-                id="address"
-                value={formInput.address}
-                onChange={changeHandler}
-                className="UploadApt-input"
-              /> */}
               <SearchBar
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}

@@ -42,10 +42,10 @@ export default function Message({
           }`}
         >
           <span className={`Message-wrapper ${isMsgSent ? "right" : "left"}`}>
-            {message.path !== "" ? (
+            {message.path ? (
               <a
                 href={`${process.env.REACT_APP_BASE_URL}${message.path}`}
-                download={`${message.path}`}
+                download
               >
                 <div className="Message-text">
                   {`${message.text}  `}
