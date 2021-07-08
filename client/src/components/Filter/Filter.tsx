@@ -68,12 +68,6 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
       <div className="Filter-filters">
         <div className="Filter-address">
           Address:
-          {/* <input
-            type="text"
-            id="address"
-            value={preferences.address}
-            onChange={devChangeHandler}
-          /> */}
           <SearchBar
             searchValue={{ ...searchValue, address: preferences.address }}
             setSearchValue={setSearchValue}
