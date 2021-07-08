@@ -2,19 +2,20 @@ import "./chat.css";
 import { useEffect, useRef, useState } from "react";
 import ChatRoom from "./ChatRoom";
 import { userSelectors } from "../../store/userSlice";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import network from "../../utils/network";
 import { IChatRoom, IMessage } from "../../interfaces/interface";
 import io from "socket.io-client";
 import Message from "./Message";
 import { useLocation } from "react-router";
+import { setIsDataLoading } from "../../store/spinnerSlice";
 import FileChat from "./FileChat";
-import axios from "axios";
 const ENDPOINT = "localhost:5001";
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
 });
 export default function Chat() {
+  const dispatch = useDispatch();
   const search = useLocation().search;
   const userId = new URLSearchParams(search).get("user");
   const [selectedRoom, setSelectedRoom] = useState<
@@ -29,7 +30,6 @@ export default function Chat() {
   const scrollDown = useRef<HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState<IMessage>();
   const [selectedfile, setSelectedfile] = useState<File | null>(null);
-  const msgPath = useRef<any>();
   useEffect(() => {
     getRooms();
   }, []);
@@ -127,6 +127,7 @@ export default function Chat() {
     formData.append("chatRoomId", roomId ? roomId : "");
     formData.append("senderId", user.id);
     formData.append("createdAt", new Date().getTime().toString());
+    dispatch(setIsDataLoading({ isDataLoading: true }));
     const result = await network.post(
       `${process.env.REACT_APP_BASE_URL}/message/send-file`,
       formData,
@@ -134,6 +135,8 @@ export default function Chat() {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
+    dispatch(setIsDataLoading({ isDataLoading: false }));
+
     const msgObj: IMessage = {
       text: selectedfile ? selectedfile.name : "",
       chatRoomId: roomId ? roomId : "",

@@ -24,9 +24,10 @@ network.interceptors.response.use(
             id: Cookies.get("id"),
           }
         );
+        
         Cookies.set("token", accessToken);
         originalRequest.headers.authorization = `bearer ${accessToken}`;
-        const data = await axios(originalRequest);
+        const data = await axios(originalRequest);        
         return data;
       } catch (err) {
         console.error(err);
