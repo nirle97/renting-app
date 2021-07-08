@@ -52,11 +52,11 @@ const setNewFileMessage = async (
     const body = req.body;
     await uploadFile(req.file.path, req.file.filename);
     await unlinkFile(req.file.path);
-    await MessageModel.create({
-      ...req.body,
-      createdAt: Number(body.createdAt),
-      path: `/messsage/get-file/${req.file.filename}`,
-    });
+    // await MessageModel.create({
+    //   ...req.body,
+    //   createdAt: Number(body.createdAt),
+    //   path: `/message/get-file/${req.file.filename}`,
+    // });
     res.status(201).send({
       ...resTemplate.success.created,
       data: { path: `/message/get-file/${req.file.filename}` },

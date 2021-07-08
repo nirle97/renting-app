@@ -141,8 +141,7 @@ export default function Chat() {
       createdAt: new Date().getTime(),
       path: result.data.data.path,
     };
-    console.log(`${process.env.REACT_APP_BASE_URL}${msgObj.path}`);
-
+    socket.emit("send-msg", msgObj);
     let msgArr = messages;
     msgArr.push(msgObj);
     setMessages([...msgArr]);
