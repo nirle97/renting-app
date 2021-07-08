@@ -98,7 +98,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
 
 const authController = {
   vlidateToken,
-  generateNewToken,
+    generateNewToken,
   terminateToken,
   createToken,
 };

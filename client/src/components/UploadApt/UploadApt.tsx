@@ -14,12 +14,16 @@ export default function UploadApt() {
   const dispatch = useDispatch();
   const [files, setFiles] = useState<any>();
   const [images, setImages] = useState([]);
+  const [isSpinner, setIsSpinner] = useState(false);
   const [formInput, setFormInput] = useState<IUploadNewApt>(ownerFiltersObj);
   const [searchValue, setSearchValue] = useState({
     cords: { lat: 0, lng: 0 },
     address: "",
   });
-
+  const spinnerHandler = (isSpinning:boolean):void =>{
+    setIsSpinner(isSpinning);
+    dispatch(setIsDataLoading({ isDataLoading: isSpinning }));
+  }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInput({
       ...formInput,
@@ -59,6 +63,7 @@ export default function UploadApt() {
 
   const submitHandler = async (e: any) => {
     try {
+      spinnerHandler(true)
       e.target.hidden = true;
       setFormInput({ ...formInput, imagesUrl: images });
       const { data: newApt } = await network.post(
@@ -71,8 +76,9 @@ export default function UploadApt() {
       e.target.hidden = false;
       history.push("/");
       setFormInput(ownerFiltersObj);
+      spinnerHandler(false);
     } catch (e) {
-      // dispatch(setIsDataLoading({ isDataLoading: false }));
+      spinnerHandler(false);
     }
   };
 
@@ -85,7 +91,7 @@ export default function UploadApt() {
   }, [searchValue]);
   return (
     <div className="UploadApt-container">
-      <div className="UploadApt-form">
+      <div className={isSpinner? "UploadApt-form spinning" : "UploadApt-form"}>
         <form>
           <div className="UploadApt-left-side">
             <div className="UploadApt-div-input">
@@ -205,9 +211,17 @@ export default function UploadApt() {
             </div>
           </div>
         </form>
-        <button className="UploadApt-submit-button" onClick={submitHandler}>
-          submit
-        </button>
+        {isSpinner ? 
+            <img
+              className="UploadApt-spinner"
+              src="/images/spinner.gif"
+              alt="spinner"
+            />
+          :
+          <button className="UploadApt-submit-button" onClick={submitHandler}>
+            submit
+          </button>
+        }
       </div>
     </div>
   );
