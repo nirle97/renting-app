@@ -24,20 +24,26 @@ const setNewMessage = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(resTemplate.serverError);
   }
 };
-const getMessagesByRoomId = async (req: Request, res: Response): Promise<void> => {
+const getMessagesByRoomId = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   if (!req.body || !req.params) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
   }
   try {
-    const messages = await MessageModel.find({ chatRoomId: req.params.roomId } );
+    const messages = await MessageModel.find({ chatRoomId: req.params.roomId });
     res.status(200).send({ ...resTemplate.success.general, data: messages });
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);
   }
 };
-const setNewFileMessage = async (req: Request, res: Response): Promise<void> => {
+const setNewFileMessage = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   if (!req.body || !req.file) {
     res.status(400).send(resTemplate.clientError.badRequest);
     return;
@@ -45,9 +51,12 @@ const setNewFileMessage = async (req: Request, res: Response): Promise<void> => 
   try {
     await uploadFile(req.file.path, req.file.filename);
     await unlinkFile(req.file.path);
-    await MessageModel.create({...req.body, path: `/messsage/get-file/${ req.file.filename}`} as IMessage);
+    await MessageModel.create({
+      ...req.body,
+      path: `/messsage/get-file/${req.file.filename}`,
+    } as IMessage);
     res.status(201).send({
-      ...resTemplate.success.created
+      ...resTemplate.success.created,
     });
   } catch (e) {
     console.error(e);
@@ -60,6 +69,9 @@ const getFile = async (req: Decoded, res: Response) => {
   readStream.pipe(res);
 };
 const messageController = {
-  setNewMessage,getMessagesByRoomId,setNewFileMessage,getFile,
+  setNewMessage,
+  getMessagesByRoomId,
+  setNewFileMessage,
+  getFile,
 };
 export default messageController;

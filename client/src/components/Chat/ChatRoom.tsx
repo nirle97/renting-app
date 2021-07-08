@@ -11,10 +11,12 @@ interface IProps {
   >;
   setRoomId: React.Dispatch<React.SetStateAction<string | null>>;
   roomId: string | null;
+  setRoomsArray: React.Dispatch<React.SetStateAction<IChatRoom[]>>;
 }
 
 export default function ChatRoom({
   room,
+  setRoomsArray,
   setSelectedRoom,
   setRoomId,
   roomId,
@@ -22,7 +24,18 @@ export default function ChatRoom({
   const roomDiv = useRef<EventTarget & HTMLDivElement>(null);
   const [selectedStyle, setSelectedStyle] = useState(false);
   const { user } = useSelector(userSelectors);
-
+  const checkRoomImgSrc = (): string => {
+    let src = "";
+    if (user.isOwner) {
+      src = room.participants.userInfo.imgUrl;
+    } else {
+      src = room.participants.ownerInfo.imgUrl;
+    }
+    if (src === "") {
+      src = "/images/user-img.png";
+    }
+    return src;
+  };
   useEffect(() => {
     if (roomId === room._id) {
       setSelectedRoom(roomDiv.current);
@@ -57,9 +70,14 @@ export default function ChatRoom({
       "Are you sure you want to delete all the chat history? This action has no undo option"
     );
     if (userAnswer) {
+      let userId = room.participants.userInfo.id;
       await network.delete(
-        `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}`
+        `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}/${room.aptId}/${userId}`
       );
+      // setRoomsArray(prev => {
+      //   console.log(prev);
+
+      // })
     }
   };
 
@@ -72,11 +90,11 @@ export default function ChatRoom({
       <div className="ChatRoom-room-div">
         <img
           className="ChatRoom-room-img"
-          src={`${process.env.REACT_APP_BASE_URL}${
-            user.isOwner
-              ? room.participants.userInfo.imgUrl
-              : room.participants.ownerInfo.imgUrl
-          }`}
+          src={
+            checkRoomImgSrc() === "/images/user-img.png"
+              ? checkRoomImgSrc()
+              : `${process.env.REACT_APP_BASE_URL}${checkRoomImgSrc()}`
+          }
           alt="sender profile"
         />
         <span className="ChatRoom-room-name">

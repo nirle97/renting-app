@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import network from "../../../utils/network";
 import { IUser, IChatRoomTemplate } from "../../../interfaces/interface";
 import { userSelectors } from "../../../store/userSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 interface IProps {
   likedUser: IUser;
@@ -65,7 +65,11 @@ export default function LikedUser({ likedUser, index, aptId }: IProps) {
         <img
           className="LikedUser-img"
           alt="profile"
-          src={`${process.env.REACT_APP_BASE_URL}${likedUser.imgUrl}`}
+          src={
+            likedUser.imgUrl === ""
+              ? "./images/user-img.png"
+              : `${process.env.REACT_APP_BASE_URL}${likedUser.imgUrl}`
+          }
         />
         <span>Name: {likedUser.fullName}</span>
         <span>Tel: {likedUser.phoneNumber}</span>

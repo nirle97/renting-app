@@ -49,6 +49,7 @@ function Profile() {
     setShowInfo((prev) => !prev);
     dispatch(setIsprofileClicked({ isprofileClicked: !isprofileClicked }));
   };
+
   return (
     <div className="Profile-container">
       <span className="Profile-navbar" onClick={clickHandler}>
@@ -58,7 +59,7 @@ function Profile() {
             alt="profile"
           />
         ) : (
-          "Profile"
+          <img src="/images/user-img.png" alt="profile" />
         )}
       </span>
       {showInfo && (

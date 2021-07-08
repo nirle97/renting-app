@@ -8,6 +8,7 @@ import { setIsDataLoading } from "../../store/spinnerSlice";
 import { useDispatch } from "react-redux";
 import Map from "../Map/Map";
 import { useHistory } from "react-router-dom";
+import SearchBar from "../SearchBar/searchBar";
 export default function UploadApt() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -100,18 +101,18 @@ export default function UploadApt() {
             </div>
             <div className="UploadApt-div-input">
               <label>Address: </label>
-              <input
+              {/* <input
                 type="text"
                 id="address"
                 value={formInput.address}
                 onChange={changeHandler}
                 className="UploadApt-input"
+              /> */}
+              <SearchBar
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                searchBarClass="UploadApts-search"
               />
-              {/* <SearchBar
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
-                  searchBarClass="UploadApts-search"
-                /> */}
             </div>
             <div className="UploadApt-div-input">
               <label>Price / Month (₪):</label>

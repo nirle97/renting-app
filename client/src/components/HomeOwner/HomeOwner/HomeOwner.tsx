@@ -21,6 +21,8 @@ export default function HomeOwner() {
       } = await network.get(
         `${process.env.REACT_APP_BASE_URL}/apartment/owner-apts`
       );
+      console.log(data);
+
       setAptsArr(data);
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {

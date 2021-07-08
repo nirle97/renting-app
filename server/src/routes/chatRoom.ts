@@ -5,7 +5,7 @@ import chatRoomController from "../controllers/chatRoomController";
 chatRoom.post("/create-chat-room", validToken, chatRoomController.openChatRoom);
 chatRoom.get("/get-rooms", validToken, chatRoomController.getChatRoom);
 chatRoom.delete(
-  "/delete-room/:roomId",
+  "/delete-room/:roomId/:aptId/:userId",
   validToken,
-  chatRoomController.getChatRoom
+  chatRoomController.deleteChatRoom
 );

@@ -10,8 +10,6 @@ export default function FileChat({ setSelectedfile, selectedfile }: IProps) {
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log(e.target.files[0]);
-
       setSelectedfile(e.target.files[0]);
     }
   };
@@ -42,7 +40,7 @@ export default function FileChat({ setSelectedfile, selectedfile }: IProps) {
     <>
       <span className="FileChat-upload-span">
         {selectedfile ? (
-          <i onClick={removeFile} className="fas fa-times"></i>
+          <i id="remove-file" onClick={removeFile} className="fas fa-times"></i>
         ) : (
           <>
             <i className="fas fa-paperclip"></i>

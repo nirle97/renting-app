@@ -116,7 +116,6 @@ function Home() {
         </div>
       ) : (
         <div className="Home-noNew-div">
-          {/* <h2>Can't Find New Apartaments For You</h2> */}
           <h1>Please expand the filter search range </h1>
           <img
             className="Home-noNew-img"

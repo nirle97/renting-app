@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import "./ownerApts.css";
 import { IUploadNewApt, IUser } from "../../../interfaces/interface";
 import ImageSlider from "../../SliderImg/SliderImg";
@@ -12,10 +12,9 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
   const [selectedAptId, setSelectedAptId] = useState("");
   const [likedUser, setLikedUser] = useState<IUser[]>();
 
-
   const openLikesList = (e: any) => {
-    if(e.currentTarget.id === selectedAptId){
-      setSelectedAptId("")
+    if (e.currentTarget.id === selectedAptId) {
+      setSelectedAptId("");
       return;
     }
     const currentAptId = e.currentTarget.id;
@@ -32,13 +31,16 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
   };
 
   return (
-    <div className="HomeOwner-apt" >
+    <div className="HomeOwner-apt">
       <div className="HomeOwner-apt-div">
         <div className="HomeOwner-img-div">
           <ImageSlider size="small" sliderData={apt.imagesUrl} />
-          {/* <ImageSlider size="small" /> */}
         </div>
-        <div className="HomeOwner-description-container" id={apt._id} onClick={openLikesList}>
+        <div
+          className="HomeOwner-description-container"
+          id={apt._id}
+          onClick={openLikesList}
+        >
           <div className="HomeOwner-description-main">
             <span id="title" className="description-text-span">
               {apt.title}
@@ -141,18 +143,18 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
       </div>
       {selectedAptId === apt._id && (
         <div className="HomeOwner-apt-container">
-              {!likedUser?.length && (
-                <h3 id="no-likes-h3">No One Liked This Apartment Yet :(</h3>
-              )}
-              {likedUser?.map((user, i) => (
-                <LikedUser
-                  key={i}
-                  likedUser={user}
-                  index={i}
-                  aptId={apt._id ? apt._id : ""}
-                />
-              ))}
-            </div>
+          {!likedUser?.length && (
+            <h3 id="no-likes-h3">No One Liked This Apartment Yet :(</h3>
+          )}
+          {likedUser?.map((user, i) => (
+            <LikedUser
+              key={i}
+              likedUser={user}
+              index={i}
+              aptId={apt._id ? apt._id : ""}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

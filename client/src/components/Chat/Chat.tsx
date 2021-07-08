@@ -169,6 +169,7 @@ export default function Chat() {
               setSelectedRoom={setSelectedRoom}
               key={i}
               room={room}
+              setRoomsArray={setRoomsArray}
               roomId={roomId}
             />
           );

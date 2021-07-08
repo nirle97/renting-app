@@ -68,17 +68,17 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
       <div className="Filter-filters">
         <div className="Filter-address">
           Address:
-          <input
+          {/* <input
             type="text"
             id="address"
             value={preferences.address}
             onChange={devChangeHandler}
-          />
-          {/* <SearchBar
+          /> */}
+          <SearchBar
             searchValue={{ ...searchValue, address: preferences.address }}
             setSearchValue={setSearchValue}
             searchBarClass="Filter-search"
-          />{" "} */}
+          />{" "}
         </div>
         <div className="Filter-range-container">
           <span id="price-range-name" className="Filter-range-name">

@@ -16,7 +16,7 @@ function SignUp() {
   const dispatch = useDispatch();
   const [emptyFldMsg, setEmptyFldMsg] = useState(false);
   const [alreadyExistsMsg, setAlreadyExistsMsg] = useState(false);
-  const [file, setFile] = useState<string | Blob>("");
+  const [file, setFile] = useState<string | Blob | null>(null);
   const [image, setImages] = useState("");
   const [formInput, setFormInput] = useState<IUser>({
     fullName: "",
@@ -43,7 +43,7 @@ function SignUp() {
   async function postImage(
     image: string | Blob,
     description: string
-  ): Promise<void> {
+  ): Promise<string> {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("description", description);
@@ -63,7 +63,10 @@ function SignUp() {
     try {
       e.preventDefault();
       if (FormValidation.isFormValid(formInput)) {
-        const url = await postImage(file, "profileImg");
+        let url = "";
+        if (file) {
+          url = await postImage(file, "profileImg");
+        }
         await axios.post(`${process.env.REACT_APP_BASE_URL}/login/sign-up`, {
           ...formInput,
           imgUrl: url,

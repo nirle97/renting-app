@@ -52,6 +52,8 @@ services:
       - "5001:5001"
     networks:
       - rent-network
+    environment:
+      - BASE_URL=http://server-node:5000
 
 volumes:
   data:

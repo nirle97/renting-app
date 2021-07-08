@@ -1,5 +1,6 @@
 import { app } from "./app";
 import axios from "axios";
+require("dotenv").config();
 interface IMessage {
   text: string;
   chatRoomId: string;
@@ -25,10 +26,9 @@ io.on("connection", (socket: any) => {
     socket.removeAllListeners();
   });
   socket.on("send-msg", (message: IMessage) => {
-    axios.post(
-      `${process.env.REACT_APP_BASE_URL}/message/create-message`,
-      message
-    );
+    axios
+      .post(`${process.env.BASE_URL}/message/create-message`, message)
+      .catch((e) => console.error(e));
     socket.broadcast.to(message.chatRoomId).emit("message", message);
   });
 });

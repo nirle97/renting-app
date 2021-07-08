@@ -58,13 +58,22 @@ const deleteChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    const roomId = req.params.roomId;
+    const { roomId, aptId, userId } = req.params;
+    await AptModel.updateOne(
+      { _id: aptId },
+      { $pullAll: { likedBy: [userId], likedByUser: [userId] } }
+    );
     await ChatRoomModel.deleteOne({
       _id: roomId,
     });
     await MessageModel.deleteMany({
       chatRoomId: roomId,
     });
+    await UserModel.updateOne(
+      { _id: userId },
+      { $pullAll: { openChats: [roomId] } }
+    );
+
     res.status(200).send(resTemplate.success.created);
   } catch (e) {
     console.error(e);
