@@ -58,10 +58,18 @@ const deleteChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     return;
   }
   try {
-    const { roomId, aptId, userId } = req.params;
+    const roomId = req.params.roomId;
+    const room = await ChatRoomModel.findOne({ _id: roomId });
+    const aptId = room?.aptId;
+    const userId = room?.participants.userInfo.id;
+    const ownerId = room?.participants.ownerInfo.id;
+
     await AptModel.updateOne(
       { _id: aptId },
-      { $pullAll: { likedBy: [userId], likedByUser: [userId] } }
+      {
+        $pullAll: { likedBy: [userId], likedByUser: [userId] },
+        $push: { disLikedBy: userId },
+      }
     );
     await ChatRoomModel.deleteOne({
       _id: roomId,
@@ -71,10 +79,10 @@ const deleteChatRoom = async (req: Decoded, res: Response): Promise<void> => {
     });
     await UserModel.updateOne(
       { _id: userId },
-      { $pullAll: { openChats: [roomId] } }
+      { $pullAll: { openChats: [ownerId] } }
     );
 
-    res.status(200).send(resTemplate.success.created);
+    res.status(204).send(resTemplate.success.noContent);
   } catch (e) {
     console.error(e);
     res.status(500).send(resTemplate.serverError);

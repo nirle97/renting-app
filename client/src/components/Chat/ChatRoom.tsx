@@ -70,14 +70,9 @@ export default function ChatRoom({
       "Are you sure you want to delete all the chat history? This action has no undo option"
     );
     if (userAnswer) {
-      let userId = room.participants.userInfo.id;
       await network.delete(
-        `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}/${room.aptId}/${userId}`
+        `${process.env.REACT_APP_BASE_URL}/chat-room/delete-room/${room._id}`
       );
-      // setRoomsArray(prev => {
-      //   console.log(prev);
-
-      // })
     }
   };
 
