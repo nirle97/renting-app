@@ -44,7 +44,7 @@ export default class FormValidation {
   };
   static isFormValid = (formInput: IUser): boolean => {
     if (
-      // FormValidation.isPasswordOk(formInput) &&
+      FormValidation.isPasswordOk(formInput) &&
       FormValidation.isEmailOk(formInput) &&
       FormValidation.isNameOk(formInput) &&
       FormValidation.isNumberOk(formInput) &&

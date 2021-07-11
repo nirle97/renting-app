@@ -10,7 +10,6 @@ import { setIsLogged } from "../../store/authSlice";
 import { setUser } from "../../store/userSlice";
 import Cookies from "js-cookie";
 import axios from "axios";
-// require("dotenv").config();
 
 function SignUp() {
   const dispatch = useDispatch();

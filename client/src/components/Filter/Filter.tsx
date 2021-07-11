@@ -72,12 +72,11 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
             searchValue={{ ...searchValue, address: preferences.address }}
             setSearchValue={setSearchValue}
             searchBarClass="Filter-search"
-          />{" "}
+          />
         </div>
         <div className="Filter-range-container">
           <span id="price-range-name" className="Filter-range-name">
-            {" "}
-            price range:{" "}
+            price range:
           </span>
           <span className="Filter-range-component">
             <Range max={10000} step={100} type="price" />
