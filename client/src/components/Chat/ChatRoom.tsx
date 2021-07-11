@@ -97,7 +97,7 @@ export default function ChatRoom({
             user.isOwner
               ? room.participants.userInfo.fullName
               : room.participants.ownerInfo.fullName
-          } - `}
+          }:`}
         </span>
         <span className="ChatRoom-room-addresses">
           {room.addresses.map((address, i) => {

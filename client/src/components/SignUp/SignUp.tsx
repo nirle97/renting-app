@@ -103,8 +103,14 @@ function SignUp() {
       }
     }
   };
+  const backToSignIn = () => {
+    history.push("/");
+  };
   return (
     <div className="SignUp-container">
+      <div onClick={backToSignIn} className="SignUp-arrow-back">
+        <i className="fas fa-arrow-left"></i>
+      </div>
       <form className="SignUp-form">
         <h3>Register</h3>
         <p>

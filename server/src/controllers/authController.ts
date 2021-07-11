@@ -42,7 +42,7 @@ const generateNewToken = async (req: Request, res: Response): Promise<void> => {
         delete decoded?.iat;
 
         const accessToken = sign(decoded, process.env.JWT_SECRET, {
-          expiresIn: "10m",
+          expiresIn: "10h",
         });
         res.status(200).send({
           ...resTemplate.success.general,
@@ -68,7 +68,7 @@ const terminateToken = async (req: Decoded, res: Response): Promise<void> => {
 const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
   try {
     const accessToken = sign(req.decoded, process.env.JWT_SECRET, {
-      expiresIn: "10m",
+      expiresIn: "10h",
     });
     const refreshToken = sign(req.decoded, process.env.JWT_SECRET, {
       expiresIn: "24h",
@@ -98,7 +98,7 @@ const createToken = async (req: ISignInUser, res: Response): Promise<void> => {
 
 const authController = {
   vlidateToken,
-    generateNewToken,
+  generateNewToken,
   terminateToken,
   createToken,
 };
