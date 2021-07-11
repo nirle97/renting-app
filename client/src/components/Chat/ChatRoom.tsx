@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { userSelectors } from "../../store/userSlice";
 import { useSelector } from "react-redux";
 import network from "../../utils/network";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; 
+
 interface IProps {
   room: IChatRoom;
   setSelectedRoom: React.Dispatch<
@@ -108,9 +111,11 @@ export default function ChatRoom({
             }
           })}
         </span>
-        <span className="ChatRoom-room-delete" onClick={deleteChat}>
-          <i className="fas fa-trash"></i>
-        </span>
+        <Tippy content="Unmatch">
+          <span className="ChatRoom-room-delete" onClick={deleteChat}>
+            <i className="fas fa-trash"></i>
+          </span>
+        </Tippy>
       </div>
     </div>
   );

@@ -178,12 +178,11 @@ function SignUp() {
             name="password"
             placeholder="Password"
           />
-           <Tippy content={
-            <span>Digit only</span>}>
-          <label>
-            <i className="fas fa-phone"></i>
-          </label>
-            </Tippy>
+          <Tippy content="Digit only">  
+            <label>
+              <i className="fas fa-phone"></i>
+            </label>
+          </Tippy>
           <input
             className="SignUp-input"
             type="text"

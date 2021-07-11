@@ -34,7 +34,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
     <div className="HomeOwner-apt">
       <div className="HomeOwner-apt-div">
         <div className="HomeOwner-img-div">
-          <ImageSlider size="small" sliderData={apt.imagesUrl} />
+          <ImageSlider size="small" sliderData={apt.imagesUrl}/>
         </div>
         <div
           className="HomeOwner-description-container"
