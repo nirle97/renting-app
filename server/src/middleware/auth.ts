@@ -13,7 +13,12 @@ export const validToken = (req: Decoded, res: Response, next: NextFunction) => {
       token,
       process.env.JWT_SECRET,
       (err: Error, decoded: Decoded["decoded"]) => {
-        if (err) return res.status(403).send(resTemplate.clientError.forbidden);
+        if (err) {
+          console.log(1);
+
+          res.status(403).send(resTemplate.clientError.forbidden);
+          return;
+        }
         req.decoded = decoded;
         next();
       }

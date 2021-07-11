@@ -65,7 +65,7 @@
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .Chat-input {
-  width: 70%;
+  width: 75%;
   max-height: 3%;
   font-size: 1.5rem;
   outline: none;
@@ -73,7 +73,10 @@
   background-color: transparent;
   padding: 0 10px;
   padding-top: 2px;
-  margin-right: 10%;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
 }
 .send-btn {
   color: black;

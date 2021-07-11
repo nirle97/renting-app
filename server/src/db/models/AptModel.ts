@@ -141,7 +141,7 @@ aptSchema.static(
           aptData.priceMax === 10000
             ? { $gte: aptData.priceMin }
             : { $gte: aptData.priceMin, $lte: aptData.priceMax },
-        address: { $in: [aptData.address] },
+        address: { $regex: `${aptData.address}`, $options: "i" },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         entryDate: { $lte: aptData.entryDate },

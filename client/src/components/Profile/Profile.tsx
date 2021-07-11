@@ -43,6 +43,7 @@ function Profile() {
     dispatch(setIsLogged({ isLogged: false }));
     dispatch(setIsprofileClicked({ isprofileClicked: !profileSelectors }));
     Cookies.remove("token");
+    Cookies.remove("id");
     history.push("/");
   };
   const clickHandler = () => {
