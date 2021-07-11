@@ -4,6 +4,8 @@ import Profile from "../Profile/Profile";
 import { useSelector } from "react-redux";
 import { userSelectors } from "../../store/userSlice";
 import { spinnerSelectors } from "../../store/spinnerSlice";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; 
 
 function NavBar() {
   const { user } = useSelector(userSelectors);
@@ -22,27 +24,31 @@ function NavBar() {
               />
             </span>
           </Link>
-          <NavLink
-            className="NavBar-Link"
-            activeStyle={{ color: "black" }}
-            exact
-            to="/chat"
-          >
-            <span className="NavBar-Link-icon">
-              <i className="fas fa-comments"></i>
-            </span>
-          </NavLink>
-          {!user.isOwner && (
+          <Tippy content="Chat">
             <NavLink
               className="NavBar-Link"
               activeStyle={{ color: "black" }}
               exact
-              to="/likes"
-            >
+              to="/chat"
+              >
               <span className="NavBar-Link-icon">
-                <i className="fas fa-heart"></i>
+                <i className="fas fa-comments"></i>
               </span>
             </NavLink>
+          </Tippy>
+          {!user.isOwner && (
+            <Tippy content="Likes">
+              <NavLink
+                className="NavBar-Link"
+                activeStyle={{ color: "black" }}
+                exact
+                to="/likes"
+                >
+                <span className="NavBar-Link-icon">
+                  <i className="fas fa-heart"></i>
+                </span>
+              </NavLink>
+            </Tippy>
           )}
         </div>
         <div className="NavBar-div-end">
@@ -61,13 +67,13 @@ function NavBar() {
       {
         user.isOwner &&
         search === "/" && 
-        <Link className="UploadApt-Link" to="/upload-apt">
-        <span
-          className="UploadApt-plus"
-        >
-          <i className="fas fa-plus-circle"></i>
-        </span>
-        </Link>
+          <Link className="UploadApt-Link" to="/upload-apt">
+          <span
+            className="UploadApt-plus"
+          >
+            <i className="fas fa-plus-circle"></i>
+          </span>
+          </Link>
       }
     </>
   );

@@ -15,7 +15,7 @@ export default class FormValidation {
   };
   static isPasswordOk = (formInput: IUser | ISignIn): boolean => {
     if (
-      /^[^<>%$]*$/.test(formInput.password) &&
+      /^[^<>%$"'`(){}]*$/.test(formInput.password) &&
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
         formInput.password
       )
