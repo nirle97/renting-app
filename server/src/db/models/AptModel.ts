@@ -136,12 +136,20 @@ aptSchema.static(
     userId: string
   ): Promise<IOwnerApt[] | undefined> {
     try {
+      let splitedAddress = aptData.address.split(",");
+      let addressToSearch = "";
+      if (splitedAddress[1] === " Israel") {
+        addressToSearch = `${splitedAddress[0]}`;
+      } else {
+        addressToSearch = `${splitedAddress[0]}, ${splitedAddress[1]}`;
+      }
+
       let filtersObj: { [key: string]: {} } = {
         pricePerMonth:
           aptData.priceMax === 10000
             ? { $gte: aptData.priceMin }
             : { $gte: aptData.priceMin, $lte: aptData.priceMax },
-        address: { $regex: `${aptData.address}`, $options: "i" },
+        address: { $regex: `${addressToSearch}`, $options: "i" },
         likedBy: { $ne: userId },
         disLikedBy: { $ne: userId },
         entryDate: { $lte: aptData.entryDate },
