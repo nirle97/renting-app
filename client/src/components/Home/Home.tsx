@@ -80,14 +80,12 @@ function Home() {
       );
       setTimeout(() => {
         homeRefDiv.current?.classList.remove(
-          preference === "likedBy" ? "like-right" : "dislike-left"  );
-
+          preference === "likedBy" ? "like-right" : "dislike-left"
+        );
       }, 1000);
-        const updatedUserApts = userApts.slice(1);
-        console.log(updatedUserApts);
-        
-        dispatch(setAptsArray({ userApts: updatedUserApts }));
-        dispatch(setIsDataLoading({ isDataLoading: false }));
+      const updatedUserApts = userApts.slice(1);
+      dispatch(setAptsArray({ userApts: updatedUserApts }));
+      dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {
       dispatch(setIsDataLoading({ isDataLoading: false }));
     }
