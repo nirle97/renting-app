@@ -26,12 +26,8 @@ function App() {
         `${process.env.REACT_APP_BASE_URL}/auth/tokenValidate`
       );
       if (status === 200) {
-        console.log(1);
-
         dispatch(setIsLogged({ isLogged: true }));
       } else {
-        console.log(2);
-
         dispatch(setIsLogged({ isLogged: false }));
       }
     } catch (e) {}
