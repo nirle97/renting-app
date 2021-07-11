@@ -15,7 +15,7 @@ export default class FormValidation {
   };
   static isPasswordOk = (formInput: IUser | ISignIn): boolean => {
     if (
-      /^[^<>%$]*$/.test(formInput.password) &&
+      /^[^<>%$"'`(){}]*$/.test(formInput.password) &&
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
         formInput.password
       )
@@ -44,7 +44,7 @@ export default class FormValidation {
   };
   static isFormValid = (formInput: IUser): boolean => {
     if (
-      // FormValidation.isPasswordOk(formInput) &&
+      FormValidation.isPasswordOk(formInput) &&
       FormValidation.isEmailOk(formInput) &&
       FormValidation.isNameOk(formInput) &&
       FormValidation.isNumberOk(formInput) &&

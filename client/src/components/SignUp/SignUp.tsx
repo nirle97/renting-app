@@ -10,6 +10,8 @@ import { setIsLogged } from "../../store/authSlice";
 import { setUser } from "../../store/userSlice";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; 
 // require("dotenv").config();
 
 function SignUp() {
@@ -57,6 +59,10 @@ function SignUp() {
     );
     setImages(result.data.data);
     return result.data.data;
+  }
+
+  const homePageHandler = () => {
+    history.push("/");
   }
 
   const registerUser = async (e: any) => {
@@ -127,9 +133,12 @@ function SignUp() {
             name="fullName"
             placeholder="Full Name"
           />
-          <label>
+          <Tippy content={
+            <span>example@example.com</span>}>
+            <label>
             <i className="fas fa-envelope"></i>
-          </label>
+            </label>
+          </Tippy>
           <input
             className="SignUp-input"
             type="text"
@@ -140,9 +149,21 @@ function SignUp() {
           />
         </div>
         <div className="SignUp-div-input">
-          <label>
-            <i className="fas fa-lock"></i>
-          </label>
+          <Tippy content={
+            <span>
+              Your password must contains:
+              <ul>
+                <li>At least 8 characters</li>
+                <li>Uppercase letter</li>
+                <li>Lowercase letter</li>
+                <li>Number</li>
+                <li>Special character except %$" ' `() {`<>{}`} </li>
+              </ul>
+            </span>}>
+            <label>
+              <i className="fas fa-lock"></i>
+            </label>
+          </Tippy>
           <input
             className="SignUp-input"
             type="password"
@@ -151,9 +172,12 @@ function SignUp() {
             name="password"
             placeholder="Password"
           />
+           <Tippy content={
+            <span>Digit only</span>}>
           <label>
             <i className="fas fa-phone"></i>
           </label>
+            </Tippy>
           <input
             className="SignUp-input"
             type="text"
