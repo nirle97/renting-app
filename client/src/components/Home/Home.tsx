@@ -19,7 +19,7 @@ function Home() {
   const toggleFilterBtn = useRef<HTMLDivElement>(null);
   const [openFiltersBar, setOpenFiltersBar] = useState(true);
   const dispatch = useDispatch();
-
+  const homeRefDiv = useRef<HTMLDivElement>(null);
   useEffect(() => {
     getUserPref();
     if (userApts.length > 0) {
@@ -71,13 +71,18 @@ function Home() {
 
   const aptPreference = async (preference: string) => {
     try {
-      dispatch(setIsDataLoading({ isDataLoading: true }));
-      await network.put(
-        `${process.env.REACT_APP_BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
+      // dispatch(setIsDataLoading({ isDataLoading: true }));
+      homeRefDiv.current?.classList.add(
+        preference === "likedBy" ? "like-right" : "dislike-left"
       );
-      dispatch(setIsDataLoading({ isDataLoading: false }));
-      const updatedUserApts = userApts.slice(1);
-      await dispatch(setAptsArray({ userApts: updatedUserApts }));
+      // await network.put(
+      //   `${process.env.REACT_APP_BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
+      // );
+      setTimeout(() => {
+        const updatedUserApts = userApts.slice(1);
+        dispatch(setAptsArray({ userApts: updatedUserApts }));
+      }, 1000);
+      // dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {
       dispatch(setIsDataLoading({ isDataLoading: false }));
     }
@@ -106,7 +111,7 @@ function Home() {
         </div>
       </div>
       {userApts && 0 < userApts.length ? (
-        <div className="Home-main">
+        <div className="Home-main" ref={homeRefDiv}>
           <div className="Home-apartment-component">
             <Apartment aptPreference={aptPreference} apt={userApts[0]} />
           </div>

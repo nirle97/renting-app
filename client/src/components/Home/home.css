@@ -18,6 +18,15 @@
   flex-direction: row;
   width: 90vh;
   height: 100vh;
+  transition: 1s ease;
+}
+.like-right {
+  transform: translateX(250%);
+  transition: 1s ease;
+}
+.dislike-left {
+  transform: translateX(-250%);
+  transition: 1s ease;
 }
 .Home-apartment-map {
   margin-top: 8vh;
@@ -53,6 +62,6 @@
 .Home-noNew-img {
   max-width: 50%;
 }
-.Home-noNew-div-arrow{
+.Home-noNew-div-arrow {
   font-size: 13vh;
 }
