@@ -7,22 +7,24 @@ interface IProps {
     lat: number;
     lng: number;
   };
-  isUpload: boolean
+  isUpload: boolean;
 }
 const libraries = ["places"];
 
 function Map({ cords, isUpload }: IProps) {
   let libRef: any = React.useRef(libraries);
 
-  const [mapContainerStyle, setMapContainerStyle] = useState(isUpload
-  ?{
-    height: "41vh",
-    width: "40vw",
-  }
-  :{
-    height: "81vh",
-    width: "55vw",
-  });
+  const [mapContainerStyle, setMapContainerStyle] = useState(
+    isUpload
+      ? {
+          height: "41vh",
+          width: "40vw",
+        }
+      : {
+          height: "81vh",
+          width: "55vw",
+        }
+  );
   const [options] = useState({
     disableDefaultUI: false,
     zoomControl: true,
@@ -52,7 +54,7 @@ function Map({ cords, isUpload }: IProps) {
         options={options}
         onLoad={onMapLoad}
       >
-        <Marker position={cords} />
+        {cords && <Marker position={cords} />}
       </GoogleMap>
     </div>
   );

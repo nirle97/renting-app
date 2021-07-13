@@ -75,15 +75,16 @@ function Home() {
       homeRefDiv.current?.classList.add(
         preference === "likedBy" ? "like-right" : "dislike-left"
       );
-      await network.put(
-        `${process.env.REACT_APP_BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
-      );
+      // await network.put(
+      //   `${process.env.REACT_APP_BASE_URL}/apartment/like-status/${userApts[0]._id}?status=${preference}`
+      // );
       setTimeout(() => {
         homeRefDiv.current?.classList.remove(
           preference === "likedBy" ? "like-right" : "dislike-left"
         );
       }, 1000);
       const updatedUserApts = userApts.slice(1);
+
       dispatch(setAptsArray({ userApts: updatedUserApts }));
       dispatch(setIsDataLoading({ isDataLoading: false }));
     } catch (e) {

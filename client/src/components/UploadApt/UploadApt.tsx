@@ -20,10 +20,9 @@ export default function UploadApt() {
     cords: { lat: 0, lng: 0 },
     address: "",
   });
-  const spinnerHandler = (isSpinning:boolean):void =>{
+  const spinnerHandler = (isSpinning: boolean): void => {
     setIsSpinner(isSpinning);
-    dispatch(setIsDataLoading({ isDataLoading: isSpinning }));
-  }
+  };
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInput({
       ...formInput,
@@ -56,14 +55,12 @@ export default function UploadApt() {
       );
       setImages(result.data.data);
       return result.data.data;
-    } catch (e) {
-      dispatch(setIsDataLoading({ isDataLoading: false }));
-    }
+    } catch (e) {}
   }
 
   const submitHandler = async (e: any) => {
     try {
-      spinnerHandler(true)
+      spinnerHandler(true);
       e.target.hidden = true;
       setFormInput({ ...formInput, imagesUrl: images });
       const { data: newApt } = await network.post(
@@ -91,7 +88,7 @@ export default function UploadApt() {
   }, [searchValue]);
   return (
     <div className="UploadApt-container">
-      <div className={isSpinner? "UploadApt-form spinning" : "UploadApt-form"}>
+      <div className={isSpinner ? "UploadApt-form spinning" : "UploadApt-form"}>
         <form>
           <div className="UploadApt-left-side">
             <div className="UploadApt-div-input">
@@ -204,17 +201,17 @@ export default function UploadApt() {
             </div>
           </div>
         </form>
-        {isSpinner ? 
-            <img
-              className="UploadApt-spinner"
-              src="/images/spinner.gif"
-              alt="spinner"
-            />
-          :
+        {isSpinner ? (
+          <img
+            className="UploadApt-spinner"
+            src="/images/spinner.gif"
+            alt="spinner"
+          />
+        ) : (
           <button className="UploadApt-submit-button" onClick={submitHandler}>
             submit
           </button>
-        }
+        )}
       </div>
     </div>
   );

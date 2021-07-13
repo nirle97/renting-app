@@ -31,7 +31,7 @@ function Apartment({ apt, aptPreference }: IProps) {
             Entry Date: {new Date(apt.entryDate).toLocaleDateString()}
           </span>
           <span className="description-text-span">
-            CheckOut Date: {new Date(apt.checkOutDate).toLocaleDateString()}
+            End Date: {new Date(apt.checkOutDate).toLocaleDateString()}
           </span>
         </div>
         <div className="Apartment-description-secondary">

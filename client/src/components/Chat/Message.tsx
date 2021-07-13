@@ -26,6 +26,7 @@ export default function Message({
   }
 
   useEffect(() => {
+    console.log(1);
     if (message.senderId === user.id) {
       setIsMsgSent(true);
     } else {

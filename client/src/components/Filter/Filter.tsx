@@ -17,15 +17,6 @@ function Filter({ toggleFilters }: { toggleFilters: () => void }) {
     address: "",
   });
 
-  const devChangeHandler = (e: any) => {
-    //delete - dev only
-    dispatch(
-      setPreferences({
-        preferences: { ...preferences, [e.target.id]: e.target.value },
-      })
-    );
-  };
-
   const savePreferences = async () => {
     try {
       dispatch(setIsDataLoading({ isDataLoading: true }));

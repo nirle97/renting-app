@@ -23,8 +23,6 @@ services:
       - server-node
     networks:
       - rent-network
-    environment:
-      - REACT_APP_BASE_URL=http://server-node:5000
   server-node:
     container_name: server-rent-container
     build:

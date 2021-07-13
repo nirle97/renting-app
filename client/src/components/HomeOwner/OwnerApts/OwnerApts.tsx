@@ -34,7 +34,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
     <div className="HomeOwner-apt">
       <div className="HomeOwner-apt-div">
         <div className="HomeOwner-img-div">
-          <ImageSlider size="small" sliderData={apt.imagesUrl}/>
+          <ImageSlider size="small" sliderData={apt.imagesUrl} />
         </div>
         <div
           className="HomeOwner-description-container"
@@ -66,7 +66,7 @@ export default function OwnerApts({ apt, aptsArr }: IProps) {
               Entry Date: {new Date(apt.entryDate).toLocaleDateString()}
             </span>
             <span className="description-text-span">
-              CheckOut Date: {new Date(apt.checkOutDate).toLocaleDateString()}
+              End Date: {new Date(apt.checkOutDate).toLocaleDateString()}
             </span>
           </div>
           <div className="HomeOwner-description-secondary">
