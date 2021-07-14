@@ -138,7 +138,11 @@ aptSchema.static(
     try {
       let splitedAddress = aptData.address.split(",");
       let addressToSearch = "";
-      if (splitedAddress[1] === " Israel") {
+      if (
+        splitedAddress[1] === " Israel" ||
+        splitedAddress[1] === " ישראל" ||
+        splitedAddress[1] === " לארשי"
+      ) {
         addressToSearch = `${splitedAddress[0]}`;
       } else {
         addressToSearch = `${splitedAddress[0]}, ${splitedAddress[1]}`;
