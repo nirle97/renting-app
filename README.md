@@ -11,8 +11,13 @@ Hommies is an end-to-end platform for finding the right apartment for the user l
 
 - sign in / up: each new user can sign up by filling personal details and choose his purpose of usage
   (signing can be performed by google acount as well).
+
+  <img alt="sign page" src="./helpers/readme-media/auth.mp4" width=900/>
+
 - Chat: If an owner approved certain user, a chat room will be opened the both sides can communicate in their.
   In addition, files can be sent as well through the chat for exchanging additional pictures or to send a contract for example.
+
+  <img alt="chat page" src="./helpers/readme-media/chat.mp4" width=900/>
 
 **<span style="font-variant:small-caps;">Searching User:</span>**
 
@@ -22,6 +27,8 @@ Hommies is an end-to-end platform for finding the right apartment for the user l
 - The user also can see history of liked apartments.
 - The user can chat if the owners who approved him.
 
+<img alt="user home page" src="./helpers/readme-media/user home.mp4" width=900/>
+
 **<span style="font-variant:small-caps;">Owner:</span>**
 
 - The owner has the option to upload a new apartment to the platform by filling its details.
@@ -29,7 +36,12 @@ Hommies is an end-to-end platform for finding the right apartment for the user l
 - Each apartment contains list of user who liked that apartment with basic information about them:
   name, email, age, phone number and a profile picture.
 - The owner has the ability to approve a user.
+
+<img alt="owner home page" src="./helpers/readme-media/ownerHome.mp4.mp4" width=900/>
+
 - After the approval, a chat room will be opened for them in order to chat and close a contract.
+
+<img alt="approve-user page" src="./helpers/readme-media/approve-user.mp4" width=900/>
 
 **<span style="font-variant:small-caps;">Technologies:</span>**
 
@@ -48,4 +60,4 @@ Hommies is an end-to-end platform for finding the right apartment for the user l
     - All picturse (profile pictures and apartments pictures) were saved in `AWS S3 bucket`.
     - Places search bar and Maps were created using `Google Apis`: places, geocoding and maps.
 
-<img src="./helpers/readme-media/architecture.PNG"/>
+<img alt="architecture" src="./helpers/readme-media/architecture.PNG" width=900/>
