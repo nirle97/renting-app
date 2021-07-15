@@ -12,7 +12,7 @@ Hommies is an end-to-end platform for finding the right apartment for the user l
 - sign in / up: each new user can sign up by filling personal details and choose his purpose of usage
   (signing can be performed by google acount as well).
 
-  <img alt="sign page" src="./helpers/readme-media/auth.mp4" width=900 />
+  <img alt="sign page" src="./helpers/readme-media/auth.gif" width=900 />
 
 - Chat: If an owner approved certain user, a chat room will be opened the both sides can communicate in their.
   In addition, files can be sent as well through the chat for exchanging additional pictures or to send a contract for example.
