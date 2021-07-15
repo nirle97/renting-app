@@ -1,20 +1,20 @@
-# Hommies - Apartments Renting App
+# Hommies - Apartments Renting App 🏠
 
 Hommies is an end-to-end platform for finding the right apartment for the user looking for one, and help the landlord rent out his flat.
 
-The app has 2 client side:
+**<span style="font-variant:small-caps;">The app has 2 client side:</span>**
 
 - User who searches for an apartment.
 - User (owner) who has an apartment and wants to rent out it.
 
-Both client sides:
+**<span style="font-variant:small-caps;">Both client sides:</span>**
 
 - sign in / up: each new user can sign up by filling personal details and choose his purpose of usage
   (signing can be performed by google acount as well).
 - Chat: If an owner approved certain user, a chat room will be opened the both sides can communicate in their.
   In addition, files can be sent as well through the chat for exchanging additional pictures or to send a contract for example.
 
-Searching User:
+**<span style="font-variant:small-caps;">Searching User:</span>**
 
 - The searching user can fill in his preferences (address, price, number of rooms, size, ect...).
 - Then, each time, one flat will appear with its details and location on a map.
@@ -22,7 +22,7 @@ Searching User:
 - The user also can see history of liked apartments.
 - The user can chat if the owners who approved him.
 
-Owner:
+**<span style="font-variant:small-caps;">Owner:</span>**
 
 - The owner has the option to upload a new apartment to the platform by filling its details.
 - The owner home page is a list of all his assets.
@@ -31,7 +31,7 @@ Owner:
 - The owner has the ability to approve a user.
 - After the approval, a chat room will be opened for them in order to chat and close a contract.
 
-Technologies:
+**<span style="font-variant:small-caps;">Technologies:</span>**
 
     - Docker:
         There are 4 services running together in a docker-compose:
